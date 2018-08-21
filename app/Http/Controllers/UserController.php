@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-// 要先使用 Post 這個 model 才能使用 Post::all()
-use App\Post;
+use App\User;
 use Log;
-use Validator;
 
-class PostController extends Controller
+// Validator
+use Validator;
+use Illuminate\Validation\Rule;
+use Hash;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        // return Post::all();
-        return view('post', [
-            'title' => 'List all my post',
-            'posts' => Post::all()
+        return view('user', [
+            'title' => 'List all user',
+            'users' => User::all()
         ]);
     }
 
@@ -45,14 +46,17 @@ class PostController extends Controller
     {
         Log::debug($request->all());
         $validate = Validator::make($request->all(), [
-            'title'=>'required|max:20',
-            'note'=>'required',
-            'author'=>'required|integer'
+            'name'=>'required',
+            'email'=>'required|unique:users',
+            'password'=>'required|confirmed'
         ]);
         if ($validate->fails()) {
-            return ['errors' => $validate->errors()];
+            return redirect('/user')
+                        ->withErrors($validate)
+                        ->withInput();
         }
-        return Post::create($request->all());
+        User::create($request->all());
+        return redirect('/user');
     }
 
     /**
@@ -63,12 +67,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // find 方法會用傳入的值(id)來篩選資料
-        // $post = Post::find($id);
-        // if($post == null)
-        //     abort(404);
-        // return $post;
-        return Post::findOrFail($id);
+        //
     }
 
     /**
@@ -79,7 +78,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('user-edit', [
+            'user' => User::findOrFail($id)
+        ]);
     }
 
     /**
@@ -91,7 +92,28 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Log::debug('update $request= ', $request->all());
+        Log::debug($id);
+        $validate = Validator::make($request->all(), [
+            'name'=>'required',
+            'email'=> [
+                'required',
+                Rule::unique('users')->ignore($id),
+            ],
+            'password'=>'required|confirmed'
+        ]);
+        if ($validate->fails()) {            
+            return redirect( "/user/$id/edit" )
+                        ->withErrors($validate)
+                        ->withInput();
+        }
+        User::where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+        return redirect('/user');
     }
 
     /**
@@ -102,6 +124,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect('/user');
     }
 }
