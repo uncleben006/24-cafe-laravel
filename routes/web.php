@@ -16,6 +16,9 @@ Route::get('/', function () { return view('welcome'); });
 Route::get('/posts', function() { return view('post'); });
 Route::get('/posts/{id}',function($id){ return view('post-single', ['id' => $id ]); });
 
+// post controller
+Route::post('/posts', 'PostController@store')->name('post');
+
 // user controller
 Route::get('/user', 'UserController@index')->name('user');
 Route::post('/user', 'UserController@store')->name('user-post');

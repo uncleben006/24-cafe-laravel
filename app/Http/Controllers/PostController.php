@@ -19,7 +19,7 @@ class PostController extends Controller
     public function index()
     {
         // return Post::all();
-        return Post::simplePaginate(10);
+        return Post::simplePaginate(5);
         // return view('post', [
         //     'title' => 'List all my post',
         //     'posts' => Post::all()
@@ -53,7 +53,8 @@ class PostController extends Controller
         if ($validate->fails()) {
             return ['errors' => $validate->errors()];
         }
-        return Post::create($request->all());
+        Post::create($request->all());
+        return view('post');
     }
 
     /**
