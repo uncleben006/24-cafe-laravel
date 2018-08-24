@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//post controller 
-Route::get('/posts', 'PostController@index');
-Route::get('/posts/{id}', 'PostController@show');
-Route::post('/posts', 'PostController@store');
+// get blade
+Route::get('/', function () { return view('welcome'); });
+Route::get('/posts', function() { return view('post'); });
+Route::get('/posts/{id}',function($id){ return view('post-single', ['id' => $id ]); });
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');
