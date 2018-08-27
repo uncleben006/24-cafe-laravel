@@ -70,6 +70,22 @@ class UserController extends Controller
         //
     }
 
+    public function show_user(Request $request)
+    {
+        if($request->session()->get('user')){
+            return (['status'=>true]);
+        }else {
+            return (['status'=>false]);
+        }
+        // return $request->session()->get('user');
+    }
+
+    public function show_session(Request $request)
+    {
+        return $request->session()->all();
+    }
+    
+
     /**
      * Show the form for editing the specified resource.
      *
