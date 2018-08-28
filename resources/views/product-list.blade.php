@@ -52,7 +52,9 @@ $(function() {
                 <tbody id="tbody">
                 </tbody>
             </table>
-            <a href="/products/cart" class="btn btn-primary">結帳</a>
+            <div class="d-flex justify-content-end">
+                <a href="/products/cart" class="btn btn-primary">結帳</a>
+            </div>            
         </div>
     </div>    
 </div>

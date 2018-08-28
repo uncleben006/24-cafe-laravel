@@ -1,0 +1,9 @@
+User route name 改成 dot
+
+Produt page => sorting，用名稱或用價格來sorting
+Product page => 加總功能，先加總並顯示購買項目在底部，button置右，再把資訊傳入session
+Product page => 上傳圖片功能
+
+Done Cart page => 分類功能，依 id 分類並壓縮，要可以展開
+Done Cart page => 刪除功能
+Done Cart page => 自動加總功能，列於結帳button左邊

@@ -37,11 +37,23 @@ class ProductController extends Controller
     public function list_cart(Request $request)
     {
         // return json_decode($request->session()->get('cart'));
-        $id_list = json_decode($request->session()->get('cart'));
-        $prod_list = [];
-        foreach($id_list as $id){
-            $prod_list[] = Product::find($id);
+        // 取得當初存入 session 中的 id 陣列，然後再排序、歸類
+        $session_value = json_decode($request->session()->get('cart'));
+        if ($session_value){
+            sort($session_value);   
+            $session_value = array_count_values($session_value);   
+        } else {
+            $session_value = array();
         }
+
+        // 用 session id 陣列來搜尋 product，取得完整的產品資料，再傳給 $prod_list      
+        $prod_list = [];         
+        foreach($session_value as $key => $value){
+            // echo "Array: $key, $value \n";
+            $prod_list[] = Product::find($key);
+            echo "key = $key";
+            // isset($prod_list[$key-1])? $prod_list[$key-1]->{'quantity'} = $value : $prod_list = [];
+        };
         return $prod_list;
     }
 
