@@ -49,22 +49,24 @@ $(function() {
     
 
     $(document).on('click','.delete-btn', function () {
-        // 此 id 為刪除按鈕的 data.id，
-        // 但 data.id 是資料庫自動產生的流水號，是從 1 開始，
-        // 所以如果要用它來查詢陣列就要 -1，變成從 0 開始
+        // 此 id 為刪除按鈕的 data.id
         var id = $(this).data('id');
-        var array_id = id-1;
 
-        // 當 X 按鈕被按則少 1，並改變數量與總價顯示 
-        cartList[array_id].quantity = cartList[array_id].quantity-1;
-        totalPrice = totalPrice-cartList[array_id].price;
-        $('#data-'+id).html(cartList[array_id].quantity);
-        $('#totalPrice').html(totalPrice+' $'); 
-
-        // 如果 quantity 太少就隱藏
-        if(cartList[array_id].quantity<=0){
-            $('#tableRow-'+id).hide();
-        }
+        cartList.forEach(element => {
+            // console.log(element);
+            if(element.id==id){
+                // console.log(element);
+                element.quantity = element.quantity - 1;
+                totalPrice = totalPrice - element.price;
+                $('#data-'+id).html(element.quantity);
+                $('#totalPrice').html(totalPrice+' $'); 
+            }
+            // 如果 quantity 太少就隱藏
+            if(element.quantity<=0){
+                $('#tableRow-'+element.id).hide();
+            }
+        });      
+        
         console.log(cartList);
     });
 });

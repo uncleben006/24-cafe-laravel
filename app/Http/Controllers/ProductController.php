@@ -48,12 +48,30 @@ class ProductController extends Controller
 
         // 用 session id 陣列來搜尋 product，取得完整的產品資料，再傳給 $prod_list      
         $prod_list = [];         
+        $i = 0;
         foreach($session_value as $key => $value){
-            // echo "Array: $key, $value \n";
+            // echo "Key: $key";
+            // echo "Value: $value";
             $prod_list[] = Product::find($key);
-            echo "key = $key";
+            
+            
+            if($prod_list[$i]){
+                $prod_list[$i]->{'quantity'} = $value;
+            }
+            $i++;    
+            // if($value){
+            //     // $prod_list[$key-1]->{'quantity'} = $value;
+            //     echo 'has value';
+            // }
+            // return $session_value;
+            // print_r( $session_value );
+            // echo "key = $key";
+            // echo $prod_list
             // isset($prod_list[$key-1])? $prod_list[$key-1]->{'quantity'} = $value : $prod_list = [];
         };
+        
+        // echo $i;   
+        // print_r($prod_list);
         return $prod_list;
     }
 
