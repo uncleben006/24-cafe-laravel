@@ -84,8 +84,8 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form action="/products/checkout" method="get">
-                <h1>My Shopping Cart</h1>
+            <form action="/product/checkout" method="get">
+                <h1>Checking List</h1>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

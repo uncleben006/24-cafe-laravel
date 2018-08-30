@@ -24,6 +24,7 @@ Route::get('/products', 'ProductController@list');
 Route::get('/products/add-cart/{id}', 'ProductController@add_cart');
 Route::get('/products/list-cart', 'ProductController@list_cart');
 Route::get('/products/cart', 'ProductController@cart');
+Route::get('/products/checkout', 'ProductController@checkout');
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');

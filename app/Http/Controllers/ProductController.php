@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Log;
 
 class ProductController extends Controller
 {
@@ -66,6 +67,13 @@ class ProductController extends Controller
     public function cart(Request $request)
     {
         return view('cart');
+    }
+
+    public function checkout(Request $request)
+    {
+        // Log::debug($request->all());
+        
+        return view('checkout');
     }
 
     /**
