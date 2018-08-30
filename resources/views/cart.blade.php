@@ -2,6 +2,15 @@
 
 @section('style')
 <style>
+input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.table td {
+    padding: 0;
+    border: none;
+}
 .delete-btn {
     position: absolute; 
     top: 0; 
@@ -24,25 +33,25 @@ $(function() {
         // console.log(json);
         cartList = json;       
         console.log(cartList);
-        for( var index in cartList ) {
-            var data = cartList[index];       
-            // 如果data是存在的，才會產生產品資料庫
-            if(data){
-                $('#tbody').append('\
-                    <tr id="tableRow-'+data.id+'">\
-                        <td>'+data.id+'</td>\
-                        <td>'+data.name+'</td>\
-                        <td>'+data.price+'</td>\
-                        <td style="position: relative">\
-                            <div id="data-'+data.id+'">'+data.quantity+'</div>\
-                            <button class="delete-btn" data-id="'+ data.id +'">X</button>\
-                        </td>\
-                    </tr>\
-                ');
-                totalPrice += data.price*data.quantity;
+        // for( var index in cartList ) {
+        //     var data = cartList[index];       
+        //     // 如果data是存在的，才會產生產品資料庫
+        //     if(data){
+        //         $('#tbody').append('\
+        //             <tr id="tableRow-'+data.id+'">\
+        //                 <td>'+data.id+'</td>\
+        //                 <td>'+data.name+'</td>\
+        //                 <td>'+data.price+'</td>\
+        //                 <td style="position: relative">\
+        //                     <div id="data-'+data.id+'">'+data.quantity+'</div>\
+        //                     <button class="delete-btn" data-id="'+ data.id +'">X</button>\
+        //                 </td>\
+        //             </tr>\
+        //         ');
+        //         totalPrice += data.price*data.quantity;
                 
-            }            
-        }      
+        //     }            
+        // }      
         $('#totalPrice').html(totalPrice+' $');   
     });
     
@@ -77,26 +86,34 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>My Shopping Cart</h1>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>商品名稱</th>
-                        <th>價格</th>
-                        <th>數量</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-            </table>
-            <div class="d-flex justify-content-between">
-                <a href="/products/" class="btn btn-secondary">繼續購物</a>
-                <div class="d-flex align-items-center">
-                    <div id="totalPrice"class="px-3">$</div>
-                    <a href="#" class="btn btn-danger">結帳</a>
-                </div>                
-            </div>
+            <form>
+                <h1>My Shopping Cart</h1>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>商品名稱</th>
+                            <th>價格</th>
+                            <th>數量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr>
+                            <td><input type="text" name="dataId" value="1" disabled></td>
+                            <td><input type="text" name="dataName" value="HTC 12" disabled></td>
+                            <td><input type="text" name="dataPrice" value="20000" disabled></td>
+                            <td><input type="text" name="dataQuantity" value="2" disabled></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between">
+                    <a href="/products/" class="btn btn-secondary">繼續購物</a>
+                    <div class="d-flex align-items-center">
+                        <div id="totalPrice"class="px-3">$</div>
+                        <input type="submit" class="btn btn-danger" value="結帳">
+                    </div>                
+                </div>
+            </form>
             
         </div>
     </div>    
