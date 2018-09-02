@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Log;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -28,10 +29,10 @@ class ProductController extends Controller
         $prev = $request->session()->get('cart');
         $arr = [];
         if( $prev != null ){
-            $arr = json_decode($prev);
+            $arr = $prev;
         }
         $arr[] = $id;
-        $request->session()->put('cart', json_encode($arr));
+        $request->session()->put('cart', $arr);
         return (['status'=>true]);
     }
 
@@ -39,7 +40,7 @@ class ProductController extends Controller
     {
         // return json_decode($request->session()->get('cart'));
         // 取得當初存入 session 中的 id 陣列，然後再排序、歸類
-        $session_value = json_decode($request->session()->get('cart'));
+        $session_value = $request->session()->get('cart');
         if ($session_value){
             sort($session_value);   
             $session_value = array_count_values($session_value);   
@@ -51,14 +52,12 @@ class ProductController extends Controller
         $prod_list = [];         
         $i = 0;
         foreach($session_value as $key => $value){
-            // echo "Key: $key";
-            // echo "Value: $value";
-            $prod_list[] = Product::find($key);           
-            if($prod_list[$i]){
+            if(Product::find($key)){
+                $prod_list[] = Product::find($key);  
                 $prod_list[$i]->{'quantity'} = $value;
             }
             $i++;                
-        };        
+        };                
         // echo $i;   
         // print_r($prod_list);
         return $prod_list;
@@ -67,13 +66,6 @@ class ProductController extends Controller
     public function cart(Request $request)
     {
         return view('cart');
-    }
-
-    public function checkout(Request $request)
-    {
-        // Log::debug($request->all());
-        
-        return view('checkout');
     }
 
     /**

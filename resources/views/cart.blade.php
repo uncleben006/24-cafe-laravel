@@ -43,9 +43,9 @@ $(function() {
                 $('#tbody').append('\
                     <tr id="tableRow-'+data.id+'">\
                         <td>'+data.id+'</td>\
-                        <td width="100%">'+data.name+'</td>\
+                        <td>'+data.name+'</td>\
                         <td>'+data.price+'</td>\
-                        <td><input type="text" name="'+data.id+'" value="'+data.quantity+'"></td>\
+                        <td width="75"><input type="number" min="0" name="'+data.id+'" value="'+data.quantity+'"></td>\
                     </tr>')
                 totalPrice += data.price*data.quantity;                
             }            
@@ -54,28 +54,18 @@ $(function() {
     });
     
     
-
-    $(document).on('click','.delete-btn', function () {
-        // 此 id 為刪除按鈕的 data.id
-        var id = $(this).data('id');
-
-        cartList.forEach(element => {
-            // console.log(element);
-            if(element.id==id){
-                // console.log(element);
-                element.quantity = element.quantity - 1;
-                totalPrice = totalPrice - element.price;
-                $('#data-'+id).html(element.quantity);
-                $('#totalPrice').html(totalPrice+' $'); 
-            }
-            // 如果 quantity 太少就隱藏
-            if(element.quantity<=0){
-                $('#tableRow-'+element.id).hide();
-            }
-        });      
-        
-        console.log(cartList);
-    });
+    $(document).on('click','.btn-submit', function (event) {
+        var user = '{{ isset(Auth::user()->name)?Auth::user()->name: NULL }}';
+        // console.log(user)
+        if(!user){
+            event.preventDefault()
+            var login = confirm(" 您尚未登入，請先登入才能結帳 ")
+        }
+        // console.log(login)
+        if(login){
+            window.location = '/login/'
+        }        
+    })
 });
 </script>
 @endsection
@@ -84,7 +74,7 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form action="/products/checkout" method="get">
+            <form action="../products/checkout" method="post">
                 <h1>My Shopping Cart</h1>
                 <table class="table table-bordered">
                     <thead>
@@ -100,13 +90,13 @@ $(function() {
                 </table>
                 <div class="d-flex justify-content-between">
                     <a href="/products/" class="btn btn-secondary">繼續購物</a>
+                    
                     <div class="d-flex align-items-center">
-                        <div id="totalPrice" class="px-3" style="min-width: 200px; text-align: right;">$</div>
-                        <input type="submit" class="btn btn-danger" value="結帳">
+                        <div id="totalPrice" class="px-3" style="min-width: 200px; text-align: right;">$</div>                        
+                        <input type="submit" class="btn btn-danger btn-submit" value="結帳">
                     </div>                
                 </div>
             </form>
-            
         </div>
     </div>    
 </div>

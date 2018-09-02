@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\User;
 use Log;
+
+// User Session 資料
+use Auth;
 
 // Validator
 use Validator;
@@ -72,12 +76,7 @@ class UserController extends Controller
 
     public function show_user(Request $request)
     {
-        if($request->session()->get('user')){
-            return (['status'=>true]);
-        }else {
-            return (['status'=>false]);
-        }
-        // return $request->session()->get('user');
+        return isset(Auth::user()->name)? Auth::user()->name: "You haven't login yet" ;
     }
 
     public function show_session(Request $request)
