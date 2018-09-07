@@ -30,6 +30,11 @@ Route::get('/products/checkout', 'OrderListController@index');
 Route::post('/products/checkout', 'OrderListController@store');
 Route::get('/products/order-list', 'OrderListController@show');
 
+// chat controller
+Route::get('/chat', 'ChatController@index');
+Route::get('/chat/all', 'ChatController@all');
+Route::post('/chat', 'ChatController@create');
+
 // user controller
 Route::get('/user', 'UserController@index')->name('user');
 Route::post('/user', 'UserController@store')->name('user-post');
