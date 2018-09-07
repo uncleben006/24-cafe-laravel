@@ -10,6 +10,9 @@ use Auth;
 
 class OrderListController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +20,7 @@ class OrderListController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            return view('order-list');
-        }else{
-            abort(404);
-        }
+        return view('order-list');
     }
 
     /**
@@ -74,12 +73,9 @@ class OrderListController extends Controller
      */
     public function show()
     {
-        if(Auth::check()){
-            $user = Auth::user()->name;
-            return OrderList::where('buyer',$user)->get();
-        }else{
-            abort(404);
-        }        
+        $this->middleware('auth');
+        $user = Auth::user()->name;
+        return OrderList::where('buyer',$user)->get(); 
     }
 
     /**
