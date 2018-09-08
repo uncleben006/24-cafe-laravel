@@ -33,6 +33,7 @@ Route::get('/products/order-list', 'OrderListController@show');
 // chat controller
 Route::get('/chat', 'ChatController@index');
 Route::get('/chat/all', 'ChatController@all');
+Route::get('/chat/last/', 'ChatController@last');
 Route::post('/chat', 'ChatController@create');
 
 // user controller
