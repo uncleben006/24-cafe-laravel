@@ -25,6 +25,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,7 +33,25 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">Products <span class="sr-only">(current)</span></a>
+                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="/products/cart">Shopping Cart <span class="sr-only">(current)</span></a>
+                            </li>   
+                            <li class="nav-item">
+                                <a class="nav-link" href="/products/checkout">Order List <span class="sr-only">(current)</span></a>
+                            </li>   
+                        @endauth
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts">Post <span class="sr-only">(current)</span></a>
+                        </li>
+                        @auth                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="/chat">Chat Room <span class="sr-only">(current)</span></a>
+                            </li>   
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

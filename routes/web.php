@@ -14,7 +14,7 @@
 // 和session有關的api要用中介層管理或直接放在web
 
 // post controller
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('index'); });
 Route::get('/posts', function() { return view('post'); });
 Route::get('/posts/{id}',function($id){ return view('post-single', ['id' => $id ]); });
 Route::post('/posts', 'PostController@store')->name('post');
