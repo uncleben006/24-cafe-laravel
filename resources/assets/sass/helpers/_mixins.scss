@@ -1,0 +1,81 @@
+// Toggles
+//
+// Used in conjunction with global variables to enable certain theme features.
+
+// // Utilities
+// @import "mixins/breakpoints";
+// @import "mixins/hover";
+// @import "mixins/image";
+// @import "mixins/badge";
+// @import "mixins/resize";
+// @import "mixins/screen-reader";
+// @import "mixins/size";
+// @import "mixins/reset-text";
+// @import "mixins/text-emphasis";
+// @import "mixins/text-hide";
+// @import "mixins/text-truncate";
+// @import "mixins/visibility";
+
+// // Components
+// @import "mixins/alert";
+// @import "mixins/buttons";
+// @import "mixins/caret";
+// @import "mixins/pagination";
+// @import "mixins/lists";
+// @import "mixins/list-group";
+// @import "mixins/nav-divider";
+// @import "mixins/forms";
+// @import "mixins/table-row";
+
+// // Skins
+// @import "mixins/background-variant";
+// @import "mixins/border-radius";
+// @import "mixins/box-shadow";
+// @import "mixins/gradients";
+// @import "mixins/transition";
+
+// // Layout
+// @import "mixins/clearfix";
+// @import "mixins/grid-framework";
+// @import "mixins/grid";
+// @import "mixins/float";
+
+// Mixins
+@mixin transition-all() {
+  -webkit-transition: all .35s;
+  -moz-transition: all .35s;
+  transition: all .35s;
+}
+
+@mixin background-cover() {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@font-face {
+/*仿宋*/
+font-family: 'cwTeXFangSong';
+font-style: normal;
+font-weight: 500;
+src: url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.eot);
+src: url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.eot?#iefix) format('embedded-opentype'),
+    url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.woff2) format('woff2'),
+    url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.woff) format('woff'),
+    url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.ttf) format('truetype');
+}
+
+@mixin heading-font {
+  font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
+@mixin body-font {
+  font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
+}
+
+@mixin alt-font {
+  font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
+}

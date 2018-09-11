@@ -16,15 +16,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-    .active {
-        border-bottom: #00b5e2 solid 2.5px;
-    } 
-    .nav-item {
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
-    }
-    </style>
     @yield('style')
 </head>
 <body>
@@ -98,7 +89,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>    

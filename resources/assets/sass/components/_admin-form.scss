@@ -1,0 +1,35 @@
+.admin-form {
+  padding-top: $spacer*3 ;
+  padding-bottom: $spacer*3 ;
+  background-color: $light;
+  .custom-file-label{
+    overflow: hidden;
+  }
+  .img-box {
+    flex-direction: column;
+    justify-content: flex-start;  
+    display: flex;  
+    padding: 0;
+    margin-bottom: 3rem;
+    width: 20%;
+    margin-left: 15px;
+    .img-title {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+    }
+    .flex-auto {
+      flex: 0 0 auto;
+    }
+  }
+  .hover-delete {
+    background-color: #ffcbd0;
+      &:hover {
+        background-color: #dc3545;
+        transition: 0.5s;
+      }
+  }
+}
+
+
+

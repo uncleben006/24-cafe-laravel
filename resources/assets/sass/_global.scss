@@ -1,0 +1,147 @@
+// Global styling for this template
+html,
+body {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    font-size: 16px;
+}
+
+// body {
+//     @include body-font;
+// }
+
+// a {
+//     color: $theme-primary;
+//     @include transition-all;
+//     &:hover,
+//     &:focus {
+//         color: darken($theme-primary, 10%);
+//     }
+// }
+
+// hr {
+//     max-width: 100px;
+//     margin: 25px auto 0;
+//     border-width: 1px;
+//     border-color: fade-out($gray-darker, .9);
+// }
+
+hr.light {
+    border-color: white;
+}
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//     @include heading-font;
+// }
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+ul{
+    list-style: none;
+}
+section {
+    // padding: 100px 0;
+    h2 {
+        font-size: 50px;
+    }
+}
+
+.bg-cover {
+    background-size: cover;
+    background-position: center center;
+}
+
+.btn {
+    border-width: 2px;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute
+}
+
+@media (min-width: 576px) {
+    .text-sm-dark {
+        color: #333 !important;
+    }
+}
+
+.header-carousel-item {
+    height: 75vh;
+    background-color: #ccc;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, .35)
+}
+
+.carousel-indicators>li {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+}
+
+.carousel-inner > .item-1 {
+    background-image: url(../images/24-cafe-banner.jpg); 
+    background-position: center 30%;
+}
+.carousel-inner > .item-2 {
+    background-image: url(../images/24-cafe-image-girl.jpg); 
+    background-position: right top;
+}
+.carousel-inner > .item-3 {
+    background-image: url(../images/24-cafe-coffee.jpg); 
+    background-position: 35% top;
+}
+@media( min-width: 992px ){
+    .carousel-inner > .item-3 {
+        background-position: right top;
+    }
+} 
+
+.info-hover{
+    // background: rgba(255,255,255,0.5);
+    transition: 0.2s;
+}
+.info-hover:hover img {
+    transform: scale(1.1) translateY(-0.1em);
+    transition: 0.5s;
+}
+.info-hover:hover h3 {
+    transform: scale(1.1) translateX(1rem);
+    transition: 0.5s;
+}
+.background-muted:before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.7;
+    background-size: cover;
+}
+.info-background-one:before {
+    background-image: url(../images/coffee-background.jpg);
+    background-position: left center;
+}
+.info-background-two:before {
+    background-image: url(../images/batminton-background.png);
+    background-position: left top;
+}
+.muted-block {
+    background: rgba(0,0,0,0.75);
+}

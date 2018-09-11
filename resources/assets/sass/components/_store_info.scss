@@ -1,0 +1,10 @@
+.store-info {
+  background-color: $dark;
+  color: $light;
+  iframe {
+    border:0; 
+    min-height: 450px; 
+    height: 100%;
+    width: 100%;
+  }
+}
