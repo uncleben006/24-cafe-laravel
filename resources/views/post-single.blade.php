@@ -1,6 +1,5 @@
 @extends('layouts/app')
 
-
 @section('script')
 <script>
 $(function() {
@@ -15,9 +14,7 @@ $(function() {
 </script>
 @endsection
 
-
 @section('content')
-
 <div class="container">
   <h1 class="text-center">My post</h1>
   <div class="row justify-content-center">
@@ -31,5 +28,4 @@ $(function() {
     </div>
   </div>  
 </div>
-
 @endsection

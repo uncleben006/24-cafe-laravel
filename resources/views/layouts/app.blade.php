@@ -16,11 +16,20 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+    .active {
+        border-bottom: #00b5e2 solid 2.5px;
+    } 
+    .nav-item {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+    </style>
     @yield('style')
 </head>
 <body>
     <div id="app">        
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel py-0">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -33,22 +42,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item @yield('products-nav')">
                             <a class="nav-link" href="/products">Products <span class="sr-only">(current)</span></a>
                         </li>
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="/products/cart">Shopping Cart <span class="sr-only">(current)</span></a>
-                            </li>   
-                            <li class="nav-item">
+                        <li class="nav-item @yield('shopping-cart-nav')">
+                            <a class="nav-link" href="/products/cart">Shopping Cart <span class="sr-only">(current)</span></a>
+                        </li>   
+                        @auth                            
+                            <li class="nav-item @yield('order-list-nav')">
                                 <a class="nav-link" href="/products/checkout">Order List <span class="sr-only">(current)</span></a>
                             </li>   
                         @endauth
-                        <li class="nav-item">
+                        <li class="nav-item @yield('post-nav')">
                             <a class="nav-link" href="/posts">Post <span class="sr-only">(current)</span></a>
                         </li>
                         @auth                            
-                            <li class="nav-item">
+                            <li class="nav-item @yield('chat-room-nav')">
                                 <a class="nav-link" href="/chat">Chat Room <span class="sr-only">(current)</span></a>
                             </li>   
                         @endauth
@@ -58,15 +67,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item @yield('login-nav')">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @yield('register-nav')">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-                            <li class="nav-item"><a class="nav-link" href="/user">User 管理</a></li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">User 管理</a></li>
+                            <li class="nav-item @yield('user-home-nav') dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>

@@ -1,5 +1,9 @@
 @extends('layouts/app')
 
+@section('order-list-nav')
+active
+@endsection
+
 @section('style')
 <style>
 input {

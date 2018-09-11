@@ -1,5 +1,9 @@
 @extends('layouts/app')
 
+@section('shopping-cart-nav')
+active
+@endsection
+
 @section('style')
 <style>
 input {

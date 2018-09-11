@@ -1,7 +1,10 @@
 @extends('layouts/app')
 
-@section('content')
+@section('user-admin-nav')
+active
+@endsection
 
+@section('content')
 <div class="container">
     <h1>{{ $title }}</h1>
     <div class="row">
@@ -104,11 +107,9 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('script')
-
 <script>
     $(function () {
         $('.btn-delete').click(function () {
@@ -118,5 +119,4 @@
         });
     });
 </script>
-
 @endsection

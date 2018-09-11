@@ -1,5 +1,20 @@
 @extends('layouts/app')
 
+@section('post-nav')
+active
+@endsection
+
+@section('style')
+<style>
+#btn-pre {
+    display: none;
+}
+#btn-next {
+    display: none;
+}
+</style>
+@endsection
+
 @section('script')
 <script>  
 
@@ -28,8 +43,6 @@ $(function() {
         }
 
         // console.log(json.next_page_url)
-        $('#btn-pre').hide();
-        $('#btn-next').hide();
         if (json.prev_page_url) {
         $('#btn-pre').attr('href', json.prev_page_url.replace('api/',''));      
         $('#btn-pre').show();
@@ -67,11 +80,11 @@ $(function() {
         <div class="card-body">
             <form method="POST" action="{{ route('post') }}">
                 @csrf
-
+                <h2 class="text-center">Posting</h2>
                 <div class="form-group row">
-                    <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                    <label for="title" class="col-md-2 col-form-label">{{ __('Title') }}</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required autofocus>
 
                         @if ($errors->has('title'))
@@ -83,10 +96,12 @@ $(function() {
                 </div>
 
                 <div class="form-group row">
-                    <label for="note" class="col-md-4 col-form-label text-md-right">{{ __('Note') }}</label>
+                    <label for="note" class="col-md-2 col-form-label">{{ __('Note') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="note" type="text" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note') }}" required>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" id="note" type="text" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note') }}"></textarea>
+                        </div>
 
                         @if ($errors->has('note'))
                             <span class="invalid-feedback" role="alert">
@@ -97,9 +112,9 @@ $(function() {
                 </div>
 
                 <div class="form-group row">
-                    <label for="author" class="col-md-4 col-form-label text-md-right">{{ __('Author') }}</label>
+                    <label for="author" class="col-md-2 col-form-label">{{ __('Author') }}</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <input id="author" type="text" class="form-control{{ $errors->has('author') ? ' is-invalid' : '' }}" name="author" value="{{ old('author') }}" required>
 
                         @if ($errors->has('author'))
@@ -112,9 +127,9 @@ $(function() {
                 
 
                 <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
+                    <div class="col-md-10 offset-md-2">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Register') }}
+                            {{ __('Submit') }}
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,9 @@
 @extends('layouts/app')
 
+@section('products-nav')
+active
+@endsection
+
 @section('script')
 <script>
 $(function() {    

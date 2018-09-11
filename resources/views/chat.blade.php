@@ -1,4 +1,9 @@
 @extends('layouts/app')
+
+@section('chat-room-nav')
+active    
+@endsection
+
 @section('script')
 <script type="text/javascript">
     // $(function() {
