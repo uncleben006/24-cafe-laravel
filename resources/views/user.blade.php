@@ -27,7 +27,7 @@ active
                     <td>{{$user->email}}</td>
                     <td><button data-id="{{$user->id}}" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                     <td><a href="/user/{{$user->id}}/edit" class="btn btn-primary btn-sm">Edit</a></td>
-                    <td><a href="{{ route('home') }}" class="btn btn-sm btn-secondary">Test</a></td>
+                    {{-- <td><a href="{{ route('home') }}" class="btn btn-sm btn-secondary">Test</a></td> --}}
                 </tr>
                 @endforeach
             </tbody>

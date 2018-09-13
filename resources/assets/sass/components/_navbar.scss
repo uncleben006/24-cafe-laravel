@@ -13,15 +13,15 @@
         &.navbar-brand {
             color: $gray-darker !important;
             &:hover {
-                color: $theme-primary;
+                color: $theme-secondary;
             }
         }
     }
     .navbar-brand {
-        color: $theme-primary;
+        color: $theme-secondary;
         @include heading-font;
         &:hover, &:focus {
-            color: darken($theme-primary, 10%);
+            color: darken($theme-secondary, 10%);
         }
     }
     .navbar-toggler {
@@ -35,21 +35,28 @@
                 color: $dark;
                 @include alt-font;
                 &:hover {
-                    color: $theme-primary;
+                    color: $theme-tertiary;
                 }                           
             }              
         }
         .active {
             a {
-                color: $theme-primary;
-            }            
-            background-color: transparent;
+                color: $theme-tertiary;
+            }                      
             &:hover {
                 background-color: transparent;
             }
+            background-color: transparent;
         }
         .dropdown-item {
             color: $dark !important;
+        }
+    }
+    @media (min-width: 992px) {
+        .navbar-nav {            
+            .active {
+                border-bottom: $theme-tertiary solid 5px;
+            }
         }
     }
     // @media (min-width: 992px) {
@@ -74,14 +81,14 @@
     //             color: $gray-darker;
     //             &:hover,
     //             &:focus {
-    //                 color: $theme-primary;
+    //                 color: $theme-secondary;
     //             }
     //         }
     //         .navbar-nav > li > a,
     //         .navbar-nav > li > a:focus {
     //             color: $gray-darker;
     //             &:hover {
-    //                 color: $theme-primary;
+    //                 color: $theme-secondary;
     //             }
     //         }
     //     }

@@ -3,7 +3,6 @@
 @section('style')
 <style>
     html, body {
-        background-color: #fff;
         font-weight: 100;
         height: 90vh;
         margin: 0;
@@ -45,7 +44,7 @@
 
 @section('content')
 <!-- banner -->
-<header>
+<section>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -89,9 +88,9 @@
         <span class="sr-only">Next</span>
     </a>
     </div>
-</header>
+</section>
 <!-- title -->
-<section class="py-5 bg-dark text-light">
+<section class="py-5">
     <div class="col-lg-12 mb-3 text-center">
     <h3>24 磅羽球咖啡廳</h3>
     <p style="font-size: 90%;">

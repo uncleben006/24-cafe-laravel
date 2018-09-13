@@ -1,7 +1,10 @@
 @extends('layouts/app')
 
-@section('content')
+@section('self-info-nav')
+active
+@endsection
 
+@section('content')
 <div class="container py-5">
     <h1>{{ $user->name }}</h1>    
     
@@ -64,12 +67,14 @@
                             </div>
                         </div>
 
+                        @if ( Auth::user()->authority == 1 )
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">系統權限</label>
+                            <label for="authority" class="col-md-4 col-form-label text-md-right">系統權限</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="" placeholder="禁止=-1, 預設=0, 管理員=1" required autofocus>                                
+                                <input id="authority" type="text" class="form-control" name="authority" value="" placeholder="禁止=-1, 預設=0, 管理員=1" required autofocus>                                
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -84,11 +89,9 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('script')
-
 <script>
     $(function () {
         $('.btn-delete').click(function () {
@@ -98,5 +101,4 @@
         });
     });
 </script>
-
 @endsection

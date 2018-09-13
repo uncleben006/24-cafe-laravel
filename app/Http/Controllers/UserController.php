@@ -129,9 +129,10 @@ class UserController extends Controller
             ->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'authority' => $request->authority
             ]);
-        return redirect('/user');
+        return redirect('/');
     }
 
     /**

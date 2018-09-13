@@ -27,13 +27,3 @@
       background-color: $theme-primary;
   }
 }
-
-.btn {
-  border-radius: 300px;
-  @include alt-font;
-}
-
-.btn-xl {
-  font-size: 11px;
-  padding: 15px 45px;
-}
