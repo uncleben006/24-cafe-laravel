@@ -1,21 +1,26 @@
 // Styling for the navbar
 #mainNav {
     border-color: fade-out($gray-darker, .95);
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.75);
     @include transition-all;
     @include heading-font;
-    &:hover {
-        background-color: rgba(255,255,255,0.25);
-    }
     &.navbar-shrink {
         border-color: fade-out($gray-darker, .9);
-        background-color: white;
+        background-color: transparent;
+        &:hover {
+            background-color: rgba(255,255,255,0.75);
+        }
+        &.navbar-brand {
+            color: $gray-darker !important;
+            &:hover {
+                color: $theme-primary;
+            }
+        }
     }
     .navbar-brand {
         color: $theme-primary;
         @include heading-font;
-        &:hover,
-        &:focus {
+        &:hover, &:focus {
             color: darken($theme-primary, 10%);
         }
     }
@@ -25,62 +30,60 @@
         color: $gray-darker;
     }
     .navbar-nav {
-        > li {
-            > a {
-                // font-size: 11px;
+        .nav-item {
+            a {
+                color: $dark;
                 @include alt-font;
-                &.active {
-                    color: $theme-primary !important;
-                    background-color: transparent;
-                    &:hover {
-                        background-color: transparent;
-                    }
-                }
-            }
-            > a,
-            > a:focus {
-                color: $gray-darker;
                 &:hover {
                     color: $theme-primary;
-                }
-            }
+                }                           
+            }              
         }
-    }
-    @media (min-width: 992px) {
-        border-color: transparent;
-        background-color: transparent;
-        .navbar-brand {
-            color: fade(white, 70%);
-            &:hover,
-            &:focus {
-                color: white;
-            }
-        }
-        .navbar-nav > li > a,
-        .navbar-nav > li > a:focus {
-            color: fade-out(white, .3);
+        .active {
+            a {
+                color: $theme-primary;
+            }            
+            background-color: transparent;
             &:hover {
-                color: white;
+                background-color: transparent;
             }
         }
-        &.navbar-shrink {
-            border-color: fade-out($gray-darker, .9);
-            border-bottom: solid 1px;
-            background-color: white;
-            .navbar-brand {
-                color: $gray-darker;
-                &:hover,
-                &:focus {
-                    color: $theme-primary;
-                }
-            }
-            .navbar-nav > li > a,
-            .navbar-nav > li > a:focus {
-                color: $gray-darker;
-                &:hover {
-                    color: $theme-primary;
-                }
-            }
+        .dropdown-item {
+            color: $dark !important;
         }
     }
+    // @media (min-width: 992px) {
+    //     .navbar-brand {
+    //         color: fade(white, 70%);
+    //         &:hover,
+    //         &:focus {
+    //             color: white;
+    //         }
+    //     }
+    //     .navbar-nav > li > a,
+    //     .navbar-nav > li > a:focus {
+    //         color: fade-out(black, .3);
+    //         &:hover {
+    //             color: black;
+    //         }
+    //     }
+    //     &.navbar-shrink {
+    //         border-color: fade-out($gray-darker, .9);
+    //         border-bottom: solid 1px;
+    //         .navbar-brand {
+    //             color: $gray-darker;
+    //             &:hover,
+    //             &:focus {
+    //                 color: $theme-primary;
+    //             }
+    //         }
+    //         .navbar-nav > li > a,
+    //         .navbar-nav > li > a:focus {
+    //             color: $gray-darker;
+    //             &:hover {
+    //                 color: $theme-primary;
+    //             }
+    //         }
+    //     }
+    // }
 }

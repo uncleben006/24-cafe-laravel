@@ -28,7 +28,7 @@
 
 @import "~bootstrap/scss/button-group";
 @import "~bootstrap/scss/input-group";
-@import "~bootstrap/scss/custom-forms";
+// @import "~bootstrap/scss/custom-forms";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/card";
@@ -49,13 +49,13 @@
 
 // component
 @import "components/dropdown";
-@import "components/navpanel";
+// @import "components/navpanel";
 @import "components/navbar";
 @import "components/store_info";
-@import "components/footer";
-@import "components/badminton";
-@import "components/merchandise";
-@import "components/admin-form";
+// @import "components/footer";
+// @import "components/badminton";
+// @import "components/merchandise";
+// @import "components/admin-form";
 
 // custom style
 @import 'global';

@@ -58,7 +58,7 @@ $(function() {
 
 @section('content')
 
-<div class="container">
+<div class="container py-5">
     <h1 class="text-center">All my post</h1>
     <div class="row justify-content-center">    
         <div class="col-md-8 pb-5">

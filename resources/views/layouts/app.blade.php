@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="app">        
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel py-0">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -33,23 +33,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item @yield('products-nav')">
-                            <a class="nav-link" href="/products">Products <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item @yield('shopping-cart-nav')">
-                            <a class="nav-link" href="/products/cart">Shopping Cart <span class="sr-only">(current)</span></a>
-                        </li>   
-                        @auth                            
-                            <li class="nav-item @yield('order-list-nav')">
-                                <a class="nav-link" href="/products/checkout">Order List <span class="sr-only">(current)</span></a>
-                            </li>   
+                        @guest
+                            <li class="nav-item @yield('products-nav')">
+                                <a class="nav-link" href="/products">產品頁面</a>
+                            </li>
+                        @endguest
+                        @auth 
+                            <li class="nav-item @yield('products-nav') @yield('shopping-cart-nav') @yield('order-list-nav') dropdown ">                            
+                                <a id="product-dropdown" data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">產品</a>                       
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="product-dropdown">
+                                    <a class="dropdown-item" href="/products">產品頁面</a>
+                                    <a class="dropdown-item" href="/products/cart">購物車</a>
+                                    <a class="dropdown-item" href="/products/checkout">訂購單</a>
+                                </div>                            
+                            </li>
                         @endauth
                         <li class="nav-item @yield('post-nav')">
-                            <a class="nav-link" href="/posts">Post <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/posts">文章</a>
                         </li>
                         @auth                            
                             <li class="nav-item @yield('chat-room-nav')">
-                                <a class="nav-link" href="/chat">Chat Room <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/chat">聊天室</a>
                             </li>   
                         @endauth
                     </ul>
@@ -59,19 +63,24 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item @yield('login-nav')">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">登入</a>
                             </li>
                             <li class="nav-item @yield('register-nav')">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">註冊</a>
                             </li>
-                        @else
-                            <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">User 管理</a></li>
+                        @else                            
+                            @if (Auth::user()->authority == 1)
+                                <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>
+                            @endif   
+                            <li class="nav-item @yield('self-info-nav')">
+                                <a class="nav-link" href="">個人資料</a>
+                            </li>                         
                             <li class="nav-item @yield('user-home-nav') dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="logout-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="logout-dropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

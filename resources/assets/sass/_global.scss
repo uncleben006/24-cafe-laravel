@@ -1,4 +1,8 @@
 // Global styling for this template
+
+
+
+
 html,
 body {
     width: 100%;
@@ -7,9 +11,9 @@ body {
     font-size: 16px;
 }
 
-// body {
-//     @include body-font;
-// }
+body {
+    @include body-font;
+}
 
 // a {
 //     color: $theme-primary;
@@ -20,25 +24,25 @@ body {
 //     }
 // }
 
-// hr {
-//     max-width: 100px;
-//     margin: 25px auto 0;
-//     border-width: 1px;
-//     border-color: fade-out($gray-darker, .9);
-// }
+hr {
+    max-width: 100px;
+    margin: 25px auto 0;
+    border-width: 1px;
+    border-color: fade-out($gray-darker, .9);
+}
 
 hr.light {
     border-color: white;
 }
 
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6 {
-//     @include heading-font;
-// }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @include heading-font;
+}
 
 p {
     font-size: 18px;
