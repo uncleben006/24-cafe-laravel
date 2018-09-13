@@ -38,10 +38,10 @@ active
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('User') }}</div>
+                <div class="card-header">新增用戶</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user-post') }}" aria-label="{{ __('Register') }}">
+                    <form method="POST" action="{{ route('user.post') }}" aria-label="{{ __('Register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -96,9 +96,7 @@ active
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                                <button type="submit" class="btn btn-primary">新增</button>
                             </div>
                         </div>
                     </form>

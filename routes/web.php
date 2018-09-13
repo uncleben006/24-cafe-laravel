@@ -38,10 +38,10 @@ Route::post('/chat', 'ChatController@create');
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');
-Route::post('/user', 'UserController@store')->name('user-post');
-Route::get('/user/{id}/delete/', 'UserController@destroy')->name('user-delete');
-Route::get('/user/{id}/edit/', 'UserController@edit')->name('userEdit');
-Route::post('/user/{id}/edit/', 'UserController@update')->name('user-update');
+Route::post('/user', 'UserController@store')->name('user.post');
+Route::get('/user/{id}/delete/', 'UserController@destroy')->name('user.delete');
+Route::get('/user/{id}/edit/', 'UserController@edit')->name('user.edit');
+Route::post('/user/{id}/edit/', 'UserController@update')->name('user.edit.post');
 
 // show session
 Route::get('/session', 'UserController@show_session');

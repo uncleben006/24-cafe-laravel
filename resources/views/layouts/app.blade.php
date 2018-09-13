@@ -73,7 +73,7 @@
                                 <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>
                             @endif   
                             <li class="nav-item @yield('self-info-nav')">
-                                <a class="nav-link" href="">個人資料</a>
+                                <a class="nav-link" href="/user/{{ Auth::user()->id }}/edit">個人資料</a>
                             </li>                         
                             <li class="nav-item @yield('user-home-nav') dropdown">
                                 <a id="logout-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -98,9 +98,25 @@
             </div>
         </nav>
 
-        <main>
+        <main style="min-height: 75vh">
             @yield('content')
         </main>
+
+        <footer class="py-5 footer-guides">
+            <div class="container text-center">
+                <div class="row mx-auto">
+                <span class="col-md-3"><a href="/">首頁</a></span>
+                <span class="col-md-3"><a href="./">咖啡專區</a></span>
+                <span class="col-md-3"><a href="./">羽球專區</a></span>
+                <span class="col-md-3"><a href="./">店員資料</a></span>
+                </div>
+                <div>
+                <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="./images/facebook-logo.svg" alt=""></a>
+                <a target="_blank" href="https://www.instagram.com/cafe24lb/"><img class="footer-icon" src="./images/instagram-logo.svg" alt=""></a>
+                </div>
+                <small>© Copright 2018 - 24lb Cafe & Badminton</small>
+            </div>
+        </footer>
     </div>    
 
     <!-- Scripts -->
