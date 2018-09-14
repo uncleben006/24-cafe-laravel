@@ -39,7 +39,8 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>All Products</h1>
+            <h1 class="float-left">產品列表</h1>
+            <button class="btn btn-primary float-right">新增產品</button>
             <table class="table table-bordered">
                 <thead>
                     <tr>
