@@ -26,7 +26,7 @@ $(function() {
                     <td>'+data.id+'</td>\
                     <td>'+data.name+'</td>\
                     <td>'+data.price+'</td>\
-                    <td><button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-sm btn-add-cart">編輯產品</button></td>\
+                    <td><button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-add-cart">編輯</button></td>\
                 </tr>\
             ');
         }
@@ -39,12 +39,12 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="float-left">產品列表</h1>
-            <button class="btn btn-primary float-right">新增產品</button>
+            <h1 class="float-left">商品列表</h1>
+            <a href="/products/job/new/" class="btn btn-primary float-right">新增產品</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>商品ID</th>
                         <th>商品名稱</th>
                         <th>價格</th>
                         <th>編輯產品</th>

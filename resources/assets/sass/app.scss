@@ -57,13 +57,14 @@
 @import "components/navbar";
 @import "components/store_info";
 @import "components/footer";
+
+@import "components/custom_button";
 // @import "components/badminton";
 // @import "components/merchandise";
 // @import "components/admin-form";
 
 // custom style
 @import 'global';
-@import 'bootstrap_overrides';
 
 .navbar-laravel {
   background-color: #fff;

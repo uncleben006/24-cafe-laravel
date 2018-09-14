@@ -10967,6 +10967,21 @@ section h2 {
   background-position: center center;
 }
 
+.bg-primary {
+  background: #C9CBA3;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C9CBA3), to(#bfc293));
+  background: linear-gradient(#C9CBA3, #bfc293);
+}
+
+.text-primary {
+  color: #C9CBA3;
+}
+
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .btn {
   border-width: 2px;
   border-radius: 300px;
@@ -10980,19 +10995,26 @@ section h2 {
 .btn-theme-tertiary {
   background-color: #E26D5C;
   color: #472D30;
-  border: #28191b;
+  border: 1px solid #da4631;
+}
+
+.btn-theme-tertiary:hover,
+.btn-theme-tertiary:focus,
+.btn-theme-tertiary:active {
+  border-color: #8c2819;
+  background-color: #da4631;
 }
 
 .btn-outline-theme-tertiary {
   background-color: transparent;
-  border: 1px solid white;
+  border: 1px solid #C9CBA3;
   color: #472D30;
 }
 
 .btn-outline-theme-tertiary:hover,
 .btn-outline-theme-tertiary:focus,
 .btn-outline-theme-tertiary:active {
-  color: #C9CBA3;
+  color: #472D30;
   border-color: #C9CBA3;
   background-color: #E26D5C;
 }
@@ -11090,21 +11112,6 @@ section h2 {
 
 .muted-block {
   background: rgba(0, 0, 0, 0.75);
-}
-
-.bg-primary {
-  background: #C9CBA3;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C9CBA3), to(#bfc293));
-  background: linear-gradient(#C9CBA3, #bfc293);
-}
-
-.text-primary {
-  color: #C9CBA3;
-}
-
-.no-gutter > [class*='col-'] {
-  padding-right: 0;
-  padding-left: 0;
 }
 
 .navbar-laravel {
