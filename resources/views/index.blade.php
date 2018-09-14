@@ -42,6 +42,8 @@
 </style>
 @endsection
 
+@section('index', 'padding-top: 0;')
+
 @section('content')
 <!-- banner -->
 <section>

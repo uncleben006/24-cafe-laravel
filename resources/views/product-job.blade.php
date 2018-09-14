@@ -15,11 +15,7 @@ $(function() {
 
     $(document).on('click','.btn-add-cart', function () {
         var id = $(this).data('id');
-        $.getJSON('/products/add-cart/'+id, function (json) {
-            if(json.status){
-                alert('加入購物車成功');
-            }
-        })
+        window.location = '/products/'+id+'/edit/';
     });
 
     $.getJSON('/api/products', function(json) {
@@ -30,7 +26,7 @@ $(function() {
                     <td>'+data.id+'</td>\
                     <td>'+data.name+'</td>\
                     <td>'+data.price+'</td>\
-                    <td><button data-id="'+data.id+'" class="btn btn-sm btn-primary btn-add-cart">加入購物車</button></td>\
+                    <td><button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-sm btn-add-cart">編輯產品</button></td>\
                 </tr>\
             ');
         }
@@ -50,7 +46,7 @@ $(function() {
                         <th>#</th>
                         <th>商品名稱</th>
                         <th>價格</th>
-                        <th>加入購物車</th>
+                        <th>編輯產品</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">

@@ -68,6 +68,12 @@ class ProductController extends Controller
         return view('cart');
     }
 
+    // 只有管理員有權限查看的產品清單，包含新增與刪除功能
+    public function job() 
+    {
+        return view('product-job');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -108,7 +114,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Product::find($id);
     }
 
     /**

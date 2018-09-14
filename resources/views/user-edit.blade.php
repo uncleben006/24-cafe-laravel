@@ -5,7 +5,7 @@ active
 @endsection
 
 @section('content')
-<div class="container py-5">
+<div class="container">
     <h1>{{ $user->name }}</h1>    
     
     <div class="row justify-content-center">

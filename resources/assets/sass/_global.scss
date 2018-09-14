@@ -50,9 +50,25 @@ section {
 .btn {
     border-width: 2px;
     border-radius: 300px;
-    .btn-xl {
-        font-size: 11px;
-        padding: 15px 45px;
+}
+.btn-xl {
+    font-size: 11px;
+    padding: 15px 45px;
+}
+
+.btn-theme-tertiary {
+    background-color: $theme-tertiary;
+    color: $theme-secondary;
+    border: darken($theme-secondary, 10%);
+}
+.btn-outline-theme-tertiary {
+    background-color: transparent;
+    border: 1px solid white;
+    color: $theme-secondary;
+    &:hover, &:focus, &:active {
+        color: $light;
+        border-color: $light;
+        background-color: $theme-tertiary;
     }
 }
 

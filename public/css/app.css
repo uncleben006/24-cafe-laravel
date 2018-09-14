@@ -10972,9 +10972,29 @@ section h2 {
   border-radius: 300px;
 }
 
-.btn .btn-xl {
+.btn-xl {
   font-size: 11px;
   padding: 15px 45px;
+}
+
+.btn-theme-tertiary {
+  background-color: #E26D5C;
+  color: #472D30;
+  border: #28191b;
+}
+
+.btn-outline-theme-tertiary {
+  background-color: transparent;
+  border: 1px solid white;
+  color: #472D30;
+}
+
+.btn-outline-theme-tertiary:hover,
+.btn-outline-theme-tertiary:focus,
+.btn-outline-theme-tertiary:active {
+  color: #C9CBA3;
+  border-color: #C9CBA3;
+  background-color: #E26D5C;
 }
 
 .relative {
@@ -11085,21 +11105,6 @@ section h2 {
 .no-gutter > [class*='col-'] {
   padding-right: 0;
   padding-left: 0;
-}
-
-.btn-outline {
-  color: white;
-  border: 1px solid;
-  border-color: white;
-}
-
-.btn-outline:hover,
-.btn-outline:focus,
-.btn-outline:active,
-.btn-outline.active {
-  color: white;
-  border-color: #C9CBA3;
-  background-color: #C9CBA3;
 }
 
 .navbar-laravel {

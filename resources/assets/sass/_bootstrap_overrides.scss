@@ -13,17 +13,3 @@
   padding-right: 0;
   padding-left: 0;
 }
-
-.btn-outline {
-  color: white;
-  border: 1px solid;
-  border-color: white;
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
-      color: white;
-      border-color: $theme-primary;
-      background-color: $theme-primary;
-  }
-}

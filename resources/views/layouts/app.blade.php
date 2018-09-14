@@ -98,7 +98,7 @@
             </div>
         </nav>
 
-        <main style="min-height: 75vh">
+        <main style="min-height: 75vh; padding: 6rem 0; @yield('index')">
             @yield('content')
         </main>
 
