@@ -7,6 +7,9 @@ use App\Product;
 use Log;
 use Auth;
 
+// Validator
+use Validator;
+
 class ProductController extends Controller
 {
     /**
@@ -81,7 +84,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product-job-form');
     }
 
     /**
@@ -92,7 +95,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);
+        if ($validate->fails()) {
+            return redirect('/products/job/new/')
+                        ->withErrors($validate)
+                        ->withInput();
+        }
+        return $request->all();
+        Product::create($request->all());
+        return redirect('/products/job');
     }
 
     /**
@@ -137,6 +151,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return redirect('/products/job');
     }
 }

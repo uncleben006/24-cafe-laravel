@@ -1,8 +1,6 @@
 @extends('layouts/app')
 
-@section('products-nav')
-active
-@endsection
+@section('products-admin-nav','active')
 
 @section('script')
 <script>
@@ -13,9 +11,13 @@ $(function() {
     //     alert('click');
     // })
 
-    $(document).on('click','.btn-add-cart', function () {
+    $(document).on('click','.btn-edit-product', function () {
         var id = $(this).data('id');
         window.location = '/products/'+id+'/edit/';
+    });
+    $(document).on('click','.btn-delete-product', function () {
+        var id = $(this).data('id');
+        window.location = '/products/'+id+'/delete/';
     });
 
     $.getJSON('/api/products', function(json) {
@@ -26,7 +28,11 @@ $(function() {
                     <td>'+data.id+'</td>\
                     <td>'+data.name+'</td>\
                     <td>'+data.price+'</td>\
-                    <td><button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-add-cart">編輯</button></td>\
+                    <td>'+data.description+'</td>\
+                    <td>\
+                        <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
+                        <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
+                    </td>\
                 </tr>\
             ');
         }
@@ -44,9 +50,10 @@ $(function() {
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>商品ID</th>
+                        <th>ID</th>
                         <th>商品名稱</th>
                         <th>價格</th>
+                        <th width="50%">產品敘述</th>
                         <th>編輯產品</th>
                     </tr>
                 </thead>

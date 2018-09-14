@@ -27,10 +27,11 @@ Route::get('/products/cart', 'ProductController@cart');
 
 // product controller administrator
 Route::get('/products/job', 'ProductController@job');
-Route::get('/products/job/new', 'ProductController@job_new');
-Route::post('/products/job/new', 'ProductController@create');
+Route::get('/products/job/new', 'ProductController@create');
+Route::post('/products/job/new', 'ProductController@store');
 Route::get('/products/{id}/edit', 'ProductController@edit');
 Route::post('/products/{id}/edit', 'ProductController@update');
+Route::get('/products/{id}/delete', 'ProductController@destroy');
 
 // order-list controller
 Route::get('/products/checkout', 'OrderListController@index');

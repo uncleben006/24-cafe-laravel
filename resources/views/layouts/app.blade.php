@@ -70,7 +70,8 @@
                             </li>
                         @else                            
                             @if (Auth::user()->authority == 1)
-                                <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>
+                                <li class="nav-item @yield('products-admin-nav')"><a class="nav-link" href="/products/job">產品管理</a></li>
+                                <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>                                
                             @endif   
                             <li class="nav-item @yield('self-info-nav')">
                                 <a class="nav-link" href="/user/{{ Auth::user()->id }}/edit">個人資料</a>
