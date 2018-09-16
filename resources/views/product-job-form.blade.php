@@ -12,7 +12,7 @@
                 <div class="card-header">您的資料</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/products/job/new/">
+                    <form method="POST" action="/products/job/new/" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">

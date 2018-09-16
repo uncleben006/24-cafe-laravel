@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use Log;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 // Validator
 use Validator;
@@ -104,8 +105,20 @@ class ProductController extends Controller
                         ->withErrors($validate)
                         ->withInput();
         }
-        return $request->all();
-        Product::create($request->all());
+        
+        $fileName = $request->file('image')->getClientOriginalName();
+        // $extension = $request->file('image')->extension();
+        // return $request->file('image')->getClientOriginalName();
+        $request->file('image')->storeAs('public/images', $fileName);
+        $url = url('/');
+        $filePath = "$url/storage/images/$fileName";
+        Product::create([
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description,
+            'image_name'=>$fileName,
+            'image_path'=>$filePath,
+        ]);
         return redirect('/products/job');
     }
 
@@ -151,6 +164,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $filename = Product::find($id)->image_name;
+        Storage::delete("/public/images/$filename");
         Product::destroy($id);
         return redirect('/products/job');
     }

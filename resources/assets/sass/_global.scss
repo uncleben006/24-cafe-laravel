@@ -66,19 +66,18 @@ section {
     border-width: 2px;
     border-radius: 300px;
 }
-  
 .btn-xl {
     font-size: 11px;
     padding: 15px 45px;
 }
 
 // @mixin button-normal($color, $background-color, $border-color)
-// @mixin button-outline($color, $background-color, $border-color)
+// @mixin button-outline($color1, $color2, $background-color, $border-color)
 .btn-theme-tertiary {
     @include button-normal($theme-secondary, $theme-tertiary, $theme-tertiary);
 }
-.btn-outline-theme-tertiary {
-    @include button-outline($theme-secondary, $theme-tertiary, $light);
+.btn-outline-theme-primary {
+    @include button-outline($theme-primary, $theme-secondary, $theme-primary, $theme-primary);
 }
 
 .relative {
@@ -160,5 +159,11 @@ section {
     background-position: left top;
 }
 .muted-block {
-    background: rgba(0,0,0,0.75);
+    // background: rgba(0,0,0,0.75);
+    background: rgba($theme-secondary,0.75);
+}
+.blockquote {
+    .blockquote-footer {
+        color: $theme-quaternary;
+    }
 }

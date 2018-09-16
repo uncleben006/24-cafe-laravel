@@ -11005,18 +11005,18 @@ section h2 {
   background-color: #da4631;
 }
 
-.btn-outline-theme-tertiary {
+.btn-outline-theme-primary {
   background-color: transparent;
   border: 1px solid #C9CBA3;
-  color: #472D30;
+  color: #C9CBA3;
 }
 
-.btn-outline-theme-tertiary:hover,
-.btn-outline-theme-tertiary:focus,
-.btn-outline-theme-tertiary:active {
+.btn-outline-theme-primary:hover,
+.btn-outline-theme-primary:focus,
+.btn-outline-theme-primary:active {
   color: #472D30;
   border-color: #C9CBA3;
-  background-color: #E26D5C;
+  background-color: #C9CBA3;
 }
 
 .relative {
@@ -11111,7 +11111,11 @@ section h2 {
 }
 
 .muted-block {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(71, 45, 48, 0.75);
+}
+
+.blockquote .blockquote-footer {
+  color: #FFE1A8;
 }
 
 .navbar-laravel {

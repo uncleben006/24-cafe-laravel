@@ -111,7 +111,7 @@
         </div>
         <h3>品味生活的態度</h3>
         <p class="mb-0">品嘗最香醇的手沖咖啡，體驗忘卻不了的莓果香，享受舌尖回甘的濃郁滋味</p>
-        <button href="./coffee.html" class="btn btn-outline-info my-3">產品詳情</button>
+        <button href="./coffee.html" class="btn btn-outline-theme-primary my-3">產品詳情</button>
         <blockquote class="blockquote">
             <p class="mb-0">如果我不在家，就是在咖啡館；
             <br>如果不是在咖啡館，就是在往咖啡館的路上</p>
@@ -128,7 +128,7 @@
         </div>
         <h3>激起心中的漣漪</h3>
         <p class="mb-0">了解羽球界的最新時事，補充最精良的裝備，體驗廝殺球場上的快感，讓腎上腺素肆意流動</p>
-        <button href="./coffee.html" class="btn btn-outline-info my-3">產品詳情</button>
+        <button href="./coffee.html" class="btn btn-outline-theme-primary my-3">產品詳情</button>
         <blockquote class="blockquote mb-0">
             <p class="mb-0">當我覺得勝券在握的時候，其實比賽才剛開始。</p>
             <footer class="blockquote-footer">羽球選手

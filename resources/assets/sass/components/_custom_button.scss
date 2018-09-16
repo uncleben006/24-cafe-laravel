@@ -8,12 +8,12 @@
     }
 }
 
-@mixin button-outline($color, $background-color, $border-color) {
+@mixin button-outline($color1, $color2, $background-color, $border-color) {
     background-color: transparent;
     border: 1px solid $border-color;
-    color: $color;
+    color: $color1;
     &:hover, &:focus, &:active {
-        color: $color;
+        color: $color2;
         border-color: $border-color;
         background-color: $background-color;
     }

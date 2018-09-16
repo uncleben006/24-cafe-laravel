@@ -7,9 +7,9 @@
 $(function() {    
 
     // 這種形式沒辦法綁定動態產生的 html
-    // $('.btn-add-cart').click(function () {
-    //     alert('click');
-    // })
+    $('.btn-add-cart').click(function () {
+        alert('click');
+    })
 
     $(document).on('click','.btn-edit-product', function () {
         var id = $(this).data('id');
@@ -21,6 +21,7 @@ $(function() {
     });
 
     $.getJSON('/api/products', function(json) {
+        console.log(json)
         for( var index in json ) {
             var data = json[index];
             $('#tbody').append('\
@@ -33,6 +34,7 @@ $(function() {
                         <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
                         <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
                     </td>\
+                    <td><a href="'+data.image_path+'" target="_blank">"'+data.image_name+'"</a></td>\
                 </tr>\
             ');
         }
@@ -53,16 +55,14 @@ $(function() {
                         <th>ID</th>
                         <th>商品名稱</th>
                         <th>價格</th>
-                        <th width="50%">產品敘述</th>
+                        <th>產品敘述</th>
                         <th>編輯產品</th>
+                        <th>產品圖</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
                 </tbody>
             </table>
-            <div class="d-flex justify-content-end">
-                <a href="/products/cart" class="btn btn-primary">結帳</a>
-            </div>            
         </div>
     </div>    
 </div>
