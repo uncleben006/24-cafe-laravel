@@ -11118,6 +11118,17 @@ section h2 {
   color: #FFE1A8;
 }
 
+.product-card:hover .card {
+  opacity: 0.75;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.product-card a:hover {
+  color: inherit !important;
+  text-decoration: none;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

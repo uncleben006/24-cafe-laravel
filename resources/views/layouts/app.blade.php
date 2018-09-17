@@ -99,7 +99,7 @@
             </div>
         </nav>
 
-        <main style="min-height: 75vh; padding: 6rem 0; @yield('index')">
+        <main style="min-height: 75vh; padding-top: 6rem; @yield('index')">
             @yield('content')
         </main>
 
@@ -112,8 +112,8 @@
                 <span class="col-md-3"><a href="./">店員資料</a></span>
                 </div>
                 <div>
-                <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="{{url('/')}}/images/facebook-logo.svg" alt=""></a>
-                <a target="_blank" href="https://www.instagram.com/cafe24lb/"><img class="footer-icon" src="/images/instagram-logo.svg" alt=""></a>
+                <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/facebook-logo.svg') }}" alt=""></a>
+                <a target="_blank" href="https://www.instagram.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/instagram-logo.svg') }} " alt=""></a>
                 </div>
                 <small>© Copright 2018 - 24lb Cafe & Badminton</small>
             </div>

@@ -13,25 +13,36 @@ $(function() {
     //     alert('click');
     // })
 
-    $(document).on('click','.btn-add-cart', function () {
-        var id = $(this).data('id');
-        $.getJSON('/products/add-cart/'+id, function (json) {
-            if(json.status){
-                alert('加入購物車成功');
-            }
-        })
-    });
+    // $(document).on('click','.btn-add-cart', function () {
+    //     var id = $(this).data('id');
+    //     $.getJSON('/products/add-cart/'+id, function (json) {
+    //         if(json.status){
+    //             alert('加入購物車成功');
+    //         }
+    //     })
+    // });
 
     $.getJSON('/api/products', function(json) {
         for( var index in json ) {
+            console.log(json);
             var data = json[index];
-            $('#tbody').append('\
-                <tr>\
-                    <td>'+data.id+'</td>\
-                    <td>'+data.name+'</td>\
-                    <td>'+data.price+'</td>\
-                    <td><button data-id="'+data.id+'" class="btn btn-sm btn-primary btn-add-cart">加入購物車</button></td>\
-                </tr>\
+            $('#product_list').append('\
+            <div class="col-md-3 product-card mb-5">\
+                <a href="#" target="_blank">\
+                    <div class="card">\
+                        <div class="card-header">\
+                            <img class="card-img-top" src="'+data.image_path+'" alt="Card image cap">\
+                        </div>\
+                        <div class="card-body">\
+                            <h5 class="card-title">'+data.name+'</h5>\
+                            <p class="card-text">'+data.description+'</p>\
+                        </div>\
+                        <div class="card-footer">\
+                            <p class="card-text">NT. '+data.price+'</p>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>\
             ');
         }
     });       
@@ -41,8 +52,21 @@ $(function() {
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center" id="product_list">
+        <div class="col-md-3 product-card mb-5">
+            <a href="#" target="_blank">
+                <div class="card">
+                    <div class="card-header">
+                        <img class="card-img-top" src="http://127.0.0.1:8000/storage/images/vive-pro-hmd-update-03.png" alt="Card image cap">
+                    </div>                    
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </a>
+        </div>              
+        {{-- <div class="col-md-8">
             <h1>All Products</h1>
             <table class="table table-bordered">
                 <thead>
@@ -59,7 +83,7 @@ $(function() {
             <div class="d-flex justify-content-end">
                 <a href="/products/cart" class="btn btn-primary">結帳</a>
             </div>            
-        </div>
+        </div> --}}
     </div>    
 </div>
 @endsection

@@ -7,6 +7,8 @@ use App\Product;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+use Image;
+use Intervention\Image\Facades\Image;
 
 // Validator
 use Validator;
@@ -109,7 +111,10 @@ class ProductController extends Controller
         $fileName = $request->file('image')->getClientOriginalName();
         // $extension = $request->file('image')->extension();
         // return $request->file('image')->getClientOriginalName();
+        
         $request->file('image')->storeAs('public/images', $fileName);
+        $img = Image::make("public/images/$fileName")->resize(320, 240)->insert("public/images/$fileName");
+        
         $url = url('/');
         $filePath = "$url/storage/images/$fileName";
         Product::create([

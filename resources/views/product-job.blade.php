@@ -34,7 +34,7 @@ $(function() {
                         <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
                         <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
                     </td>\
-                    <td><a href="'+data.image_path+'" target="_blank">"'+data.image_name+'"</a></td>\
+                    <td><a href="'+data.image_path+'" target="_blank">'+data.image_name+'</a></td>\
                 </tr>\
             ');
         }
