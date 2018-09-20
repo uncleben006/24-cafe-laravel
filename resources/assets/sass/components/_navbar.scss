@@ -1,14 +1,14 @@
 // Styling for the navbar
 #mainNav {
     border-color: fade-out($gray-darker, .95);
-    background-color: rgba(255,255,255,0.75);
+    background-color: $theme-primary;
     @include transition-all;
     @include heading-font;
     &.navbar-shrink {
         border-color: fade-out($gray-darker, .9);
-        background-color: transparent;
+        background-color: rgba($theme-primary,0.25);;
         &:hover {
-            background-color: rgba(255,255,255,0.75);
+            background-color: rgba($theme-primary,0.75);
         }
         &.navbar-brand {
             color: $gray-darker !important;

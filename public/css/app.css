@@ -10798,7 +10798,7 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 
 #mainNav {
   border-color: rgba(34, 34, 34, 0.05);
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: #C9CBA3;
   -webkit-transition: all .35s;
   transition: all .35s;
   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
@@ -10808,11 +10808,11 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 
 #mainNav.navbar-shrink {
   border-color: rgba(34, 34, 34, 0.1);
-  background-color: transparent;
+  background-color: rgba(201, 203, 163, 0.25);
 }
 
 #mainNav.navbar-shrink:hover {
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(201, 203, 163, 0.75);
 }
 
 #mainNav.navbar-shrink.navbar-brand {
@@ -10922,7 +10922,7 @@ body {
 
 body {
   font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
-  background-color: #C9CBA3;
+  background-color: #f8f9fa;
   color: #472D30;
 }
 
@@ -10977,6 +10977,10 @@ section h2 {
   color: #C9CBA3;
 }
 
+.text-secondary {
+  color: #472D30 !important;
+}
+
 .no-gutter > [class*='col-'] {
   padding-right: 0;
   padding-left: 0;
@@ -11017,6 +11021,20 @@ section h2 {
   color: #472D30;
   border-color: #C9CBA3;
   background-color: #C9CBA3;
+}
+
+.btn-outline-theme-secondary {
+  background-color: transparent;
+  border: 1px solid #472D30;
+  color: #472D30;
+}
+
+.btn-outline-theme-secondary:hover,
+.btn-outline-theme-secondary:focus,
+.btn-outline-theme-secondary:active {
+  color: #FFE1A8;
+  border-color: #472D30;
+  background-color: #472D30;
 }
 
 .relative {
@@ -11111,11 +11129,7 @@ section h2 {
 }
 
 .muted-block {
-  background: rgba(71, 45, 48, 0.75);
-}
-
-.blockquote .blockquote-footer {
-  color: #FFE1A8;
+  background: rgba(201, 203, 163, 0.75);
 }
 
 .product-card:hover .card {

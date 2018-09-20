@@ -28,13 +28,13 @@ $(function() {
                 <tr>\
                     <td>'+data.id+'</td>\
                     <td>'+data.name+'</td>\
-                    <td>'+data.price+'</td>\
                     <td>'+data.description+'</td>\
+                    <td>'+data.price+'</td>\
+                    <td><a href="'+data.image_path+'" target="_blank">'+data.image_name+'</a></td>\
                     <td>\
                         <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
                         <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
                     </td>\
-                    <td><a href="'+data.image_path+'" target="_blank">'+data.image_name+'</a></td>\
                 </tr>\
             ');
         }
@@ -46,7 +46,7 @@ $(function() {
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h1 class="float-left">商品列表</h1>
             <a href="/products/job/new/" class="btn btn-primary float-right">新增產品</a>
             <table class="table table-bordered">
@@ -54,10 +54,10 @@ $(function() {
                     <tr>
                         <th>ID</th>
                         <th>商品名稱</th>
+                        <th>產品敘述</th>                        
                         <th>價格</th>
-                        <th>產品敘述</th>
-                        <th>編輯產品</th>
                         <th>產品圖</th>
+                        <th style="min-width: 150px;">編輯產品</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">

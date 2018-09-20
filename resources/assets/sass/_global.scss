@@ -56,6 +56,9 @@ section {
 .text-primary {
     color: $theme-primary;
 }
+.text-secondary {
+    color: $theme-secondary !important;
+}
 
 .no-gutter > [class*='col-'] {
     padding-right: 0;
@@ -78,6 +81,9 @@ section {
 }
 .btn-outline-theme-primary {
     @include button-outline($theme-primary, $theme-secondary, $theme-primary, $theme-primary);
+}
+.btn-outline-theme-secondary {
+    @include button-outline($theme-secondary, $theme-quaternary, $theme-secondary, $theme-secondary);
 }
 
 .relative {
@@ -160,12 +166,7 @@ section {
 }
 .muted-block {
     // background: rgba(0,0,0,0.75);
-    background: rgba($theme-secondary,0.75);
-}
-.blockquote {
-    .blockquote-footer {
-        color: $theme-quaternary;
-    }
+    background: rgba($theme-primary,0.75);
 }
 
 .product-card {

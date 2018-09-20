@@ -8,7 +8,7 @@ use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Image;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 // Validator
 use Validator;
@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        return view('product-list');
+        return view('products.product-list');
     }
 
     public function add_cart(Request $request, $id)
@@ -71,13 +71,13 @@ class ProductController extends Controller
 
     public function cart(Request $request)
     {
-        return view('cart');
+        return view('products.product-cart');
     }
 
     // 只有管理員有權限查看的產品清單，包含新增與刪除功能
     public function job() 
     {
-        return view('product-job');
+        return view('products.product-job');
     }
 
     /**
@@ -87,7 +87,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product-job-form');
+        return view('products.product-job-form');
     }
 
     /**
@@ -109,11 +109,17 @@ class ProductController extends Controller
         }
         
         $fileName = $request->file('image')->getClientOriginalName();
-        // $extension = $request->file('image')->extension();
+
+        // $extension = $request->file('image')->getClientOriginalExtension();
         // return $request->file('image')->getClientOriginalName();
         
-        $request->file('image')->storeAs('public/images', $fileName);
-        $img = Image::make("public/images/$fileName")->resize(320, 240)->insert("public/images/$fileName");
+        
+        $request->file('image')->storeAs("public/images/", $fileName);
+        
+        // $image_path = public_path("storage/images/$fileName"); 
+        // $img = Image::make($image_path)->resize(320,240)->save($image_path);
+        // return $img->response('jpg');
+        // $img = Image::make("public/images/$fileName")->resize(320, 240)->insert("public/images/$fileName");
         
         $url = url('/');
         $filePath = "$url/storage/images/$fileName";
@@ -135,7 +141,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find(c);
+        return view('products.product-detail', [
+            'product' => Product::find($id),
+        ]);
     }
 
     /**
@@ -146,7 +154,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return Product::find($id);
+        return view('products.product-edit',[
+            'product' => Product::find($id)
+        ]);
     }
 
     /**

@@ -29,6 +29,8 @@ Route::get('/products/cart', 'ProductController@cart');
 Route::get('/products/job', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@create');
 Route::post('/products/job/new', 'ProductController@store');
+
+Route::get('/products/{id}/detail', 'ProductController@show');
 Route::get('/products/{id}/edit', 'ProductController@edit');
 Route::post('/products/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
