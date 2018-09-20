@@ -7,6 +7,7 @@ use App\Product;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+
 use Image;
 use Illuminate\Support\Str;
 
