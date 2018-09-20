@@ -15,8 +15,8 @@
 
 // post controller
 Route::get('/', function () { return view('index'); });
-Route::get('/posts', function() { return view('post'); });
-Route::get('/posts/{id}',function($id){ return view('post-single', ['id' => $id ]); });
+Route::get('/posts', function() { return view('post.post'); });
+Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
 Route::post('/posts', 'PostController@store')->name('post');
 
 // product controller consumer

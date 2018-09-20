@@ -54,7 +54,7 @@ class PostController extends Controller
             return ['errors' => $validate->errors()];
         }
         Post::create($request->all());
-        return view('post');
+        return view('post.post');
     }
 
     /**

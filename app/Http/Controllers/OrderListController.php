@@ -20,7 +20,7 @@ class OrderListController extends Controller
      */
     public function index()
     {
-        return view('order-list');
+        return view('ecommerce.order-list');
     }
 
     /**
@@ -62,7 +62,7 @@ class OrderListController extends Controller
             }         
             $i++;            
         }
-        return view('order-list');
+        return view('ecommerce.order-list');
     }
 
     /**

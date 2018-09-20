@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user', [
+        return view('user.user', [
             'title' => 'List all user',
             'users' => User::all()
         ]);
@@ -96,7 +96,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user-edit', [
+        return view('user.user-edit', [
             'user' => User::findOrFail($id)
         ]);
     }

@@ -72,7 +72,7 @@ class ProductController extends Controller
 
     public function cart(Request $request)
     {
-        return view('products.product-cart');
+        return view('ecommerce.product-cart');
     }
 
     // 只有管理員有權限查看的產品清單，包含新增與刪除功能
