@@ -5,7 +5,7 @@
 @section('style')
 <style>
 .custom-file-label::after {
-  content: '選擇檔案' !important;
+    content: '選擇檔案' !important;
 }
 </style>
 @endsection
@@ -15,7 +15,7 @@
 
 $(function () {
     $('.custom-file-input').on('change', function() {
-        let fileName = $(this).val();
+        let fileName = $(this).val().split('\\').pop();
         console.log(fileName);
         $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
     });
