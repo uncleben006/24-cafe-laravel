@@ -2,6 +2,28 @@
 
 @section('products-admin-nav','active')
 
+@section('style')
+<style>
+.custom-file-label::after {
+  content: '選擇檔案' !important;
+}
+</style>
+@endsection
+
+@section('script')
+<script>
+
+$(function () {
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val();
+        console.log(fileName);
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+    });
+});
+
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <h1>新增產品</h1>    
@@ -60,7 +82,13 @@
                         <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">上傳圖片</label>
                             <div class="col-md-6">
-                                <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image">
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input {{ $errors->has('image') ? ' is-invalid' : '' }}" id="image" name="image" multiple>
+                                        <label class="custom-file-label" for="image">尚未選擇檔案</label>
+                                    </div>
+                                </div>
+                                {{-- <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"> --}}
 
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">
@@ -83,16 +111,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    $(function () {
-        $('.btn-delete').click(function () {
-            if(confirm('Do you want to delete User #' +$(this).data('id'))){
-                location.href='/user/delete/'+$(this).data('id')
-            };
-        });
-    });
-</script>
 @endsection
