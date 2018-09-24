@@ -18,20 +18,38 @@ use Validator;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all products api
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function api()
     {
         return Product::all();
     }
-
+    /**
+     * Display single product api
+     */
+    public function singleApi($id)
+    {
+        return Product::find($id);
+    }
+    /**
+     * Display images api
+     */
+    public function imagesApi($id)
+    {
+        return ProductImage::where('product_id', $id)->get();
+    }
+    /**
+     * Display products list
+     */
     public function list()
     {
         return view('products.product-list');
     }
-
+    /**
+     * Add product into shopping cart
+     */
     public function add_cart(Request $request, $id)
     {
         $prev = $request->session()->get('cart');
@@ -43,7 +61,9 @@ class ProductController extends Controller
         $request->session()->put('cart', $arr);
         return (['status'=>true]);
     }
-
+    /**
+     * Display shopping cart api
+     */
     public function list_cart(Request $request)
     {
         // return json_decode($request->session()->get('cart'));
@@ -70,22 +90,27 @@ class ProductController extends Controller
         // print_r($prod_list);
         return $prod_list;
     }
-
+    /**
+     * Display shopping cart interface
+     */
     public function cart(Request $request)
     {
         return view('ecommerce.product-cart');
     }
 
-    // 只有管理員有權限查看的產品清單，包含新增與刪除功能
+    /**
+     * Display product job. 
+     * Including add, edit and delete function to adjust product database. 
+     * Will only show on administrator's navigation.
+     */
     public function job() 
     {
         return view('products.product-job');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display product form to create a new product.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -94,40 +119,15 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Include product id, name, price, description, created time, updated time.
+     * Note: Multiple images information will be stored into product_images DB which related to product DB.
+     * Note: Multiple images will be stored into the file under storage/public/images.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // return $request->all();
-        // $file = $request->file('image');
-        // $filePath =[];  // 定义空数组用来存放图片路径
-        // foreach ($file as $key => $value) {
-        //     // 判断图片上传中是否出错
-        //     if (!$value->isValid()) {
-        //         exit("上传图片出错，请重试！");
-        //     }
-        //     if($value){//此处防止没有多文件上传的情况
-        //         $allowed_extensions = ["png", "jpg", "gif"];
-        //         if ($value->getClientOriginalExtension() && !in_array($value->getClientOriginalExtension(), $allowed_extensions)) {
-        //             exit('您只能上传PNG、JPG或GIF格式的图片！');
-        //         }
-        //         $destinationPath = '/app/public/images/'.date('Y-m-d'); // public文件夹下面uploads/xxxx-xx-xx 建文件夹
-        //         $extension = $value->getClientOriginalExtension();   // 上传文件后缀
-        //         $fileName = date('YmdHis').mt_rand(100,999).'.'.$extension; // 重命名
-
-        //         // $request->file('image')->storeAs(public_path().$destinationPath, $fileName);
-
-        //         $value->move(storage_path().$destinationPath, $fileName); // 保存图片
-        //         $filePath[] = $destinationPath.'/'.$fileName;   
-
-        //     }
-        // }
-        // return gettype($filePath);
-
-
-
         $validate = Validator::make($request->all(), [
             'name'=>'required:',
             'price'=>'required|integer',
@@ -146,6 +146,7 @@ class ProductController extends Controller
             'description'=>$request->description,
         ]);
 
+        // 好像也可以用 Product::orderBy('id', 'desc')->first()->id; 找時間測試一下
         $nowProductID =  Product::where('name',$request->name)->get()->first()->id;
         $image_path = '/public/images/'.$nowProductID.'/';
 
@@ -158,29 +159,12 @@ class ProductController extends Controller
             ]);
         }     
         return redirect('/products/job');
-    }
-    /**
-     * To get image real path
-     */
-    public function getImagePath($fileName)
-    {
-        $url = url('/');
-        $image_path = "$url/storage/images/$fileName";
-        return $image_path;
-    }
-    /**
-     * To show images api
-     */
-    public function images($id)
-    {
-        return ProductImage::where('product_id', $id)->get();
-    }
+    } 
 
     /**
-     * Display the specified resource.
+     * Display product detail page.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -190,7 +174,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the product edit form to edit the specified product.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -205,17 +189,33 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        // if images[] = null , 只清空product DB
+        // Product::destroy($id);
+        // if($request->images) {
+        //     Storage::deleteDirectory("/public/images/$id");
+            
+        //     $image_path = '/public/images/'.$id.'/';
+        //     foreach ($request->images as $image) {
+        //         $fileName = $image->getClientOriginalName();     
+        //         $image->storeAs($image_path, $fileName);
+        //         ProductImage::create([
+        //             'product_id' => $product->id,
+        //             'filename' => $fileName
+        //         ]);
+        //     }    
+        // }
+        // return $request->images;
+        return $request->all();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified file from storage, including the images inside.
+     * Remove the information from products DB and product_images DB.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

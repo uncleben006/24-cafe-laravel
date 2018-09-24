@@ -1345,8 +1345,8 @@ pre code {
 
   .col-md-6 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
     max-width: 50%;
   }
 
@@ -10916,6 +10916,57 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
   margin: 1em;
 }
 
+.slick-slider .slick-prev {
+  left: 15px;
+}
+
+.slick-slider .slick-next {
+  right: 15px;
+}
+
+.slick-slider .slick-prev:before,
+.slick-slider .slick-next:before {
+  color: #E26D5C;
+}
+
+.slick-slider .slick-track {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.slick-slider .slick-track .slick-slide {
+  -webkit-transition: all ease-in-out .3s;
+  transition: all ease-in-out .3s;
+  opacity: .2;
+  height: 300px;
+}
+
+.slick-slider .slick-track .slick-active {
+  opacity: 1;
+}
+
+.slick-slider .slick-track .slick-current {
+  opacity: 1;
+}
+
+.slick-slider .slick-dots {
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.slick-slider .slick-dots li.slick-active button:before {
+  color: #E26D5C;
+}
+
 html,
 body {
   width: 100%;
@@ -10992,6 +11043,7 @@ section h2 {
 .btn {
   border-width: 2px;
   border-radius: 300px;
+  width: auto !important;
 }
 
 .btn-xl {

@@ -5,40 +5,52 @@
 @section('script')
 <script>
 $(function() {    
-
-    // 這種形式沒辦法綁定動態產生的 html
-    $('.btn-add-cart').click(function () {
-        alert('click');
+    $.getJSON('/api/products/{{$product->id}}/images', function (json) {
+        // console.log(json);
+        var domain = window.location.origin;
+        json.forEach(function (e) {
+            var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename
+            $('#images-preview').append('<img src="'+ image_path +'" alt="" style="height: 150px; margin: 0 1rem 1rem 0">')
+        })        
+        
+        console.log(image_path);
     })
 
-    $(document).on('click','.btn-edit-product', function () {
-        var id = $(this).data('id');
-        window.location = '/products/'+id+'/edit/';
-    });
-    $(document).on('click','.btn-delete-product', function () {
-        var id = $(this).data('id');
-        window.location = '/products/'+id+'/delete/';
-    });
+    // Give current url to form
+    var currentUrl = window.location.href;
+    $('#product-edit').attr('action',currentUrl);
 
-    $.getJSON('/api/products', function(json) {
-        console.log(json)
-        for( var index in json ) {
-            var data = json[index];
-            $('#tbody').append('\
-                <tr>\
-                    <td>'+data.id+'</td>\
-                    <td>'+data.name+'</td>\
-                    <td>'+data.description+'</td>\
-                    <td>'+data.price+'</td>\
-                    <td><a href="'+data.image_path+'" target="_blank">'+data.image_name+'</a></td>\
-                    <td>\
-                        <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
-                        <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
-                    </td>\
-                </tr>\
-            ');
-        }
-    });       
+    // Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("images");        
+        filesInput.addEventListener("change", function(event){            
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("images-preview");
+            output.innerHTML='';            
+            for(var i = 0; i< files.length; i++)
+            {
+                var file = files[i];                
+                //Only pics
+                if(!file.type.match('image'))
+                    continue;                
+                var picReader = new FileReader();                
+                picReader.addEventListener("load",function(event){                    
+                    var picFile = event.target;                    
+                    var span = document.createElement("span");                    
+                    span.innerHTML = "<img style='height: 150px; margin: 0 1rem 1rem 0' src='" + picFile.result + "'" +
+                            "title='" + picFile.name + "'/>";                    
+                    output.insertBefore(span,null);           
+                });                
+                //Read the image
+                picReader.readAsDataURL(file);
+            }           
+        });
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
 });
 </script>
 @endsection
@@ -47,23 +59,83 @@ $(function() {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class="float-left">商品列表</h1>
-            <a href="/products/job/new/" class="btn btn-primary float-right">新增產品</a>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>商品名稱</th>
-                        <th>產品敘述</th>                        
-                        <th>價格</th>
-                        <th>產品圖</th>
-                        <th style="min-width: 150px;">編輯產品</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-header">{{$product->name}}</div>
+
+                <div class="card-body">
+                    <form id="product-edit" method="POST" action="" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label text-md-right">產品名稱</label>
+
+                            <div class="col-md-10">
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$product->name}}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="price" class="col-md-2 col-form-label text-md-right">產品價格</label>
+
+                            <div class="col-md-10">
+                                <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{$product->price}}" required>
+
+                                @if ($errors->has('price'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-md-2 col-form-label text-md-right">敘述</label>
+
+                            <div class="col-md-10">
+                                <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5">{{$product->description}}</textarea>
+
+                                @if ($errors->has('description'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="images" class="col-md-2 col-form-label text-md-right">上傳圖片</label>
+                            <div class="col-md-10">
+                                <div class="input-group mb-3">
+                                    <input id="images" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="images[]" multiple>
+                                </div>                                
+
+                                @if ($errors->has('image'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('image') }}</strong>
+                                    </span>
+                                @endif
+                                
+                                <div id="images-preview"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-10 offset-md-2">
+                                <button type="submit" class="btn btn-primary">
+                                    新增
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>    
+    </div>
 </div>
 @endsection
