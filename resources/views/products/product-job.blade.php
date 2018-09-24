@@ -20,23 +20,34 @@ $(function() {
         window.location = '/products/'+id+'/delete/';
     });
 
-    $.getJSON('/api/products', function(json) {
-        console.log(json)
-        for( var index in json ) {
-            var data = json[index];
+    $.getJSON('/api/products', function(p_json) {
+        console.log(p_json)
+        for( var index in p_json ) {
+            var data = p_json[index];
             $('#tbody').append('\
                 <tr>\
                     <td>'+data.id+'</td>\
                     <td>'+data.name+'</td>\
                     <td>'+data.description+'</td>\
                     <td>'+data.price+'</td>\
-                    <td><a href="'+data.image_path+'" target="_blank">'+data.image_name+'</a></td>\
+                    <td id="image-'+data.id+'" style="max-width: 120px;"></td>\
                     <td>\
                         <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
                         <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
                     </td>\
                 </tr>\
             ');
+
+            $.getJSON('/api/products/'+data.id+'/images', function (i_json) {
+                console.log(i_json)
+                var domain = window.location.origin;
+                image_path = [];                
+                i_json.forEach(function (e) {
+                    image_path.push(domain+'/storage/images/'+e.filename);
+                    $('#image-'+e.product_id).append('<a href="'+domain+'/storage/images/'+e.product_id+'/'+e.filename+'" target="_blank">'+e.filename+'</a>、');
+                });            
+                // console.log(image_path);
+            })
         }
     });       
 });

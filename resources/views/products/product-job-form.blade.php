@@ -80,15 +80,16 @@ $(function () {
                         </div>
 
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right">上傳圖片</label>
+                            <label for="images" class="col-md-4 col-form-label text-md-right">上傳圖片</label>
                             <div class="col-md-6">
                                 <div class="input-group mb-3">
-                                    <div class="custom-file">
+                                    {{-- <div class="custom-file">
                                         <input type="file" class="custom-file-input {{ $errors->has('image') ? ' is-invalid' : '' }}" id="image" name="image" multiple>
                                         <label class="custom-file-label" for="image">尚未選擇檔案</label>
-                                    </div>
+                                    </div> --}}
+                                    <input id="images" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="images[]" multiple>
                                 </div>
-                                {{-- <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image"> --}}
+                                
 
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">

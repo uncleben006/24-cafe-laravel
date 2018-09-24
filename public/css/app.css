@@ -1345,8 +1345,8 @@ pre code {
 
   .col-md-6 {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-            flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
     max-width: 50%;
   }
 
@@ -10806,6 +10806,10 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
   letter-spacing: 1px;
 }
 
+#mainNav hr {
+  max-width: 100px;
+}
+
 #mainNav.navbar-shrink {
   border-color: rgba(34, 34, 34, 0.1);
   background-color: rgba(201, 203, 163, 0.25);
@@ -10927,7 +10931,6 @@ body {
 }
 
 hr {
-  max-width: 100px;
   margin: 25px auto 0;
   border-width: 1px;
   border-color: rgba(34, 34, 34, 0.1);

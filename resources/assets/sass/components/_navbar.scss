@@ -1,5 +1,8 @@
 // Styling for the navbar
 #mainNav {
+    hr {        
+        max-width: 100px;
+    }
     border-color: fade-out($gray-darker, .95);
     background-color: $theme-primary;
     @include transition-all;

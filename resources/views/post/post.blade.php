@@ -36,7 +36,7 @@ $(function() {
         $('#tbody').append('\
         <tr>\
             <td>'+ data[index].id +'</td>\
-            <td><a href="/posts/'+ data[index].id +'">'+ data[index].title +'</a></td>\
+            <td><a href="/posts/'+ data[index].id +'/show">'+ data[index].title +'</a></td>\
             <td>'+ data[index].note +'</td>\
         <tr>\
         ')

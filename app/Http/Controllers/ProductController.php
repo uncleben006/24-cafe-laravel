@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\ProductImage;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -99,39 +100,80 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
+        // $file = $request->file('image');
+        // $filePath =[];  // 定义空数组用来存放图片路径
+        // foreach ($file as $key => $value) {
+        //     // 判断图片上传中是否出错
+        //     if (!$value->isValid()) {
+        //         exit("上传图片出错，请重试！");
+        //     }
+        //     if($value){//此处防止没有多文件上传的情况
+        //         $allowed_extensions = ["png", "jpg", "gif"];
+        //         if ($value->getClientOriginalExtension() && !in_array($value->getClientOriginalExtension(), $allowed_extensions)) {
+        //             exit('您只能上传PNG、JPG或GIF格式的图片！');
+        //         }
+        //         $destinationPath = '/app/public/images/'.date('Y-m-d'); // public文件夹下面uploads/xxxx-xx-xx 建文件夹
+        //         $extension = $value->getClientOriginalExtension();   // 上传文件后缀
+        //         $fileName = date('YmdHis').mt_rand(100,999).'.'.$extension; // 重命名
+
+        //         // $request->file('image')->storeAs(public_path().$destinationPath, $fileName);
+
+        //         $value->move(storage_path().$destinationPath, $fileName); // 保存图片
+        //         $filePath[] = $destinationPath.'/'.$fileName;   
+
+        //     }
+        // }
+        // return gettype($filePath);
+
+
+
         $validate = Validator::make($request->all(), [
             'name'=>'required:',
             'price'=>'required|integer',
-        ]);
+        ]);       
+        
         if ($validate->fails()) {
             return redirect('/products/job/new/')
                         ->withErrors($validate)
                         ->withInput();
-        }
+        }      
+        // $extension = $request->file('image')->getClientOriginalExtension();        
         
-        $fileName = $request->file('image')->getClientOriginalName();
-
-        // $extension = $request->file('image')->getClientOriginalExtension();
-        // return $request->file('image')->getClientOriginalName();
-        
-        
-        $request->file('image')->storeAs("public/images/", $fileName);
-        
-        // $image_path = public_path("storage/images/$fileName"); 
-        // $img = Image::make($image_path)->resize(320,240)->save($image_path);
-        // return $img->response('jpg');
-        // $img = Image::make("public/images/$fileName")->resize(320, 240)->insert("public/images/$fileName");
-        
-        $url = url('/');
-        $filePath = "$url/storage/images/$fileName";
-        Product::create([
+        $product = Product::create([
             'name'=>$request->name,
             'price'=>$request->price,
             'description'=>$request->description,
-            'image_name'=>$fileName,
-            'image_path'=>$filePath,
         ]);
+
+        $nowProductID =  Product::where('name',$request->name)->get()->first()->id;
+        $image_path = '/public/images/'.$nowProductID.'/';
+
+        foreach ($request->images as $image) {
+            $fileName = $image->getClientOriginalName();     
+            $image->storeAs($image_path, $fileName);
+            ProductImage::create([
+                'product_id' => $product->id,
+                'filename' => $fileName
+            ]);
+        }     
         return redirect('/products/job');
+    }
+    /**
+     * To get image real path
+     */
+    public function getImagePath($fileName)
+    {
+        $url = url('/');
+        $image_path = "$url/storage/images/$fileName";
+        return $image_path;
+    }
+    /**
+     * To show images api
+     */
+    public function images($id)
+    {
+        return ProductImage::where('product_id', $id)->get();
     }
 
     /**
@@ -180,8 +222,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $filename = Product::find($id)->image_name;
-        Storage::delete("/public/images/$filename");
+        Storage::deleteDirectory("/public/images/$id");
         Product::destroy($id);
         return redirect('/products/job');
     }

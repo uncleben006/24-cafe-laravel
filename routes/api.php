@@ -24,3 +24,4 @@ Route::post('/posts', 'PostController@store');
 
 // product api
 Route::get('/products', 'ProductController@index');
+Route::get('/products/{id}/images', 'ProductController@images');
