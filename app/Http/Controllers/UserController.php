@@ -53,9 +53,9 @@ class UserController extends Controller
     {
         Log::debug($request->all());
         $validate = Validator::make($request->all(), [
-            'name'=>'required',
-            'email'=>'required|unique:users',
-            'password'=>'required|confirmed'
+            'name'      => 'required',
+            'email'     => 'required|unique:users',
+            'password'  => 'required|confirmed'
         ]);
         if ($validate->fails()) {
             return redirect('/user')
@@ -127,9 +127,9 @@ class UserController extends Controller
         }
         User::where('id', $id)
             ->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => Hash::make($request->password),
                 'authority' => $request->authority
             ]);
         return redirect('/');

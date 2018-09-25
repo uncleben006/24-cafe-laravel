@@ -193,24 +193,24 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        // if images[] = null , 只清空product DB
-        // Product::destroy($id);
-        // if($request->images) {
-        //     Storage::deleteDirectory("/public/images/$id");
-            
-        //     $image_path = '/public/images/'.$id.'/';
-        //     foreach ($request->images as $image) {
-        //         $fileName = $image->getClientOriginalName();     
-        //         $image->storeAs($image_path, $fileName);
-        //         ProductImage::create([
-        //             'product_id' => $product->id,
-        //             'filename' => $fileName
-        //         ]);
-        //     }    
-        // }
-        // return $request->images;
-        return $request->all();
+    {        
+        // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
+        // 同時刪除資料庫裡的圖片，並新增新的圖
+        if($request->images) {
+            Storage::deleteDirectory("/public/images/$id");
+            $originalImages = ProductImage::where('product_id',$id);
+            $originalImages->delete();     
+            $image_path = '/public/images/'.$id.'/';
+            foreach ($request->images as $image) {
+                $fileName = $image->getClientOriginalName();                     
+                $image->storeAs($image_path, $fileName);
+                ProductImage::create([
+                    'product_id' => $id,
+                    'filename' => $fileName
+                ]);
+            }    
+        }
+        return redirect('/products/job');
     }
 
     /**
