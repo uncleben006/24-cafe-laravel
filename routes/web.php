@@ -21,9 +21,9 @@ Route::post('/posts', 'PostController@store')->name('post');
 
 // product controller consumer
 Route::get('/products', 'ProductController@list');
-Route::get('/products/add-cart/{id}', 'ProductController@add_cart');
-Route::get('/products/list-cart', 'ProductController@list_cart');
-Route::get('/products/cart', 'ProductController@cart');
+// Route::get('/products/add-cart/{id}', 'ProductController@add_cart');
+// Route::get('/products/list-cart', 'ProductController@list_cart');
+// Route::get('/products/cart', 'ProductController@cart');
 
 // product controller administrator
 Route::get('/products/job', 'ProductController@job');
@@ -36,9 +36,9 @@ Route::post('/products/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
 
 // order-list controller
-Route::get('/products/checkout', 'OrderListController@index');
-Route::post('/products/checkout', 'OrderListController@store');
-Route::get('/products/order-list', 'OrderListController@show');
+// Route::get('/products/checkout', 'OrderListController@index');
+// Route::post('/products/checkout', 'OrderListController@store');
+// Route::get('/products/order-list', 'OrderListController@show');
 
 // chat controller
 Route::get('/chat', 'ChatController@index');

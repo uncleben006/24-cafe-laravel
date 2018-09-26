@@ -38,7 +38,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest
+                        <li class="nav-item @yield('products-nav')">
+                            <a class="nav-link" href="/products">產品資訊</a>
+                        </li>
+                        {{-- @guest
                             <li class="nav-item @yield('products-nav')">
                                 <a class="nav-link" href="/products">產品頁面</a>
                             </li>
@@ -52,7 +55,7 @@
                                     <a class="dropdown-item" href="/products/checkout">訂購單</a>
                                 </div>                            
                             </li>
-                        @endauth
+                        @endauth --}}
                         <li class="nav-item @yield('post-nav')">
                             <a class="nav-link" href="/posts">文章</a>
                         </li>
@@ -87,9 +90,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="logout-dropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" 
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

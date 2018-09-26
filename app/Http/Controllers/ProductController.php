@@ -120,9 +120,6 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * Include product id, name, price, description, created time, updated time.
-     * Note: Multiple images information will be stored into product_images DB which related to product DB.
-     * Note: Multiple images will be stored into the file under storage/public/images.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -132,40 +129,24 @@ class ProductController extends Controller
         $product = Product::create([
             'name'=>$request->name
         ]);        
-        if(($request->category)=='Rackets'){
-            return self::storeRacket($request);
+
+        switch ($request->category) {
+            case 'Rackets':
+                return self::storeRacket($product->id, $request);
+                break;
+            case 'Footwear':
+                return "You choose Footwear";
+                break;
+            case 'Bag':
+                return "You choose Bag";
+                break;
+            case 'Apparel':
+                return "You choose Apparel";
+                break;
+            case 'Accessories':
+                return "You choose Accessories";
+                break;
         }
-        // $validate = Validator::make($request->all(), [
-        //     'name'=>'required:',
-        //     'price'=>'required|integer',
-        // ]);       
-        
-        // if ($validate->fails()) {
-        //     return redirect('/products/job/new/')
-        //                 ->withErrors($validate)
-        //                 ->withInput();
-        // }      
-        // // $extension = $request->file('image')->getClientOriginalExtension();        
-        
-        // $product = Product::create([
-        //     'name'=>$request->name,
-        //     'price'=>$request->price,
-        //     'description'=>$request->description,
-        // ]);
-
-        // 好像也可以用 Product::orderBy('id', 'desc')->first()->id; 找時間測試一下
-        // $nowProductID =  Product::where('name',$request->name)->get()->first()->id;
-        // $image_path = '/public/images/'.$nowProductID.'/';
-
-        // foreach ($request->images as $image) {
-        //     $fileName = $image->getClientOriginalName();     
-        //     $image->storeAs($image_path, $fileName);
-        //     ProductImage::create([
-        //         'product_id' => $product->id,
-        //         'filename' => $fileName
-        //     ]);
-        // }     
-        // return redirect('/products/job');
     } 
     /**
      *  Store a racket into product database, and then store the images. 
@@ -194,7 +175,7 @@ class ProductController extends Controller
             'brands'=>'VICTOR'
         ]);
 
-        return self::storeImage($product->id,$request);
+        return self::storeImage($id,$request);
     }
     /**
      * Store images into product image database.
