@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
+use App\Racket;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -128,6 +129,49 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $product = Product::create([
+            'name'=>$request->name
+        ]);        
+        if(($request->category)=='Rackets'){
+            return self::storeRacket($request);
+        }
+        // $validate = Validator::make($request->all(), [
+        //     'name'=>'required:',
+        //     'price'=>'required|integer',
+        // ]);       
+        
+        // if ($validate->fails()) {
+        //     return redirect('/products/job/new/')
+        //                 ->withErrors($validate)
+        //                 ->withInput();
+        // }      
+        // // $extension = $request->file('image')->getClientOriginalExtension();        
+        
+        // $product = Product::create([
+        //     'name'=>$request->name,
+        //     'price'=>$request->price,
+        //     'description'=>$request->description,
+        // ]);
+
+        // 好像也可以用 Product::orderBy('id', 'desc')->first()->id; 找時間測試一下
+        // $nowProductID =  Product::where('name',$request->name)->get()->first()->id;
+        // $image_path = '/public/images/'.$nowProductID.'/';
+
+        // foreach ($request->images as $image) {
+        //     $fileName = $image->getClientOriginalName();     
+        //     $image->storeAs($image_path, $fileName);
+        //     ProductImage::create([
+        //         'product_id' => $product->id,
+        //         'filename' => $fileName
+        //     ]);
+        // }     
+        // return redirect('/products/job');
+    } 
+    /**
+     *  Store a racket into product database, and then store the images. 
+     */
+    public function storeRacket($id, $request)
+    {
         $validate = Validator::make($request->all(), [
             'name'=>'required:',
             'price'=>'required|integer',
@@ -137,30 +181,39 @@ class ProductController extends Controller
             return redirect('/products/job/new/')
                         ->withErrors($validate)
                         ->withInput();
-        }      
-        // $extension = $request->file('image')->getClientOriginalExtension();        
-        
-        $product = Product::create([
+        }                      
+
+        $racket = Racket::create([
+            'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
             'description'=>$request->description,
+            'series'=>'亮劍!',
+            'categories'=>'進攻!',
+            'rank'=>'高級啦幹!',
+            'brands'=>'VICTOR'
         ]);
 
-        // 好像也可以用 Product::orderBy('id', 'desc')->first()->id; 找時間測試一下
-        $nowProductID =  Product::where('name',$request->name)->get()->first()->id;
-        $image_path = '/public/images/'.$nowProductID.'/';
+        return self::storeImage($product->id,$request);
+    }
+    /**
+     * Store images into product image database.
+     */
+    public function storeImage($id, $request)
+    {        
+        $image_path = '/public/images/'.$id.'/';
 
         foreach ($request->images as $image) {
+            echo 
             $fileName = $image->getClientOriginalName();     
             $image->storeAs($image_path, $fileName);
             ProductImage::create([
-                'product_id' => $product->id,
+                'product_id' => $id,
                 'filename' => $fileName
             ]);
-        }     
+        }   
         return redirect('/products/job');
-    } 
-
+    }
     /**
      * Display product detail page.
      *

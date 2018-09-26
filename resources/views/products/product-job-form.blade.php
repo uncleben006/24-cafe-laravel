@@ -31,16 +31,39 @@ $(function () {
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">您的資料</div>
+                <div class="card-header">填入資料</div>
 
                 <div class="card-body">
                     <form method="POST" action="/products/job/new/" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">產品名稱</label>
 
-                            <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="category" class="col-md-2 text-md-right">產品類別</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="category" name="category">
+                                    <option>Rackets</option>
+                                </select>
+                            </div>                            
+                        </div>
+                        {{-- <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label text-md-right">產品類別</label>
+
+                            <div class="col-md-10">
+                                <input id="category" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> --}}
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label text-md-right">產品名稱</label>
+
+                            <div class="col-md-10">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required autofocus>
 
                                 @if ($errors->has('name'))
@@ -52,9 +75,9 @@ $(function () {
                         </div>
 
                         <div class="form-group row">
-                            <label for="price" class="col-md-4 col-form-label text-md-right">產品價格</label>
+                            <label for="price" class="col-md-2 col-form-label text-md-right">產品價格</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="" required>
 
                                 @if ($errors->has('price'))
@@ -66,9 +89,9 @@ $(function () {
                         </div>
 
                         <div class="form-group row">
-                            <label for="description" class="col-md-4 col-form-label text-md-right">敘述</label>
+                            <label for="description" class="col-md-2 col-form-label text-md-right">敘述</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5"></textarea>
 
                                 @if ($errors->has('description'))
@@ -80,8 +103,8 @@ $(function () {
                         </div>
 
                         <div class="form-group row">
-                            <label for="images" class="col-md-4 col-form-label text-md-right">上傳圖片</label>
-                            <div class="col-md-6">
+                            <label for="images" class="col-md-2 col-form-label text-md-right">上傳圖片</label>
+                            <div class="col-md-10">
                                 <div class="input-group mb-3">
                                     {{-- <div class="custom-file">
                                         <input type="file" class="custom-file-input {{ $errors->has('image') ? ' is-invalid' : '' }}" id="image" name="image" multiple>
@@ -100,7 +123,7 @@ $(function () {
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-10 offset-md-2">
                                 <button type="submit" class="btn btn-primary">
                                     新增
                                 </button>

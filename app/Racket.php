@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Racket extends Model
 {
-    protected $table = 'products';
+    protected $table = 'rackets';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name'
+        'product_id', 'name', 'price', 'description', 'series', 'categories', 'rank', 'brands'
     ];
 
     /**
@@ -24,12 +24,8 @@ class Product extends Model
     protected $hidden = [
 
     ];
-    public function image()
+    public function product()
     {
-        return $this->hasMany('App\ProductImage', 'product_id', 'id');
-    }
-    public function racket()
-    {
-        return $this->hasOne('App\Rackets', 'product_id', 'id');
+        return $this->belongsTo('App\Product');
     }
 }
