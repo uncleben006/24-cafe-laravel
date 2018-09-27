@@ -17,6 +17,9 @@
             transition: all ease-in-out .3s;
             opacity: .2;
             height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .slick-active {
             opacity: 1;

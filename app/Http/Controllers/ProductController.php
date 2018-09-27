@@ -25,7 +25,12 @@ class ProductController extends Controller
      */
     public function api()
     {
-        return Product::all();
+        $merge = Racket::all()->merge(Product::all());
+        return $merge->all();
+    }
+    public function racketApi()
+    {
+        return Racket::all();
     }
     /**
      * Display single product api
@@ -47,6 +52,13 @@ class ProductController extends Controller
     public function list()
     {
         return view('products.product-list');
+    }
+    /**
+     * Display products rackets list
+     */
+    public function showRackets()
+    {
+        return view('products.product-rackets');
     }
     /**
      * Add product into shopping cart
@@ -169,10 +181,10 @@ class ProductController extends Controller
             'name'=>$request->name,
             'price'=>$request->price,
             'description'=>$request->description,
-            'series'=>'亮劍!',
-            'categories'=>'進攻!',
-            'rank'=>'高級啦幹!',
-            'brands'=>'VICTOR'
+            'series'=>$request->series,
+            'categories'=>$request->categories,
+            'rank'=>$request->rank,
+            'brands'=>$request->brands
         ]);
 
         return self::storeImage($id,$request);

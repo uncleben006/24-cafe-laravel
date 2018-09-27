@@ -721,7 +721,7 @@ pre code {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -2312,7 +2312,7 @@ pre code {
 }
 
 .form-control {
-  display: inline-block;
+  display: block;
   width: 100%;
   height: calc(2.25rem + 2px);
   padding: 0.375rem 0.75rem;
@@ -7419,8 +7419,8 @@ button.bg-dark:focus {
 
 .align-items-center {
   -webkit-box-align: center !important;
-  -ms-flex-align: center !important;
-  align-items: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
 }
 
 .align-items-baseline {
@@ -10946,6 +10946,15 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
   transition: all ease-in-out .3s;
   opacity: .2;
   height: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .slick-slider .slick-track .slick-active {
