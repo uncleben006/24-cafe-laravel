@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function api()
     {
-        $merge = Racket::all()->merge(Product::all());
+        $merge = Product::all()->merge(Racket::all());
         return $merge->all();
     }
     public function racketApi()
@@ -180,11 +180,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description,
-            'series'=>$request->series,
-            'categories'=>$request->categories,
-            'rank'=>$request->rank,
-            'brands'=>$request->brands
+            'description'=>$request->description||'',
+            'series'=>$request->series||'',
+            'categories'=>$request->categories||'',
+            'rank'=>$request->rank||'',
+            'brands'=>$request->brands||''
         ]);
 
         return self::storeImage($id,$request);
@@ -194,17 +194,20 @@ class ProductController extends Controller
      */
     public function storeImage($id, $request)
     {        
+        
         $image_path = '/public/images/'.$id.'/';
-
-        foreach ($request->images as $image) {
-            echo 
-            $fileName = $image->getClientOriginalName();     
-            $image->storeAs($image_path, $fileName);
-            ProductImage::create([
-                'product_id' => $id,
-                'filename' => $fileName
-            ]);
-        }   
+        if($request->images){
+            foreach ($request->images as $image) {
+                echo 
+                $fileName = $image->getClientOriginalName();     
+                $image->storeAs($image_path, $fileName);
+                ProductImage::create([
+                    'product_id' => $id,
+                    'filename' => $fileName
+                ]);
+            }   
+        }
+        
         return redirect('/products/job');
     }
     /**
