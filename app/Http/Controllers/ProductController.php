@@ -25,8 +25,9 @@ class ProductController extends Controller
      */
     public function api()
     {
+        // 把各類的產品資料庫都merge起來，去掉id，sortby product_id
         $merge = Racket::all()->merge(Product::all());
-        return $merge->all();
+        return Product::all();
     }
     public function racketApi()
     {
@@ -180,11 +181,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description,
-            'series'=>$request->series,
-            'categories'=>$request->categories,
-            'rank'=>$request->rank,
-            'brands'=>$request->brands
+            'description'=>$request->description||'',
+            'series'=>$request->series||'',
+            'categories'=>$request->categories||'',
+            'rank'=>$request->rank||'',
+            'brands'=>$request->brands||''
         ]);
 
         return self::storeImage($id,$request);
@@ -195,16 +196,17 @@ class ProductController extends Controller
     public function storeImage($id, $request)
     {        
         $image_path = '/public/images/'.$id.'/';
-
-        foreach ($request->images as $image) {
-            echo 
-            $fileName = $image->getClientOriginalName();     
-            $image->storeAs($image_path, $fileName);
-            ProductImage::create([
-                'product_id' => $id,
-                'filename' => $fileName
-            ]);
-        }   
+        if($request->images){
+            foreach ($request->images as $image) {
+                echo 
+                $fileName = $image->getClientOriginalName();     
+                $image->storeAs($image_path, $fileName);
+                ProductImage::create([
+                    'product_id' => $id,
+                    'filename' => $fileName
+                ]);
+            }   
+        }        
         return redirect('/products/job');
     }
     /**
