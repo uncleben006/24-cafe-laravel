@@ -25,9 +25,14 @@ class ProductController extends Controller
      */
     public function api()
     {
+<<<<<<< HEAD
         // 把各類的產品資料庫都merge起來，去掉id，sortby product_id
         $merge = Racket::all()->merge(Product::all());
         return Product::all();
+=======
+        $merge = Product::all()->merge(Racket::all());
+        return $merge->all();
+>>>>>>> 5d115ec02fcba7051c30f41bcb16a88c19b81401
     }
     public function racketApi()
     {
@@ -195,6 +200,7 @@ class ProductController extends Controller
      */
     public function storeImage($id, $request)
     {        
+        
         $image_path = '/public/images/'.$id.'/';
         if($request->images){
             foreach ($request->images as $image) {
@@ -206,7 +212,12 @@ class ProductController extends Controller
                     'filename' => $fileName
                 ]);
             }   
+<<<<<<< HEAD
         }        
+=======
+        }
+        
+>>>>>>> 5d115ec02fcba7051c30f41bcb16a88c19b81401
         return redirect('/products/job');
     }
     /**
