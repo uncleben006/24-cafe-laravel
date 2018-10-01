@@ -1,8 +1,8 @@
 @extends('layouts/app')
 
-@section('products-nav')
-active
-@endsection
+@section('badminton-nav','active')
+@section('badminton-subnav', 'show-dropdown')
+@section('badminton-rackets', 'subnav-active')
 
 @section('style')
 <style>

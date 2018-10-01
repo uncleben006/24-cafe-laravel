@@ -57,43 +57,70 @@
     }
     @media (min-width: 992px) {
         .navbar-nav {            
-            .active {
+            .active a {
                 border-bottom: $theme-tertiary solid 5px;
             }
         }
     }
-    // @media (min-width: 992px) {
-    //     .navbar-brand {
-    //         color: fade(white, 70%);
-    //         &:hover,
-    //         &:focus {
-    //             color: white;
-    //         }
-    //     }
-    //     .navbar-nav > li > a,
-    //     .navbar-nav > li > a:focus {
-    //         color: fade-out(black, .3);
-    //         &:hover {
-    //             color: black;
-    //         }
-    //     }
-    //     &.navbar-shrink {
-    //         border-color: fade-out($gray-darker, .9);
-    //         border-bottom: solid 1px;
-    //         .navbar-brand {
-    //             color: $gray-darker;
-    //             &:hover,
-    //             &:focus {
-    //                 color: $theme-secondary;
-    //             }
-    //         }
-    //         .navbar-nav > li > a,
-    //         .navbar-nav > li > a:focus {
-    //             color: $gray-darker;
-    //             &:hover {
-    //                 color: $theme-secondary;
-    //             }
-    //         }
-    //     }
-    // }
+}
+
+.navbar-subnav {
+    visibility: hidden;        
+    background: #FFE1A8;
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    transition: 0.25s;
+}
+.navbar-subnav a {        
+    transform: translateY(-25%);
+    transition: 0.1s;
+    display: block;
+}
+.dropdown {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.25s;
+    height: 100%;
+}
+.dropdown a {
+    transform: translateY(0%);
+    transition: 0.5s;
+}
+.show-dropdown a {
+    color: inherit !important;
+}
+.navbar-subnav .subnav-active {
+    color: $theme-tertiary !important;
+}
+@media (min-width: 992px){
+    .navbar-subnav {
+        position: absolute;
+        left: 0;
+        visibility: hidden;
+        opacity: 0;
+        width: 100%;    
+    }
+    .navbar-subnav a {
+        display: inline-block;
+        transform: initial;
+    }
+    .show-dropdown {
+        visibility: visible;
+        opacity: 1;
+        height: 100%;
+        color: $theme-secondary
+    }
+    .show-dropdown a {
+        color: inherit !important;
+        border-bottom: none !important;
+    }
+    .navbar-subnav .subnav-active {
+        border-bottom: $theme-tertiary solid 5px !important;
+    }
+    .navbar-subnav:hover,.product-nav:hover +.navbar-subnav {
+        visibility: visible;
+        opacity: 1;
+        height: 100%;
+    }
 }

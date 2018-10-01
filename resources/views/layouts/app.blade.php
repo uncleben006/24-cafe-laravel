@@ -22,25 +22,40 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('style')
     
+    <style>
+    
+    
+    </style>
 </head>
 <body>
     <div id="app">        
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">
+                
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item @yield('products-nav')">
-                            <a class="nav-link" href="/products">產品資訊</a>
+                        <li class="nav-item @yield('badminton-nav')">
+                            <a class="nav-link product-nav dropdown-toggle" href="javascript:void(0);">羽球專區</a>
+                            <div class="navbar-subnav @yield('badminton-subnav')">
+                                <div class="container">
+                                    <a href="/products/rackets" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
+                                    <a href="/products/rackets" class="nav-link subnav-link">羽球鞋</a>
+                                    <a href="/products/rackets" class="nav-link subnav-link">羽球衣</a>                                    
+                                    <a href="/products/rackets" class="nav-link subnav-link">拍包袋 & 背包</a>
+                                    <a href="/products/rackets" class="nav-link subnav-link">羽球、配件及器材</a>
+                                </div>
+                            </div>
                         </li>
+                        
                         {{-- @guest
                             <li class="nav-item @yield('products-nav')">
                                 <a class="nav-link" href="/products">產品頁面</a>
@@ -56,6 +71,19 @@
                                 </div>                            
                             </li>
                         @endauth --}}
+
+                        <li class="nav-item @yield('coffee-nav')">
+                            <a class="nav-link product-nav" href="/products">咖啡專區</a>
+                            <div class="navbar-subnav">
+                                <div class="container">
+                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡產品</a>
+                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡介紹</a>
+                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡地圖</a>
+                                </div>
+                            </div>
+                        </li>
+
+
                         <li class="nav-item @yield('post-nav')">
                             <a class="nav-link" href="/posts">文章</a>
                         </li>
@@ -136,5 +164,10 @@
     <!-- Custom Scripts -->
     @yield('script')
 
+    <script>
+        $('.product-nav').on('click',function (e) {
+            $(this).next().toggleClass('dropdown');
+        })
+    </script>
 </body>
 </html>
