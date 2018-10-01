@@ -27,16 +27,14 @@
 <script>
 $(function() {    
     
-    $.getJSON('/api/products', function(p_json) {
-        for( var index in p_json ) {
-            console.log(p_json);
-            var data = p_json[index];
+    $.getJSON('/api/products/rackets', function(p_json) {
+        p_json.forEach(function(data){
             $('#product_list').append('\
             <div class="col-md-3 product-card mb-5">\
-                <a href="/products/'+data.id+'/detail" target="_blank">\
+                <a href="/products/'+data.product_id+'/detail" target="_blank">\
                     <div class="card">\
                         <div class="card-header">\
-                            <img id="image-'+data.id+'" src="" class="img-fluid">\
+                            <img id="image-'+data.product_id+'" src="" class="img-fluid">\
                         </div>\
                         <div class="card-body">\
                             <h5 class="card-title">'+data.name+'</h5>\
@@ -48,17 +46,13 @@ $(function() {
                 </a>\
             </div>\
             ');
-
-            $.getJSON('/api/products/'+data.id+'/images', function (i_json) {
+            $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {
                 // 因為是 product list 所以放第一個當縮圖就好
-                console.log('i_json= ', i_json)
                 var domain = window.location.origin;
-                console.log('domain= ', domain);
                 var image_path = domain + '/storage/images/' + i_json[0].product_id + '/' + i_json[0].filename;
-                console.log(image_path);
                 $('#image-'+i_json[0].product_id).attr('src', image_path);
             })
-        }
+        })
     });       
 });
 </script>
