@@ -163,11 +163,5 @@
 
     <!-- Custom Scripts -->
     @yield('script')
-
-    <script>
-        $('.product-nav').on('click',function (e) {
-            $(this).next().toggleClass('dropdown');
-        })
-    </script>
 </body>
 </html>

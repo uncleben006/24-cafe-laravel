@@ -89,5 +89,10 @@ const app = new Vue({
         $(this).parent().carousel('next')
       }else { $(this).parent().carousel('prev') }
     })
+
+    // sub nav toggle class when mobile view
+    $('.product-nav').on('click',function (e) {
+        $(this).next().toggleClass('dropdown');
+    })
   
   })(jQuery); // End of use strict

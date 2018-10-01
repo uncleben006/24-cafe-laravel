@@ -40,7 +40,81 @@
                 &:hover {
                     color: $theme-tertiary;
                 }                           
-            }              
+            }            
+        // sub nav bar start
+            .navbar-subnav {
+                visibility: hidden;        
+                background: $theme-quaternary;
+                opacity: 0;
+                height: 0;
+                padding: 0;
+                transition: 0.25s;
+                a {        
+                    transform: translateY(-25%);
+                    transition: 0.1s;
+                    display: block;
+                }
+                .subnav-active {
+                    color: $theme-tertiary !important;
+                }    
+            }
+            @media (min-width: 992px){
+                .navbar-subnav {
+                    position: absolute;
+                    left: 0;
+                    visibility: hidden;
+                    opacity: 0;
+                    width: 100%;
+                    a {
+                        display: inline-block;
+                        transform: initial;
+                    }    
+                    .subnav-active {
+                        border-bottom: $theme-tertiary solid 5px !important;
+                    }
+                    &:hover {
+                        visibility: visible;
+                        opacity: 1;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .show-dropdown a {
+                color: inherit !important;
+            }
+            @media (min-width: 992px) {
+                .show-dropdown {
+                    visibility: visible;
+                    opacity: 1;
+                    height: 100%;
+                    color: $theme-secondary;
+                    a {
+                        color: inherit !important;
+                        border-bottom: none !important;
+                    }
+                }
+            }  
+            .dropdown {
+                visibility: visible;
+                opacity: 1;
+                transition: 0.25s;
+                height: 100%;
+                a {
+                    transform: translateY(0%);
+                    transition: 0.5s;
+                }
+            }
+            @media (min-width: 992px){    
+                .product-nav:hover {
+                    +.navbar-subnav {
+                        visibility: visible;
+                        opacity: 1;
+                        height: 100%;
+                    }        
+                }
+            }
+        //  sub nav bar end
         }
         .active {
             a {
@@ -51,9 +125,21 @@
             }
             background-color: transparent;
         }
-        .dropdown-item {
-            color: $dark !important;
-        }
+        .dropdown-menu {
+            width: auto;
+            min-width: auto;            
+            .dropdown-item {
+                text-align: center;
+                background: $theme-tertiary;
+                color: $theme-secondary;         
+                border: none;
+                &:hover {
+                    background: $theme-tertiary;
+                    color: $theme-quaternary;
+                    transition: 0.25s;
+                }
+            }
+        }        
     }
     @media (min-width: 992px) {
         .navbar-nav {            
@@ -64,63 +150,7 @@
     }
 }
 
-.navbar-subnav {
-    visibility: hidden;        
-    background: #FFE1A8;
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    transition: 0.25s;
-}
-.navbar-subnav a {        
-    transform: translateY(-25%);
-    transition: 0.1s;
-    display: block;
-}
-.dropdown {
-    visibility: visible;
-    opacity: 1;
-    transition: 0.25s;
-    height: 100%;
-}
-.dropdown a {
-    transform: translateY(0%);
-    transition: 0.5s;
-}
-.show-dropdown a {
-    color: inherit !important;
-}
-.navbar-subnav .subnav-active {
-    color: $theme-tertiary !important;
-}
-@media (min-width: 992px){
-    .navbar-subnav {
-        position: absolute;
-        left: 0;
-        visibility: hidden;
-        opacity: 0;
-        width: 100%;    
-    }
-    .navbar-subnav a {
-        display: inline-block;
-        transform: initial;
-    }
-    .show-dropdown {
-        visibility: visible;
-        opacity: 1;
-        height: 100%;
-        color: $theme-secondary
-    }
-    .show-dropdown a {
-        color: inherit !important;
-        border-bottom: none !important;
-    }
-    .navbar-subnav .subnav-active {
-        border-bottom: $theme-tertiary solid 5px !important;
-    }
-    .navbar-subnav:hover,.product-nav:hover +.navbar-subnav {
-        visibility: visible;
-        opacity: 1;
-        height: 100%;
-    }
-}
+
+
+
+
