@@ -66,8 +66,8 @@ $(function() {
         return '\
             <div class="Rtable-cell w-100 text-center bg-info h3 py-2 mb-0 mt-3"><strong>'+ category +'</strong></div>\
             <div class="Rtable-cell"><strong>ID</strong></div>\
-            <div class="Rtable-cell"><strong>商品名稱</strong>\
-            </div><div class="Rtable-cell"><strong>產品敘述</strong></div>\
+            <div class="Rtable-cell"><strong>商品名稱</strong></div>\
+            <div class="Rtable-cell"><strong>產品敘述</strong></div>\
             <div class="Rtable-cell"><strong>價格</strong></div>\
             <div class="Rtable-cell"><strong>產品圖</strong></div>\
             <div class="Rtable-cell"><strong>編輯產品</strong></div>'

@@ -46,18 +46,29 @@ $(function() {
             <div class="row">
                 <div class="col-md-7 text-center border p-5" id="image-block"></div>
                 <div class="col-md-5 ">
-                    <h2>{{$product->name}}</h2>
-                    <h4>NT. {{$product->price}}</h4>
-                    <p>{{$product->description}}</p>
-                    <p>最後編輯: {{$product->created_at}}</p>
+                    <div class="d-flex justify-content-between flex-column h-100">
+                        <div>
+                            <h2>{{$product->name}}</h2>
+                            <h4>NT. {{$product->price}}</h4>
+                            <div class="py-3">
+                                <div>
+                                    系列: <span class="bg-info p-1 rounded">{{$product->series}}</span>
+                                    分類: <span class="bg-info p-1 rounded">{{$product->categories}}</span>
+                                </div>
+                                <div class="pt-3">
+                                    等級: <span class="bg-info p-1 rounded">{{$product->rank}}</span>
+                                    品牌: <span class="bg-info p-1 rounded">{{$product->brands}}</span>
+                                </div>
+                            </div>
+
+                            <div class="border" style="min-height: 150px;">{{$product->description}}</div>
+                            <p></p>
+                        </div>
+                        <p>最後編輯: {{$product->created_at}}</p>
+                    </div>
                 </div>
             </div>            
         </div>
     </div>    
-    {{-- <div class="your-class">
-        <div>your content</div>
-        <div>your content</div>
-        <div>your content</div>
-    </div> --}}
 </div>
 @endsection

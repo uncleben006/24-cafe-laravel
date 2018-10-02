@@ -279,7 +279,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->racket()->first();
                 break;
             case Product::find($id)->footwear()->first();
-                return "You choose Footwear";
+                $array = Product::find($id)->footwear()->first();
                 break;
             case Product::find($id)->bag()->first():
                 return "You choose Bag";
