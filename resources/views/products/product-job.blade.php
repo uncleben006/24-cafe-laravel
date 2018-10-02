@@ -61,10 +61,16 @@ $(function() {
     });
     
     var category = '';
-    var tableTitle = '<div class="Rtable-cell"><strong>ID</strong></div><div class="Rtable-cell"><strong>商品名稱</strong></div><div class="Rtable-cell"><strong>產品敘述</strong></div><div class="Rtable-cell"><strong>價格</strong></div><div class="Rtable-cell"><strong>產品圖</strong></div><div class="Rtable-cell"><strong>編輯產品</strong></div>'
 
     function titleCategory(category){
-        return '<div class="Rtable-cell w-100 text-center bg-info h3 py-2 my-2"><strong>'+ category +'</strong></div>'
+        return '\
+            <div class="Rtable-cell w-100 text-center bg-info h3 py-2 mb-0 mt-3"><strong>'+ category +'</strong></div>\
+            <div class="Rtable-cell"><strong>ID</strong></div>\
+            <div class="Rtable-cell"><strong>商品名稱</strong>\
+            </div><div class="Rtable-cell"><strong>產品敘述</strong></div>\
+            <div class="Rtable-cell"><strong>價格</strong></div>\
+            <div class="Rtable-cell"><strong>產品圖</strong></div>\
+            <div class="Rtable-cell"><strong>編輯產品</strong></div>'
     }    
 
     $.getJSON('/api/products', function(p_json) {
@@ -73,23 +79,18 @@ $(function() {
             switch (index) {
                 case 'racket':
                     $('#tbody').append(titleCategory('羽球拍'));
-                    $('#tbody').append(tableTitle);
                     break;
                 case 'footwear':
                     $('#tbody').append(titleCategory('羽球鞋'));
-                    $('#tbody').append(tableTitle);
                     break;
                 case 'Bag':
                     $('#tbody').append(titleCategory('羽球袋'));
-                    $('#tbody').append(tableTitle);
                     break;
                 case 'Apparel':
                     $('#tbody').append(titleCategory('羽球衣'));
-                    $('#tbody').append(tableTitle);
                     break;
                 case 'Accessories':
                     $('#tbody').append(titleCategory('羽球配件'));
-                    $('#tbody').append(tableTitle);
                     break;
             }
             value.forEach(function(data){
