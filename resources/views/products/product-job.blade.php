@@ -59,34 +59,61 @@ $(function() {
         var id = $(this).data('id');
         window.location = '/products/'+id+'/delete/';
     });
+    
+    var category = '';
+    var tableTitle = '<div class="Rtable-cell"><strong>ID</strong></div><div class="Rtable-cell"><strong>商品名稱</strong></div><div class="Rtable-cell"><strong>產品敘述</strong></div><div class="Rtable-cell"><strong>價格</strong></div><div class="Rtable-cell"><strong>產品圖</strong></div><div class="Rtable-cell"><strong>編輯產品</strong></div>'
+
+    function titleCategory(category){
+        return '<div class="Rtable-cell w-100 text-center bg-info h3 py-2 my-2"><strong>'+ category +'</strong></div>'
+    }    
 
     $.getJSON('/api/products', function(p_json) {
-        console.log(p_json)
-        for( var index in p_json ) {
-            var data = p_json[index];
-            $('#tbody').append('\
-                <div class="Rtable-cell">'+data.id+'</div>\
-                <div class="Rtable-cell">'+data.name+'</div>\
-                <div class="Rtable-cell">'+data.description+'</div>\
-                <div class="Rtable-cell">'+data.price+'</div>\
-                <div class="Rtable-cell" id="image-'+data.id+'"></div>\
-                <div class="Rtable-cell">\
-                    <button data-id="'+data.id+'" class="btn btn-primary btn-edit-product">編輯</button>\
-                    <button data-id="'+data.id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
-                </div>\
-            ');
-
-            $.getJSON('/api/products/'+data.id+'/images', function (i_json) {
-                console.log(i_json)
-                var domain = window.location.origin;
-                image_path = [];                
-                i_json.forEach(function (e) {
-                    image_path.push(domain+'/storage/images/'+e.filename);
-                    $('#image-'+e.product_id).append('<a href="'+domain+'/storage/images/'+e.product_id+'/'+e.filename+'" target="_blank">'+e.filename+'</a><hr>');
-                });            
-                // console.log(image_path);
+        
+        $.each(p_json, function(index, value) {
+            switch (index) {
+                case 'racket':
+                    $('#tbody').append(titleCategory('羽球拍'));
+                    $('#tbody').append(tableTitle);
+                    break;
+                case 'footwear':
+                    $('#tbody').append(titleCategory('羽球鞋'));
+                    $('#tbody').append(tableTitle);
+                    break;
+                case 'Bag':
+                    $('#tbody').append(titleCategory('羽球袋'));
+                    $('#tbody').append(tableTitle);
+                    break;
+                case 'Apparel':
+                    $('#tbody').append(titleCategory('羽球衣'));
+                    $('#tbody').append(tableTitle);
+                    break;
+                case 'Accessories':
+                    $('#tbody').append(titleCategory('羽球配件'));
+                    $('#tbody').append(tableTitle);
+                    break;
+            }
+            value.forEach(function(data){
+                $('#tbody').append('\
+                    <div class="Rtable-cell">'+data.product_id+'</div>\
+                    <div class="Rtable-cell">'+data.name+'</div>\
+                    <div class="Rtable-cell">'+data.description+'</div>\
+                    <div class="Rtable-cell">'+data.price+'</div>\
+                    <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
+                    <div class="Rtable-cell">\
+                        <button data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
+                        <button data-id="'+data.product_id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
+                    </div>\
+                ');
+                $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {
+                    var domain = window.location.origin;
+                    image_path = [];                
+                    i_json.forEach(function (e) {
+                        image_path.push(domain+'/storage/images/'+e.filename);
+                        $('#image-'+e.product_id).append('<a href="'+domain+'/storage/images/'+e.product_id+'/'+e.filename+'" target="_blank">'+e.filename+'</a><hr>');
+                    });            
+                })
             })
-        }
+        })
     });       
 });
 </script>
@@ -100,15 +127,18 @@ $(function() {
                 <h1 class="float-left">商品列表</h1>
                 <a href="/products/job/new/" class="btn btn-primary float-right">新增產品</a>
             </div>
-            <div class="Rtable Rtable--6cols" id="tbody">
-                <div class="Rtable-cell"><strong>ID</strong></div>
-                <div class="Rtable-cell"><strong>商品名稱</strong></div>
-                <div class="Rtable-cell"><strong>產品敘述</strong></div>
-                <div class="Rtable-cell"><strong>價格</strong></div>
-                <div class="Rtable-cell"><strong>產品圖</strong></div>
-                <div class="Rtable-cell"><strong>編輯產品</strong></div>             
-                
+            <div id="product-list">
+                <div class="Rtable Rtable--6cols" id="tbody">  
+                        {{-- <div class="Rtable-cell w-100 text-center bg-info h3 py-2"><strong>羽球鞋</strong></div> --}}
+                        {{-- <div class="Rtable-cell"><strong>ID</strong></div>
+                        <div class="Rtable-cell"><strong>商品名稱</strong></div>
+                        <div class="Rtable-cell"><strong>產品敘述</strong></div>
+                        <div class="Rtable-cell"><strong>價格</strong></div>
+                        <div class="Rtable-cell"><strong>產品圖</strong></div>
+                        <div class="Rtable-cell"><strong>編輯產品</strong></div>                                                     --}}
+                </div>
             </div>
+            
         </div>
     </div>    
 </div>

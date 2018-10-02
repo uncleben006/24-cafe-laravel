@@ -30,6 +30,10 @@ class Product extends Model
     }
     public function racket()
     {
-        return $this->hasOne('App\Rackets', 'product_id', 'id');
+        return $this->hasOne('App\Racket', 'product_id', 'id');
+    }
+    public function footwear()
+    {
+        return $this->hasOne('App\Footwear', 'product_id', 'id');
     }
 }

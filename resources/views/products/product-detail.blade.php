@@ -18,11 +18,8 @@ active
 <script>
 $(function() {    
 
-    $.getJSON('/api/products/'+{{$product->id}}+'/images', function (i_json) {
-        console.log('i_json= ', i_json)
-        
-        var domain = window.location.origin;
-        
+    $.getJSON('/api/products/'+{{$product->product_id}}+'/images', function (i_json) {        
+        var domain = window.location.origin;        
         i_json.forEach(function (e) {
             var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename;
             console.log(image_path);
@@ -35,9 +32,6 @@ $(function() {
         $('#image-block').slick({
             dots: true,
             infinite: true,
-            // slidesToShow: 2,
-            // slidesToScroll: 2,
-            // autoplay: true,
         });
     })
     

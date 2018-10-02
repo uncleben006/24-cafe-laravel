@@ -48,7 +48,7 @@
                             <div class="navbar-subnav @yield('badminton-subnav')">
                                 <div class="container">
                                     <a href="/products/rackets" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
-                                    <a href="/products/rackets" class="nav-link subnav-link">羽球鞋</a>
+                                    <a href="/products/footwears" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
                                     <a href="/products/rackets" class="nav-link subnav-link">羽球衣</a>                                    
                                     <a href="/products/rackets" class="nav-link subnav-link">拍包袋 & 背包</a>
                                     <a href="/products/rackets" class="nav-link subnav-link">羽球、配件及器材</a>

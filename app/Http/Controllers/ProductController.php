@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
 use App\Racket;
+use App\Footwear;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -26,12 +27,30 @@ class ProductController extends Controller
     public function api()
     {
         // 把各類的產品資料庫都merge起來，去掉id，sortby product_id
-        $merge = Racket::all()->merge(Product::all());
-        return Product::all();
+        $racket = Racket::all();
+        $footwear = Footwear::all();
+        $product = [
+            'racket'=>$racket,
+            'footwear'=>$footwear,
+        ];    
+        return $product;
+        
+        $merge = Racket::all()->merge(Footwear::all());    
+        return Racket::all();
     }
+    /**
+     * Display rackets api
+     */
     public function racketApi()
     {
         return Racket::all();
+    }
+    /**
+     * Display footwears api
+     */
+    public function footwearApi()
+    {
+        return Footwear::all();
     }
     /**
      * Display single product api
@@ -60,6 +79,13 @@ class ProductController extends Controller
     public function showRackets()
     {
         return view('products.product-rackets');
+    }
+    /**
+     * Display products footwears list
+     */
+    public function showFootwears()
+    {
+        return view('products.product-footwears');
     }
     /**
      * Add product into shopping cart
@@ -95,11 +121,11 @@ class ProductController extends Controller
         $i = 0;
         foreach($session_value as $key => $value){
             if(Product::find($key)){
-                $prod_list[] = Product::find($key);  
+                $prod_list[] = Product::find($key);
                 $prod_list[$i]->{'quantity'} = $value;
             }
-            $i++;                
-        };                
+            $i++;
+        };
         // echo $i;   
         // print_r($prod_list);
         return $prod_list;
@@ -142,13 +168,14 @@ class ProductController extends Controller
         $product = Product::create([
             'name'=>$request->name
         ]);        
+        $product_id = $product->id;
 
         switch ($request->category) {
             case 'Rackets':
-                return self::storeRacket($product->id, $request);
+                return self::storeRacket($product_id, $request);
                 break;
             case 'Footwear':
-                return "You choose Footwear";
+                return self::storeFootwear($product_id, $request);
                 break;
             case 'Bag':
                 return "You choose Bag";
@@ -181,11 +208,40 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description||'',
-            'series'=>$request->series||'',
-            'categories'=>$request->categories||'',
-            'rank'=>$request->rank||'',
-            'brands'=>$request->brands||''
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+
+        return self::storeImage($id,$request);
+    }
+    /**
+     * Store a footwear into product database, and then store the images.
+     */
+    public function storeFootwear($id, $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);       
+        
+        if ($validate->fails()) {
+            return redirect('/products/job/new/')
+                        ->withErrors($validate)
+                        ->withInput();
+        }                      
+
+        $racket = Footwear::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
         ]);
 
         return self::storeImage($id,$request);
@@ -217,8 +273,26 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $array = [];
+        switch (!NULL) {
+            case Product::find($id)->racket()->first();
+                $array = Product::find($id)->racket()->first();
+                break;
+            case Product::find($id)->footwear()->first();
+                return "You choose Footwear";
+                break;
+            case Product::find($id)->bag()->first():
+                return "You choose Bag";
+                break;
+            case Product::find($id)->apparel()->first():
+                return "You choose Apparel";
+                break;
+            case Product::find($id)->accessories()->first():
+                return "You choose Accessories";
+                break;
+        }
         return view('products.product-detail', [
-            'product' => Product::find($id),
+            'product' => $array,
         ]);
     }
 
