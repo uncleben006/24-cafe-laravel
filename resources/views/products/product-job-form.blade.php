@@ -85,11 +85,11 @@ $(function () {
                             <label for="category" class="col-md-4 col-form-label">產品類別</label>
                             <div class="col-md-8">
                                 <select class="form-control" id="category" name="category">
-                                    <option value="Rackets">羽球拍</option>
-                                    <option value="Footwear">羽球鞋</option>
-                                    <option value="Bag">拍包袋 & 背包</option>
-                                    <option value="Apparel">服裝</option>
-                                    <option value="Accessories">羽球、配件及器材</option>
+                                    <option value="racket">羽球拍</option>
+                                    <option value="footwear">羽球鞋</option>
+                                    <option value="bag">拍包袋 & 背包</option>
+                                    <option value="apparel">服裝</option>
+                                    <option value="accessory">羽球、配件及器材</option>
                                 </select>
                             </div>                            
                         </div>

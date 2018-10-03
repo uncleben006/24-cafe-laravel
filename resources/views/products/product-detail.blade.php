@@ -16,25 +16,26 @@ active
 
 @section('script')
 <script>
-$(function() {    
-
-    $.getJSON('/api/products/'+{{$product->product_id}}+'/images', function (i_json) {        
-        var domain = window.location.origin;        
+$(function() {       
+    $.getJSON('/api/products/'+{{$product->product_id}}+'/images', function (i_json) {                
+        var domain = window.location.origin;                 
         i_json.forEach(function (e) {
             var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename;
             console.log(image_path);
             $('#image-block').append('\
                 <div><img class="img-fluid" src="'+image_path+'" alt=""></div>\
             ');
-        });            
+        });                 
+    })
+    .then(function() {
+        $('.loading').remove();    
     })
     .done(function () {
         $('#image-block').slick({
             dots: true,
             infinite: true,
-        });
+        });    
     })
-    
 });
 </script>
 @endsection
@@ -44,7 +45,7 @@ $(function() {
     <div class="row">
         <div class="col-md-10 offset-md-1">
             <div class="row">
-                <div class="col-md-7 text-center border p-5" id="image-block"></div>
+                <div class="col-md-7 text-center border p-5" id="image-block"><div class="loading"></div></div>
                 <div class="col-md-5 ">
                     <div class="d-flex justify-content-between flex-column h-100">
                         <div>
@@ -61,7 +62,7 @@ $(function() {
                                 </div>
                             </div>
 
-                            <div class="border" style="min-height: 150px;">{{$product->description}}</div>
+                            <div class="border p-3">{{$product->description}}</div>
                             <p></p>
                         </div>
                         <p>最後編輯: {{$product->created_at}}</p>

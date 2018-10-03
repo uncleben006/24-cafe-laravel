@@ -65,13 +65,84 @@ class ProductController extends Controller
     public function imagesApi($id)
     {
         return ProductImage::where('product_id', $id)->get();
+    }    
+    /**
+     * Display product job. 
+     * Including add, edit and delete function to adjust product database. 
+     * Will only show on administrator's navigation.
+     */
+    public function job() 
+    {
+        return view('products.product-job');
     }
     /**
-     * Display products list
+     * Display product form to create a new product.
+     *
      */
-    public function list()
+    public function jobForm()
     {
-        return view('products.product-list');
+        return view('products.product-job-form');
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $product = Product::create([
+            'name'=>$request->name
+        ]);        
+        $product_id = $product->id;
+        self::storeImage($product_id,$request);
+        switch ($request->category) {
+            case 'racket':
+                self::storeRacket($product_id, $request);
+                break;
+            case 'footwear':
+                self::storeFootwear($product_id, $request);
+                break;
+            case 'bag':
+                return "You choose Bag";
+                break;
+            case 'apparel':
+                return "You choose Apparel";
+                break;
+            case 'accessory':
+                return "You choose Accessories";
+                break;
+        }
+        return redirect('/products/job');
+    }    
+    /**
+     * Display product detail page.
+     *
+     * @param  int  $id
+     */
+    public function showDetail($id, $category)
+    {
+        $array = [];
+        switch ($category) {
+            case 'racket';
+                $array = Product::find($id)->racket()->first();
+                break;
+            case 'footwear';
+                $array = Product::find($id)->footwear()->first();
+                break;
+            case 'bag';
+                return "You choose Bag";
+                break;
+            case 'apparel';
+                return "You choose Apparel";
+                break;
+            case 'accessory';
+                return "You choose Accessories";
+                break;
+        }
+        return view('products.product-detail', [
+            'product' => $array,
+        ]);
     }
     /**
      * Display products rackets list
@@ -88,106 +159,127 @@ class ProductController extends Controller
         return view('products.product-footwears');
     }
     /**
-     * Add product into shopping cart
-     */
-    public function add_cart(Request $request, $id)
-    {
-        $prev = $request->session()->get('cart');
-        $arr = [];
-        if( $prev != null ){
-            $arr = $prev;
-        }
-        $arr[] = $id;
-        $request->session()->put('cart', $arr);
-        return (['status'=>true]);
-    }
-    /**
-     * Display shopping cart api
-     */
-    public function list_cart(Request $request)
-    {
-        // return json_decode($request->session()->get('cart'));
-        // 取得當初存入 session 中的 id 陣列，然後再排序、歸類
-        $session_value = $request->session()->get('cart');
-        if ($session_value){
-            sort($session_value);   
-            $session_value = array_count_values($session_value);   
-        } else {
-            $session_value = array();
-        }
-
-        // 用 session id 陣列來搜尋 product，取得完整的產品資料，再傳給 $prod_list      
-        $prod_list = [];         
-        $i = 0;
-        foreach($session_value as $key => $value){
-            if(Product::find($key)){
-                $prod_list[] = Product::find($key);
-                $prod_list[$i]->{'quantity'} = $value;
-            }
-            $i++;
-        };
-        // echo $i;   
-        // print_r($prod_list);
-        return $prod_list;
-    }
-    /**
-     * Display shopping cart interface
-     */
-    public function cart(Request $request)
-    {
-        return view('ecommerce.product-cart');
-    }
-
-    /**
-     * Display product job. 
-     * Including add, edit and delete function to adjust product database. 
-     * Will only show on administrator's navigation.
-     */
-    public function job() 
-    {
-        return view('products.product-job');
-    }
-
-    /**
-     * Display product form to create a new product.
+     * Display the product edit form to edit the specified product.
      *
-     */
-    public function create()
-    {
-        return view('products.product-job-form');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function edit($id, $category)
     {
-        $product = Product::create([
-            'name'=>$request->name
-        ]);        
-        $product_id = $product->id;
-
-        switch ($request->category) {
-            case 'Rackets':
-                return self::storeRacket($product_id, $request);
+        $array = [];
+        switch ($category) {
+            case 'racket';
+                $array = Product::find($id)->racket()->first();
                 break;
-            case 'Footwear':
-                return self::storeFootwear($product_id, $request);
+            case 'footwear';
+                $array = Product::find($id)->footwear()->first();
                 break;
-            case 'Bag':
+            case 'bag';
                 return "You choose Bag";
                 break;
-            case 'Apparel':
+            case 'apparel';
                 return "You choose Apparel";
                 break;
-            case 'Accessories':
+            case 'accessory';
                 return "You choose Accessories";
                 break;
         }
-    } 
+        return view('products.product-edit', [
+            'product' => $array,
+        ]);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id, $category)
+    {        
+        // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
+        // 同時刪除資料庫裡的圖片，並新增新的圖
+
+        // 改 Product 資料庫 (主資料庫)
+        Product::where('id', $id)
+        ->update([
+            'name' => $request->name,
+        ]);
+
+        // 如果 User 選的類別汗腺在是一樣的，那就在現在這個 Model更新，若否則刪除並再新的 Model 新增
+        if($request->category==$category){
+            switch ($category) {
+                case 'racket';
+                    self::updateRacket($id, $request);     
+                    self::updateImage($id,$request);
+                    break;
+                case 'footwear';
+                    self::updateFootwear($id, $request);
+                    self::updateImage($id,$request);
+                    break;
+                case 'bag':
+                    return "You choose Bag";
+                    break;
+                case 'apparel':
+                    return "You choose Apparel";
+                    break;
+                case 'accessory':
+                    return "You choose Accessories";
+                    break;
+            }
+        }
+        // 若否則刪除並再新的 Model 新增
+        else {
+            // self::destroy($id);
+            switch ($category) {
+                case 'racket';
+                    Racket::where('product_id', $id)->delete();
+                    break;
+                case 'footwear';
+                    Footwear::where('product_id', $id)->delete();
+                    break;
+                case 'bag':
+                    Product::destroy($id);
+                    break;
+                case 'apparel':
+                    Product::destroy($id);
+                    break;
+                case 'accessory':
+                    Product::destroy($id);
+                    break;
+            }
+            switch ($request->category) {
+                case 'racket':
+                    self::storeRacket($id, $request);
+                    break;
+                case 'footwear':
+                    self::storeFootwear($id, $request);
+                    break;
+                case 'bag':
+                    return "You choose Bag";
+                    break;
+                case 'apparel':
+                    return "You choose Apparel";
+                    break;
+                case 'accessory':
+                    return "You choose Accessories";
+                    break;
+            }
+        }
+        return redirect('/products/job');
+    }
+    /**
+     * Remove the specified file from storage, including the images inside.
+     * Remove the information from products DB and product_images DB.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Storage::deleteDirectory("/public/images/$id");
+        Product::destroy($id);
+        return redirect('/products/job');
+    }
     /**
      *  Store a racket into product database, and then store the images. 
      */
@@ -214,11 +306,9 @@ class ProductController extends Controller
             'rank'=>$request->rank? $request->rank : '',
             'brands'=>$request->brands? $request->brands : ''
         ]);
-
-        return self::storeImage($id,$request);
-    }
+    }    
     /**
-     * Store a footwear into product database, and then store the images.
+     * Store a footwear into product database
      */
     public function storeFootwear($id, $request)
     {
@@ -243,15 +333,12 @@ class ProductController extends Controller
             'rank'=>$request->rank? $request->rank : '',
             'brands'=>$request->brands? $request->brands : ''
         ]);
-
-        return self::storeImage($id,$request);
-    }
+    }    
     /**
      * Store images into product image database.
      */
     public function storeImage($id, $request)
-    {        
-        
+    {                
         $image_path = '/public/images/'.$id.'/';
         if($request->images){
             foreach ($request->images as $image) {
@@ -263,63 +350,68 @@ class ProductController extends Controller
                     'filename' => $fileName
                 ]);
             }   
-        }        
-        return redirect('/products/job');
+        }                
     }
     /**
-     * Display product detail page.
-     *
-     * @param  int  $id
+     *  Update racket
      */
-    public function show($id)
+    public function updateRacket($id, $request)
     {
-        $array = [];
-        switch (!NULL) {
-            case Product::find($id)->racket()->first();
-                $array = Product::find($id)->racket()->first();
-                break;
-            case Product::find($id)->footwear()->first();
-                $array = Product::find($id)->footwear()->first();
-                break;
-            case Product::find($id)->bag()->first():
-                return "You choose Bag";
-                break;
-            case Product::find($id)->apparel()->first():
-                return "You choose Apparel";
-                break;
-            case Product::find($id)->accessories()->first():
-                return "You choose Accessories";
-                break;
-        }
-        return view('products.product-detail', [
-            'product' => $array,
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);       
+        
+        if ($validate->fails()) {
+            return redirect("/products/$id/edit/")
+                        ->withErrors($validate)
+                        ->withInput();
+        }          
+        $racket = Racket::where('product_id', $id)
+        ->update([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
         ]);
     }
-
     /**
-     * Display the product edit form to edit the specified product.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *  Update footwear
      */
-    public function edit($id)
+    public function updateFootwear($id, $request)
     {
-        return view('products.product-edit',[
-            'product' => Product::find($id)
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);     
+        
+        if ($validate->fails()) {
+            return redirect("/products/$id/edit/")
+                        ->withErrors($validate)
+                        ->withInput();
+        }          
+        $racket = Footwear::where('product_id', $id)
+        ->update([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
         ]);
     }
-
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update images.
      */
-    public function update(Request $request, $id)
+    public function updateImage($id, $request)
     {        
-        // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
-        // 同時刪除資料庫裡的圖片，並新增新的圖
-        if($request->images) {
+        if($request->images){
             Storage::deleteDirectory("/public/images/$id");
             $originalImages = ProductImage::where('product_id',$id);
             $originalImages->delete();     
@@ -331,22 +423,68 @@ class ProductController extends Controller
                     'product_id' => $id,
                     'filename' => $fileName
                 ]);
-            }    
-        }
-        return redirect('/products/job');
-    }
-
-    /**
-     * Remove the specified file from storage, including the images inside.
-     * Remove the information from products DB and product_images DB.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Storage::deleteDirectory("/public/images/$id");
-        Product::destroy($id);
-        return redirect('/products/job');
+            }
+        }      
     }
 }
+
+
+
+
+    /**
+     * Display products list
+     */
+    // public function list()
+    // {
+    //     return view('products.product-list');
+    // }    
+    /**
+     * Add product into shopping cart
+     */
+    // public function add_cart(Request $request, $id)
+    // {
+    //     $prev = $request->session()->get('cart');
+    //     $arr = [];
+    //     if( $prev != null ){
+    //         $arr = $prev;
+    //     }
+    //     $arr[] = $id;
+    //     $request->session()->put('cart', $arr);
+    //     return (['status'=>true]);
+    // }
+    /**
+     * Display shopping cart api
+     */
+    // public function list_cart(Request $request)
+    // {
+    //     // return json_decode($request->session()->get('cart'));
+    //     // 取得當初存入 session 中的 id 陣列，然後再排序、歸類
+    //     $session_value = $request->session()->get('cart');
+    //     if ($session_value){
+    //         sort($session_value);   
+    //         $session_value = array_count_values($session_value);   
+    //     } else {
+    //         $session_value = array();
+    //     }
+
+    //     // 用 session id 陣列來搜尋 product，取得完整的產品資料，再傳給 $prod_list      
+    //     $prod_list = [];         
+    //     $i = 0;
+    //     foreach($session_value as $key => $value){
+    //         if(Product::find($key)){
+    //             $prod_list[] = Product::find($key);
+    //             $prod_list[$i]->{'quantity'} = $value;
+    //         }
+    //         $i++;
+    //     };
+    //     // echo $i;   
+    //     // print_r($prod_list);
+    //     return $prod_list;
+    // }
+    /**
+     * Display shopping cart interface
+     */
+    // public function cart(Request $request)
+    // {
+    //     return view('ecommerce.product-cart');
+    // }

@@ -31,10 +31,12 @@ $(function() {
         p_json.forEach(function(data){
             $('#product_list').append('\
             <div class="col-md-3 product-card mb-5">\
-                <a href="/products/'+data.product_id+'/detail" target="_blank">\
+                <a href="/products/'+data.product_id+'/racket/detail" target="_blank">\
                     <div class="card">\
                         <div class="card-header">\
-                            <img id="image-'+data.product_id+'" src="" class="img-fluid">\
+                            <div id="image-'+data.product_id+'" style="position:relative">\
+                                <div class="loading loading-image"></div>\
+                            </div>\
                         </div>\
                         <div class="card-body">\
                             <h5 class="card-title">'+data.name+'</h5>\
@@ -50,17 +52,21 @@ $(function() {
                 // 因為是 product list 所以放第一個當縮圖就好
                 var domain = window.location.origin;
                 var image_path = domain + '/storage/images/' + i_json[0].product_id + '/' + i_json[0].filename;
-                $('#image-'+i_json[0].product_id).attr('src', image_path);
+                $('#image-'+i_json[0].product_id).html('<img src="'+image_path+'" alt="" class="img-fluid">');
             })
         })
-    });       
+    })
+    .done(function() {
+        $('.loading-content').remove();    
+    })       
 });
 </script>
 @endsection
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center" id="product_list">                
+    <div class="row justify-content-center" id="product_list">       
+        <div class="loading loading-content"></div>        
     </div>    
 </div>
 @endsection

@@ -27,7 +27,7 @@ class Product extends Model
     public function image()
     {
         return $this->hasMany('App\ProductImage', 'product_id', 'id');
-    }
+    }    
     public function racket()
     {
         return $this->hasOne('App\Racket', 'product_id', 'id');

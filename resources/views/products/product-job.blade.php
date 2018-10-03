@@ -53,7 +53,8 @@ $(function() {
 
     $(document).on('click','.btn-edit-product', function () {
         var id = $(this).data('id');
-        window.location = '/products/'+id+'/edit/';
+        var category = $(this).data('category');
+        window.location = '/products/'+id+'/'+category+'/edit/';
     });
     $(document).on('click','.btn-delete-product', function () {
         var id = $(this).data('id');
@@ -101,7 +102,7 @@ $(function() {
                     <div class="Rtable-cell">'+data.price+'</div>\
                     <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
                     <div class="Rtable-cell">\
-                        <button data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
+                        <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
                         <button data-id="'+data.product_id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
                     </div>\
                 ');
