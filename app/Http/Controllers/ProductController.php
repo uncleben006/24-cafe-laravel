@@ -7,6 +7,7 @@ use App\Product;
 use App\ProductImage;
 use App\Racket;
 use App\Footwear;
+use App\Bag;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -29,9 +30,11 @@ class ProductController extends Controller
         // 把各類的產品資料庫都merge起來，去掉id，sortby product_id
         $racket = Racket::all();
         $footwear = Footwear::all();
+        $bag = Bag::all();
         $product = [
             'racket'=>$racket,
             'footwear'=>$footwear,
+            'bag'=>$bag,
         ];    
         return $product;
         
@@ -51,6 +54,13 @@ class ProductController extends Controller
     public function footwearApi()
     {
         return Footwear::all();
+    }
+    /**
+     * Display bags api
+     */
+    public function bagApi()
+    {
+        return Bag::all();
     }
     /**
      * Display single product api
@@ -82,39 +92,7 @@ class ProductController extends Controller
     public function jobForm()
     {
         return view('products.product-job-form');
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $product = Product::create([
-            'name'=>$request->name
-        ]);        
-        $product_id = $product->id;
-        self::storeImage($product_id,$request);
-        switch ($request->category) {
-            case 'racket':
-                self::storeRacket($product_id, $request);
-                break;
-            case 'footwear':
-                self::storeFootwear($product_id, $request);
-                break;
-            case 'bag':
-                return "You choose Bag";
-                break;
-            case 'apparel':
-                return "You choose Apparel";
-                break;
-            case 'accessory':
-                return "You choose Accessories";
-                break;
-        }
-        return redirect('/products/job');
-    }    
+    }       
     /**
      * Display product detail page.
      *
@@ -131,7 +109,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->footwear()->first();
                 break;
             case 'bag';
-                return "You choose Bag";
+                $array = Product::find($id)->bag()->first();
                 break;
             case 'apparel';
                 return "You choose Apparel";
@@ -159,6 +137,122 @@ class ProductController extends Controller
         return view('products.product-footwears');
     }
     /**
+     * Display products bags list
+     */
+    public function showBags()
+    {
+        return view('products.product-bags');
+    }    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);       
+        
+        if ($validate->fails()) {
+            return redirect('/products/job/new/')
+                        ->withErrors($validate)
+                        ->withInput();
+        }
+
+        $product = Product::create([
+            'name'=>$request->name
+        ]);        
+        $product_id = $product->id;
+        self::storeImage($product_id,$request);
+        switch ($request->category) {
+            case 'racket':
+                self::storeRacket($product_id, $request);
+                break;
+            case 'footwear':
+                self::storeFootwear($product_id, $request);
+                break;
+            case 'bag':
+                self::storeBag($product_id, $request);
+                break;
+            case 'apparel':
+                return "You choose Apparel";
+                break;
+            case 'accessory':
+                return "You choose Accessories";
+                break;
+        }
+        return redirect('/products/job');
+    } 
+    /**
+     *  Store a racket into product database, and then store the images. 
+     */
+    public function storeRacket($id, $request)
+    {
+        $racket = Racket::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }    
+    /**
+     * Store a footwear into product database
+     */
+    public function storeFootwear($id, $request)
+    {                 
+        $racket = Footwear::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }  
+    /**
+     * Store a bag into product database
+     */
+    public function storeBag($id, $request)
+    {
+        $racket = Bag::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }   
+    /**
+     * Store images into product image database.
+     */
+    public function storeImage($id, $request)
+    {                
+        $image_path = '/public/images/'.$id.'/';
+        if($request->images){
+            foreach ($request->images as $image) {
+                echo 
+                $fileName = $image->getClientOriginalName();     
+                $image->storeAs($image_path, $fileName);
+                ProductImage::create([
+                    'product_id' => $id,
+                    'filename' => $fileName
+                ]);
+            }   
+        }                
+    }
+    /**
      * Display the product edit form to edit the specified product.
      *
      * @param  int  $id
@@ -175,7 +269,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->footwear()->first();
                 break;
             case 'bag';
-                return "You choose Bag";
+                $array = Product::find($id)->bag()->first();
                 break;
             case 'apparel';
                 return "You choose Apparel";
@@ -199,25 +293,37 @@ class ProductController extends Controller
         // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
         // 同時刪除資料庫裡的圖片，並新增新的圖
 
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);       
+        
+        if ($validate->fails()) {
+            return redirect("/products/$id/edit/")
+                        ->withErrors($validate)
+                        ->withInput();
+        }    
+
         // 改 Product 資料庫 (主資料庫)
         Product::where('id', $id)
         ->update([
             'name' => $request->name,
         ]);
 
+        // 改圖
+        self::updateImage($id,$request);
+
         // 如果 User 選的類別汗腺在是一樣的，那就在現在這個 Model更新，若否則刪除並再新的 Model 新增
         if($request->category==$category){
             switch ($category) {
                 case 'racket';
                     self::updateRacket($id, $request);     
-                    self::updateImage($id,$request);
                     break;
                 case 'footwear';
                     self::updateFootwear($id, $request);
-                    self::updateImage($id,$request);
                     break;
                 case 'bag':
-                    return "You choose Bag";
+                    self::updateBag($id, $request);
                     break;
                 case 'apparel':
                     return "You choose Apparel";
@@ -238,7 +344,7 @@ class ProductController extends Controller
                     Footwear::where('product_id', $id)->delete();
                     break;
                 case 'bag':
-                    Product::destroy($id);
+                    Bag::where('product_id', $id)->delete();
                     break;
                 case 'apparel':
                     Product::destroy($id);
@@ -255,7 +361,7 @@ class ProductController extends Controller
                     self::storeFootwear($id, $request);
                     break;
                 case 'bag':
-                    return "You choose Bag";
+                    self::storeBag($id, $request);
                     break;
                 case 'apparel':
                     return "You choose Apparel";
@@ -268,105 +374,10 @@ class ProductController extends Controller
         return redirect('/products/job');
     }
     /**
-     * Remove the specified file from storage, including the images inside.
-     * Remove the information from products DB and product_images DB.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Storage::deleteDirectory("/public/images/$id");
-        Product::destroy($id);
-        return redirect('/products/job');
-    }
-    /**
-     *  Store a racket into product database, and then store the images. 
-     */
-    public function storeRacket($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect('/products/job/new/')
-                        ->withErrors($validate)
-                        ->withInput();
-        }                      
-
-        $racket = Racket::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
-        ]);
-    }    
-    /**
-     * Store a footwear into product database
-     */
-    public function storeFootwear($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect('/products/job/new/')
-                        ->withErrors($validate)
-                        ->withInput();
-        }                      
-
-        $racket = Footwear::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
-        ]);
-    }    
-    /**
-     * Store images into product image database.
-     */
-    public function storeImage($id, $request)
-    {                
-        $image_path = '/public/images/'.$id.'/';
-        if($request->images){
-            foreach ($request->images as $image) {
-                echo 
-                $fileName = $image->getClientOriginalName();     
-                $image->storeAs($image_path, $fileName);
-                ProductImage::create([
-                    'product_id' => $id,
-                    'filename' => $fileName
-                ]);
-            }   
-        }                
-    }
-    /**
      *  Update racket
      */
     public function updateRacket($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect("/products/$id/edit/")
-                        ->withErrors($validate)
-                        ->withInput();
-        }          
+    {              
         $racket = Racket::where('product_id', $id)
         ->update([
             'product_id'=>$id,
@@ -383,18 +394,25 @@ class ProductController extends Controller
      *  Update footwear
      */
     public function updateFootwear($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);     
-        
-        if ($validate->fails()) {
-            return redirect("/products/$id/edit/")
-                        ->withErrors($validate)
-                        ->withInput();
-        }          
+    {    
         $racket = Footwear::where('product_id', $id)
+        ->update([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }
+    /**
+     *  Update bag
+     */
+    public function updateBag($id, $request)
+    {    
+        $racket = Bag::where('product_id', $id)
         ->update([
             'product_id'=>$id,
             'name'=>$request->name,
@@ -425,6 +443,19 @@ class ProductController extends Controller
                 ]);
             }
         }      
+    }    
+    /**
+     * Remove the specified file from storage, including the images inside.
+     * Remove the information from products DB and product_images DB.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Storage::deleteDirectory("/public/images/$id");
+        Product::destroy($id);
+        return redirect('/products/job');
     }
 }
 
