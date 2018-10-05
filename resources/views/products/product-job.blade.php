@@ -84,13 +84,13 @@ $(function() {
                 case 'footwear':
                     $('#tbody').append(titleCategory('羽球鞋'));
                     break;
-                case 'Bag':
+                case 'bag':
                     $('#tbody').append(titleCategory('羽球袋'));
                     break;
-                case 'Apparel':
+                case 'apparel':
                     $('#tbody').append(titleCategory('羽球衣'));
                     break;
-                case 'Accessories':
+                case 'accessory':
                     $('#tbody').append(titleCategory('羽球配件'));
                     break;
             }
