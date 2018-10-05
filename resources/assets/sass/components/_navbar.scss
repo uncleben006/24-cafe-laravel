@@ -20,12 +20,7 @@
             }
         }
         .navbar-subnav {
-            transform: translateY(0%);
-        }
-        @media (min-width: 992px) {
-            .navbar-subnav {
-                transform: translateY(-100%);
-            }
+            background-color: transparent;
         }
     }
     .navbar-brand {

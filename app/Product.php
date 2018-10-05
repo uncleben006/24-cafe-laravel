@@ -44,4 +44,8 @@ class Product extends Model
     {
         return $this->hasOne('App\Apparel', 'product_id', 'id');
     }
+    public function accessory()
+    {
+        return $this->hasOne('App\Accessory', 'product_id', 'id');
+    }
 }

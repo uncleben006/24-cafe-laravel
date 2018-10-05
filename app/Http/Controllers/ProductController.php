@@ -9,6 +9,7 @@ use App\Racket;
 use App\Footwear;
 use App\Bag;
 use App\Apparel;
+use App\Accessory;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,11 +34,13 @@ class ProductController extends Controller
         $footwear = Footwear::all();
         $bag = Bag::all();
         $apparel = Apparel::all();
+        $accessory = Accessory::all();
         $product = [
             'racket'=>$racket,
             'footwear'=>$footwear,
             'bag'=>$bag,
             'apparel'=>$apparel,
+            'accessory'=>$accessory
         ];    
         return $product;
         
@@ -71,6 +74,13 @@ class ProductController extends Controller
     public function apparelApi()
     {
         return Apparel::all();
+    }
+    /**
+     * Display accessories api
+     */
+    public function accessoryApi()
+    {
+        return Accessory::all();
     }
     /**
      * Display single product api
@@ -125,7 +135,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->apparel()->first();
                 break;
             case 'accessory';
-                return "You choose Accessories";
+                $array = Product::find($id)->accessory()->first();
                 break;
         }
         return view('products.product-detail', [
@@ -160,6 +170,13 @@ class ProductController extends Controller
     {
         return view('products.product-apparels');
     }  
+    /**
+     * Display products accessories list
+     */
+    public function showAccessories()
+    {
+        return view('products.product-accessories');
+    } 
     /**
      * Store a newly created resource in storage.
      *
@@ -198,7 +215,7 @@ class ProductController extends Controller
                 self::storeApparel($product_id, $request);
                 break;
             case 'accessory':
-                return "You choose Accessories";
+                self::storeAccessory($product_id, $request);
                 break;
         }
         return redirect('/products/job');
@@ -268,6 +285,22 @@ class ProductController extends Controller
         ]);
     } 
     /**
+     * Store a accessory into product database
+     */
+    public function storeAccessory($id, $request)
+    {
+        $racket = Accessory::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    } 
+    /**
      * Store images into product image database.
      */
     public function storeImage($id, $request)
@@ -308,7 +341,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->apparel()->first();
                 break;
             case 'accessory';
-                return "You choose Accessories";
+                $array = Product::find($id)->accessory()->first();
                 break;
         }
         return view('products.product-edit', [
@@ -361,7 +394,7 @@ class ProductController extends Controller
                     self::updateApparel($id, $request);
                     break;
                 case 'accessory':
-                    return "You choose Accessories";
+                    self::updateAccessory($id, $request);
                     break;
             }
         }
@@ -382,7 +415,7 @@ class ProductController extends Controller
                     Apparel::where('product_id', $id)->delete();
                     break;
                 case 'accessory':
-                    Product::destroy($id);
+                    Accessory::where('product_id', $id)->delete();
                     break;
             }
             switch ($request->category) {
@@ -399,7 +432,7 @@ class ProductController extends Controller
                     self::storeApparel($id, $request);
                     break;
                 case 'accessory':
-                    return "You choose Accessories";
+                    self::storeAccessory($id, $request);
                     break;
             }
         }
@@ -462,6 +495,23 @@ class ProductController extends Controller
     public function updateApparel($id, $request)
     {    
         $racket = Apparel::where('product_id', $id)
+        ->update([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }
+    /**
+     *  Update accessory
+     */
+    public function updateAccessory($id, $request)
+    {    
+        $racket = Accessory::where('product_id', $id)
         ->update([
             'product_id'=>$id,
             'name'=>$request->name,

@@ -10828,15 +10828,7 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 }
 
 #mainNav.navbar-shrink .navbar-subnav {
-  -webkit-transform: translateY(0%);
-          transform: translateY(0%);
-}
-
-@media (min-width: 992px) {
-  #mainNav.navbar-shrink .navbar-subnav {
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
-  }
+  background-color: transparent;
 }
 
 #mainNav .navbar-brand {
