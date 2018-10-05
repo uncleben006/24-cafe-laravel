@@ -21,6 +21,8 @@
     list-style: none;
     border: solid 1px black;
     background: fade(slategrey,20%);
+    max-height: 15vh;
+    overflow: auto;
     > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
 }
 .Rtable-cell hr {
@@ -66,10 +68,10 @@ $(function() {
     function titleCategory(category){
         return '\
             <div class="Rtable-cell w-100 text-center bg-info h3 py-2 mb-0 mt-3"><strong>'+ category +'</strong></div>\
-            <div class="Rtable-cell"><strong>ID</strong></div>\
+            <div class="Rtable-cell"><div class="d-flex"><div class="w-50"><strong>ID</strong></div><div class="w-50"><strong>價錢</strong></div></div></div>\
             <div class="Rtable-cell"><strong>商品名稱</strong></div>\
             <div class="Rtable-cell"><strong>產品敘述</strong></div>\
-            <div class="Rtable-cell"><strong>價格</strong></div>\
+            <div class="Rtable-cell"><div class="d-flex"><div class="w-25"><strong>系列</strong></div><div class="w-25"><strong>分類</strong></div><div class="w-25"><strong>等級</strong></div><div class="w-25"><strong>品牌</strong></div></div></div>\
             <div class="Rtable-cell"><strong>產品圖</strong></div>\
             <div class="Rtable-cell"><strong>編輯產品</strong></div>'
     }    
@@ -96,10 +98,10 @@ $(function() {
             }
             value.forEach(function(data){
                 $('#tbody').append('\
-                    <div class="Rtable-cell">'+data.product_id+'</div>\
-                    <div class="Rtable-cell">'+data.name+'</div>\
+                    <div class="Rtable-cell"><div class="d-flex"><div class="w-50"><strong>'+data.product_id+'</strong></div><div class="w-50"><strong>'+data.price+'</strong></div></div></div>\
+                    <div class="Rtable-cell"><strong>'+data.name+'</strong></div>\
                     <div class="Rtable-cell">'+data.description+'</div>\
-                    <div class="Rtable-cell">'+data.price+'</div>\
+                    <div class="Rtable-cell"><div class="d-flex" style="word-break: break-all"><div class="w-25">'+data.series+'</div><div class="w-25">'+data.categories+'</div><div class="w-25">'+data.rank+'</div><div class="w-25">'+data.brands+'</div></div></div>\
                     <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
                     <div class="Rtable-cell">\
                         <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
@@ -131,6 +133,7 @@ $(function() {
             </div>
             <div id="product-list">
                 <div class="Rtable Rtable--6cols" id="tbody">  
+                        
                         {{-- <div class="Rtable-cell w-100 text-center bg-info h3 py-2"><strong>羽球鞋</strong></div> --}}
                         {{-- <div class="Rtable-cell"><strong>ID</strong></div>
                         <div class="Rtable-cell"><strong>商品名稱</strong></div>
