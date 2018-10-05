@@ -98,7 +98,7 @@ class ProductController extends Controller
      *
      * @param  int  $id
      */
-    public function showDetail($id, $category)
+    public function showDetail($category, $id)
     {
         $array = [];
         switch ($category) {
@@ -258,7 +258,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $category)
+    public function edit($category, $id)
     {
         $array = [];
         switch ($category) {
@@ -288,7 +288,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $category)
+    public function update(Request $request, $category, $id)
     {        
         $validate = Validator::make($request->all(), [
             'name'=>'required:',
@@ -403,15 +403,9 @@ class ProductController extends Controller
     /**
      *  Update footwear
      */
-<<<<<<< HEAD
-    public function updateRacket($id, $request)
-    {             
-        $racket = Racket::where('product_id', $id)
-=======
     public function updateFootwear($id, $request)
     {    
         $racket = Footwear::where('product_id', $id)
->>>>>>> 70141210c37574e4bae211f691212bc7f4c44951
         ->update([
             'product_id'=>$id,
             'name'=>$request->name,
@@ -426,15 +420,9 @@ class ProductController extends Controller
     /**
      *  Update bag
      */
-<<<<<<< HEAD
-    public function updateFootwear($id, $request)
-    {          
-        $racket = Footwear::where('product_id', $id)
-=======
     public function updateBag($id, $request)
     {    
         $racket = Bag::where('product_id', $id)
->>>>>>> 70141210c37574e4bae211f691212bc7f4c44951
         ->update([
             'product_id'=>$id,
             'name'=>$request->name,

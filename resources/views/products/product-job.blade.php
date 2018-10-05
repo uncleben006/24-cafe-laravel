@@ -54,7 +54,7 @@ $(function() {
     $(document).on('click','.btn-edit-product', function () {
         var id = $(this).data('id');
         var category = $(this).data('category');
-        window.location = '/products/'+id+'/'+category+'/edit/';
+        window.location = '/products/'+category+'/'+id+'/edit/';
     });
     $(document).on('click','.btn-delete-product', function () {
         var id = $(this).data('id');

@@ -33,9 +33,9 @@ Route::get('/products/job', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@jobForm');
 Route::post('/products/job/new', 'ProductController@store');
 
-Route::get('/products/{id}/{category}/detail', 'ProductController@showDetail');
-Route::get('/products/{id}/{category}/edit', 'ProductController@edit');
-Route::post('/products/{id}/{category}/edit', 'ProductController@update');
+Route::get('/products/{category}/{id}/detail', 'ProductController@showDetail');
+Route::get('/products/{category}/{id}/edit', 'ProductController@edit');
+Route::post('/products/{category}/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
 
 // order-list controller

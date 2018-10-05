@@ -31,7 +31,7 @@ $(function() {
         p_json.forEach(function(data){
             $('#product_list').append('\
             <div class="col-md-3 product-card mb-5">\
-                <a href="/products/'+data.product_id+'/racket/detail" target="_blank">\
+                <a href="/products/racket/'+data.product_id+'/detail" target="_blank">\
                     <div class="card">\
                         <div class="card-header">\
                             <div id="image-'+data.product_id+'" style="position:relative">\
