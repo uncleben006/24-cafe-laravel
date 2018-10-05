@@ -8,6 +8,7 @@ use App\ProductImage;
 use App\Racket;
 use App\Footwear;
 use App\Bag;
+use App\Apparel;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -31,10 +32,12 @@ class ProductController extends Controller
         $racket = Racket::all();
         $footwear = Footwear::all();
         $bag = Bag::all();
+        $apparel = Apparel::all();
         $product = [
             'racket'=>$racket,
             'footwear'=>$footwear,
             'bag'=>$bag,
+            'apparel'=>$apparel,
         ];    
         return $product;
         
@@ -61,6 +64,13 @@ class ProductController extends Controller
     public function bagApi()
     {
         return Bag::all();
+    }
+    /**
+     * Display apparels api
+     */
+    public function apparelApi()
+    {
+        return Apparel::all();
     }
     /**
      * Display single product api
@@ -112,7 +122,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->bag()->first();
                 break;
             case 'apparel';
-                return "You choose Apparel";
+                $array = Product::find($id)->apparel()->first();
                 break;
             case 'accessory';
                 return "You choose Accessories";
@@ -143,6 +153,13 @@ class ProductController extends Controller
     {
         return view('products.product-bags');
     }    
+    /**
+     * Display products apparels list
+     */
+    public function showApparels()
+    {
+        return view('products.product-apparels');
+    }  
     /**
      * Store a newly created resource in storage.
      *
@@ -178,7 +195,7 @@ class ProductController extends Controller
                 self::storeBag($product_id, $request);
                 break;
             case 'apparel':
-                return "You choose Apparel";
+                self::storeApparel($product_id, $request);
                 break;
             case 'accessory':
                 return "You choose Accessories";
@@ -235,6 +252,22 @@ class ProductController extends Controller
         ]);
     }   
     /**
+     * Store a apparel into product database
+     */
+    public function storeApparel($id, $request)
+    {
+        $racket = Apparel::create([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    } 
+    /**
      * Store images into product image database.
      */
     public function storeImage($id, $request)
@@ -272,7 +305,7 @@ class ProductController extends Controller
                 $array = Product::find($id)->bag()->first();
                 break;
             case 'apparel';
-                return "You choose Apparel";
+                $array = Product::find($id)->apparel()->first();
                 break;
             case 'accessory';
                 return "You choose Accessories";
@@ -296,23 +329,12 @@ class ProductController extends Controller
         ]);       
         
         if ($validate->fails()) {
-            return redirect("/products/$id/$category/edit/")
+            return redirect("/products/$category/$id/edit/")
                         ->withErrors($validate)
                         ->withInput();
         }     
         // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
         // 同時刪除資料庫裡的圖片，並新增新的圖
-
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect("/products/$id/edit/")
-                        ->withErrors($validate)
-                        ->withInput();
-        }    
 
         // 改 Product 資料庫 (主資料庫)
         Product::where('id', $id)
@@ -336,7 +358,7 @@ class ProductController extends Controller
                     self::updateBag($id, $request);
                     break;
                 case 'apparel':
-                    return "You choose Apparel";
+                    self::updateApparel($id, $request);
                     break;
                 case 'accessory':
                     return "You choose Accessories";
@@ -357,7 +379,7 @@ class ProductController extends Controller
                     Bag::where('product_id', $id)->delete();
                     break;
                 case 'apparel':
-                    Product::destroy($id);
+                    Apparel::where('product_id', $id)->delete();
                     break;
                 case 'accessory':
                     Product::destroy($id);
@@ -374,7 +396,7 @@ class ProductController extends Controller
                     self::storeBag($id, $request);
                     break;
                 case 'apparel':
-                    return "You choose Apparel";
+                    self::storeApparel($id, $request);
                     break;
                 case 'accessory':
                     return "You choose Accessories";
@@ -423,6 +445,23 @@ class ProductController extends Controller
     public function updateBag($id, $request)
     {    
         $racket = Bag::where('product_id', $id)
+        ->update([
+            'product_id'=>$id,
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description? $request->description : '',
+            'series'=>$request->series? $request->series : '',
+            'categories'=>$request->categories? $request->categories : '',
+            'rank'=>$request->rank? $request->rank : '',
+            'brands'=>$request->brands? $request->brands : ''
+        ]);
+    }
+    /**
+     *  Update apparel
+     */
+    public function updateApparel($id, $request)
+    {    
+        $racket = Apparel::where('product_id', $id)
         ->update([
             'product_id'=>$id,
             'name'=>$request->name,

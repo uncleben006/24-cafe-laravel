@@ -6,15 +6,14 @@ Add relation in Product.php
 Add necessary code in specific product model
 Add table in specific product migration
 
-File part
-Create product blade
-
 API part
 Add api link in api.php
 Add api for specific product in ProductController.php
 Update api for all product in ProductController.php
+migration fresh
 
 Route part
+Create product blade
 Add route in web.php
 Add show product function in ProductController.php
 Update the switch loop of show all product function in ProductController.php

@@ -10819,12 +10819,24 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
   background-color: rgba(201, 203, 163, 0.75);
 }
 
-#mainNav.navbar-shrink.navbar-brand {
+#mainNav.navbar-shrink .navbar-brand {
   color: #222222 !important;
 }
 
-#mainNav.navbar-shrink.navbar-brand:hover {
+#mainNav.navbar-shrink .navbar-brand:hover {
   color: #472D30;
+}
+
+#mainNav.navbar-shrink .navbar-subnav {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+
+@media (min-width: 992px) {
+  #mainNav.navbar-shrink .navbar-subnav {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
 }
 
 #mainNav .navbar-brand {

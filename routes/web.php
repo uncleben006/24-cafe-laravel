@@ -23,6 +23,7 @@ Route::post('/posts', 'PostController@store')->name('post');
 Route::get('/products/rackets', 'ProductController@showRackets');
 Route::get('/products/footwears', 'ProductController@showFootwears');
 Route::get('/products/bags', 'ProductController@showBags');
+Route::get('/products/apparels', 'ProductController@showApparels');
 // Route::get('/products', 'ProductController@list');
 // Route::get('/products/add-cart/{id}', 'ProductController@add_cart');
 // Route::get('/products/list-cart', 'ProductController@list_cart');

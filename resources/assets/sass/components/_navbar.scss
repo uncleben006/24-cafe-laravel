@@ -13,10 +13,18 @@
         &:hover {
             background-color: rgba($theme-primary,0.75);
         }
-        &.navbar-brand {
+        .navbar-brand {
             color: $gray-darker !important;
             &:hover {
                 color: $theme-secondary;
+            }
+        }
+        .navbar-subnav {
+            transform: translateY(0%);
+        }
+        @media (min-width: 992px) {
+            .navbar-subnav {
+                transform: translateY(-100%);
             }
         }
     }
