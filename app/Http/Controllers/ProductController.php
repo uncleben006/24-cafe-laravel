@@ -196,6 +196,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id, $category)
     {        
+        $validate = Validator::make($request->all(), [
+            'name'=>'required:',
+            'price'=>'required|integer',
+        ]);       
+        
+        if ($validate->fails()) {
+            return redirect("/products/$id/$category/edit/")
+                        ->withErrors($validate)
+                        ->withInput();
+        }     
         // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
         // 同時刪除資料庫裡的圖片，並新增新的圖
 
@@ -356,17 +366,7 @@ class ProductController extends Controller
      *  Update racket
      */
     public function updateRacket($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect("/products/$id/edit/")
-                        ->withErrors($validate)
-                        ->withInput();
-        }          
+    {             
         $racket = Racket::where('product_id', $id)
         ->update([
             'product_id'=>$id,
@@ -383,17 +383,7 @@ class ProductController extends Controller
      *  Update footwear
      */
     public function updateFootwear($id, $request)
-    {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);     
-        
-        if ($validate->fails()) {
-            return redirect("/products/$id/edit/")
-                        ->withErrors($validate)
-                        ->withInput();
-        }          
+    {          
         $racket = Footwear::where('product_id', $id)
         ->update([
             'product_id'=>$id,
