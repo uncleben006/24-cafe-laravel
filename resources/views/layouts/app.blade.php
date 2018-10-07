@@ -55,25 +55,9 @@
                                 </div>
                             </div>
                         </li>
-                        
-                        {{-- @guest
-                            <li class="nav-item @yield('products-nav')">
-                                <a class="nav-link" href="/products">產品頁面</a>
-                            </li>
-                        @endguest
-                        @auth 
-                            <li class="nav-item @yield('products-nav') @yield('shopping-cart-nav') @yield('order-list-nav') dropdown ">                            
-                                <a id="product-dropdown" data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">產品</a>                       
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="product-dropdown">
-                                    <a class="dropdown-item" href="/products">產品頁面</a>
-                                    <a class="dropdown-item" href="/products/cart">購物車</a>
-                                    <a class="dropdown-item" href="/products/checkout">訂購單</a>
-                                </div>                            
-                            </li>
-                        @endauth --}}
 
                         <li class="nav-item @yield('coffee-nav')">
-                            <a class="nav-link product-nav" href="/products">咖啡專區</a>
+                            <a class="nav-link product-nav dropdown-toggle" href="/products">咖啡專區</a>
                             <div class="navbar-subnav">
                                 <div class="container">
                                     <a href="/products/rackets" class="nav-link subnav-link">咖啡產品</a>
