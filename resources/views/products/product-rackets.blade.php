@@ -64,6 +64,21 @@ $(function() {
 @endsection
 
 @section('content')
+{{-- sorting start --}}
+<div class="container">
+    <div class="dropdown">
+        <button class="btn btn-outline-theme-secondary dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+        Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+</div>
+{{-- sorting end --}}
+
 <div class="container">
     <div class="row justify-content-center" id="product_list">       
         <div class="loading loading-content"></div>        
