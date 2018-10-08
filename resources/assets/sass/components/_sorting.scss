@@ -1,0 +1,13 @@
+.sorting-primary {
+  @include button-outline($theme-primary, $theme-secondary, $theme-primary, $theme-primary);
+  border-radius: 0 !important;
+  border: 1px $theme-primary solid !important;
+  +.dropdown-menu {
+    border-radius: 0 !important;
+    border: 1px $theme-primary solid !important;
+    a:hover{
+      background: $theme-primary;
+      color: $theme-secondary;
+    }
+  }
+}

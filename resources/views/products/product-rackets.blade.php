@@ -67,13 +67,11 @@ $(function() {
 {{-- sorting start --}}
 <div class="container">
     <div class="dropdown">
-        <button class="btn btn-outline-theme-secondary dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-        Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">力量</a>
+            <a class="dropdown-item" href="#">速度</a>
+            <a class="dropdown-item" href="#">全面</a>
         </div>
     </div>
 </div>

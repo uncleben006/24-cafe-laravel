@@ -102,7 +102,7 @@
     </div>
 </section>
 <!-- call to action -->
-<section class="container-fluid text-secondary">
+<section class="container-fluid text-primary">
     <div class="row">
     <div class="col-md-6 p-5 background-muted info-background-one muted-block">
         <div class="w-75 h-100 p-3 mx-auto">
@@ -111,11 +111,11 @@
         </div>
         <h3>品味生活的態度</h3>
         <p class="mb-0">品嘗最香醇的手沖咖啡，體驗忘卻不了的莓果香，享受舌尖回甘的濃郁滋味</p>
-        <button href="./coffee.html" class="btn btn-outline-theme-secondary  my-3">產品詳情</button>
+        <button href="./coffee.html" class="btn btn-outline-theme-primary  my-3">產品詳情</button>
         <blockquote class="blockquote">
             <p class="mb-0">如果我不在家，就是在咖啡館；
             <br>如果不是在咖啡館，就是在往咖啡館的路上</p>
-            <footer class="blockquote-footer text-secondary">奧地利作家
+            <footer class="blockquote-footer text-primary">奧地利作家
             <cite title="Source Title">Peter Altenberg</cite>
             </footer>
         </blockquote>
@@ -128,10 +128,10 @@
         </div>
         <h3>激起心中的漣漪</h3>
         <p class="mb-0">了解羽球界的最新時事，補充最精良的裝備，體驗廝殺球場上的快感，讓腎上腺素肆意流動</p>
-        <button href="./coffee.html" class="btn btn-outline-theme-secondary my-3">產品詳情</button>
+        <button href="./coffee.html" class="btn btn-outline-theme-primary my-3">產品詳情</button>
         <blockquote class="blockquote">
             <p class="mb-0">當我覺得勝券在握的時候，其實比賽才剛開始。</p>
-            <footer class="blockquote-footer text-secondary">羽球選手
+            <footer class="blockquote-footer text-primary">羽球選手
             <cite title="Source Title">Lin Dan</cite>
             </cite>
             </footer>

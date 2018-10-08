@@ -49,6 +49,10 @@
 @import "helpers/mixins";
 @import "helpers/card";
 
+// mixins
+@import "components/custom_button";
+
+
 // component
 // @import "components/dropdown";
 @import "components/navpanel";
@@ -57,10 +61,10 @@
 @import "components/footer";
 @import "components/slick_slider";
 @import "components/dropdown";
-
-
-@import "components/custom_button";
+@import "components/sorting";
 @import "components/loading_icon";
+
+
 // @import "components/badminton";
 // @import "components/merchandise";
 // @import "components/admin-form";

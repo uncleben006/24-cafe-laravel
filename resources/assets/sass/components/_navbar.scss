@@ -4,19 +4,19 @@
         max-width: 100px;
     }
     border-color: fade-out($gray-darker, .95);
-    background-color: $theme-primary;
+    background-color: $theme-tertiary;
     @include transition-all;
     @include heading-font;
     &.navbar-shrink {
         border-color: fade-out($gray-darker, .9);
-        background-color: rgba($theme-primary,0.25);;
+        background-color: rgba($theme-tertiary,0.25);;
         &:hover {
-            background-color: rgba($theme-primary,0.75);
+            background-color: rgba($theme-tertiary,0.75);
         }
         .navbar-brand {
             color: $gray-darker !important;
             &:hover {
-                color: $theme-secondary;
+                color: $theme-primary;
             }
         }
         .navbar-subnav {
@@ -24,10 +24,10 @@
         }
     }
     .navbar-brand {
-        color: $theme-secondary;
+        color: $theme-primary;
         @include heading-font;
         &:hover, &:focus {
-            color: darken($theme-secondary, 10%);
+            color: darken($theme-primary, 10%);
         }
     }
     .navbar-toggler {
@@ -41,13 +41,13 @@
                 color: $dark;
                 @include alt-font;
                 &:hover {
-                    color: $theme-tertiary;
+                    color: $theme-quaternary;
                 }                           
             }            
         // sub nav bar start
             .navbar-subnav {
                 visibility: hidden;        
-                background: $theme-quaternary;
+                background: $theme-secondary;
                 opacity: 0;
                 height: 0;
                 padding: 0;
@@ -58,7 +58,7 @@
                     display: block;
                 }
                 .subnav-active {
-                    color: $theme-tertiary !important;
+                    color: $theme-quaternary !important;
                 }    
             }
             @media (min-width: 992px){
@@ -73,7 +73,7 @@
                         transform: initial;
                     }    
                     .subnav-active {
-                        border-bottom: $theme-tertiary solid 5px !important;
+                        border-bottom: $theme-quaternary solid 5px !important;
                     }
                     &:hover {
                         visibility: visible;
@@ -91,7 +91,7 @@
                     visibility: visible;
                     opacity: 1;
                     height: 100%;
-                    color: $theme-secondary;
+                    color: $theme-primary;
                     a {
                         color: inherit !important;
                         border-bottom: none !important;
@@ -121,7 +121,7 @@
         }
         .active {
             a {
-                color: $theme-tertiary;
+                color: $theme-quaternary;
             }                      
             &:hover {
                 background-color: transparent;
@@ -133,12 +133,12 @@
             min-width: auto;            
             .dropdown-item {
                 text-align: center;
-                background: $theme-tertiary;
-                color: $theme-secondary;         
+                background: $theme-quaternary;
+                color: $theme-primary;         
                 border: none;
                 &:hover {
-                    background: $theme-tertiary;
-                    color: $theme-quaternary;
+                    background: $theme-quaternary;
+                    color: $theme-secondary;
                     transition: 0.25s;
                 }
             }
@@ -147,7 +147,7 @@
     @media (min-width: 992px) {
         .navbar-nav {            
             .active a {
-                border-bottom: $theme-tertiary solid 5px;
+                border-bottom: $theme-quaternary solid 5px;
             }
         }
     }

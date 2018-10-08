@@ -1,16 +1,16 @@
 .footer-guides {
-  background: $theme-secondary;
-  color: $theme-tertiary;
+  background: $theme-primary;
+  color: $theme-secondary;
   .row {
     width: 80%;
     .col-md-3 {
-      border-right: solid 1px $theme-quaternary;
+      border-right: solid 1px $theme-secondary;
       padding: 0 1em;
       &:last-child {
         border: none;
       }
       > a {
-        color: $theme-quaternary;
+        color: $theme-secondary;
       }
       @media (max-width: 767px) {
         border: none
