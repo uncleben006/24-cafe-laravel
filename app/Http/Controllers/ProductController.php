@@ -50,8 +50,29 @@ class ProductController extends Controller
     /**
      * Display rackets api
      */
-    public function racketApi()
+    public function racketApi(Request $request)
     {
+        $category =  $request->category;
+        $series =  $request->series;
+        $rank =  $request->rank;
+        $racketCategory = Racket::select('categories')->get()->unique('categories');
+        $racketSeries = Racket::select('series')->get()->unique('series');
+        $racketRank = Racket::select('rank')->get()->unique('rank');
+        foreach ($racketCategory as $key => $value) {
+            if(($category == $value->categories)&&($value->categories)){
+                return Racket::where('categories', $value->categories)->get();
+            }
+        }  
+        foreach ($racketSeries as $key => $value) {
+            if(($series == $value->series)&&($value->series)){
+                return Racket::where('series', $value->series)->get();
+            }
+        }  
+        foreach ($racketRank as $key => $value) {
+            if(($rank == $value->rank)&&($value->rank)){
+                return Racket::where('rank', $value->rank)->get();
+            }
+        }     
         return Racket::all();
     }
     /**
@@ -95,6 +116,49 @@ class ProductController extends Controller
     public function imagesApi($id)
     {
         return ProductImage::where('product_id', $id)->get();
+    }  
+    /**
+     * Display sorting api
+     */
+    public function sortingApi($category)
+    {
+        switch ($category) {
+            case 'rackets':
+                return $sorting = [
+                    'categories' => Racket::select('categories')->get()->unique('categories'),
+                    'series' => Racket::select('series')->get()->unique('series'),
+                    'rank' => Racket::select('rank')->get()->unique('rank')
+                ];
+                break;
+            case 'footwears':
+                return $sorting = [
+                    'categories' => Footwear::select('categories')->get()->unique('categories'),
+                    'series' => Footwear::select('series')->get()->unique('series'),
+                    'rank' => Footwear::select('rank')->get()->unique('rank')
+                ];
+                break;
+            case 'bags':
+                return $sorting = [
+                    'categories' => Bag::select('categories')->get()->unique('categories'),
+                    'series' => Bag::select('series')->get()->unique('series'),
+                    'rank' => Bag::select('rank')->get()->unique('rank')
+                ];
+                break;
+            case 'apparels':
+                return $sorting = [
+                    'categories' => Apparel::select('categories')->get()->unique('categories'),
+                    'series' => Apparel::select('series')->get()->unique('series'),
+                    'rank' => Apparel::select('rank')->get()->unique('rank')
+                ];
+                break;
+            case 'accessories':
+                return $sorting = [
+                    'categories' => Accessory::select('categories')->get()->unique('categories'),
+                    'series' => Accessory::select('series')->get()->unique('series'),
+                    'rank' => Accessory::select('rank')->get()->unique('rank')
+                ];
+                break;
+        }  
     }    
     /**
      * Display product job. 
@@ -122,61 +186,35 @@ class ProductController extends Controller
     {
         $array = [];
         switch ($category) {
-            case 'racket';
+            case 'rackets';
                 $array = Product::find($id)->racket()->first();
                 break;
-            case 'footwear';
+            case 'footwears';
                 $array = Product::find($id)->footwear()->first();
                 break;
-            case 'bag';
+            case 'bags';
                 $array = Product::find($id)->bag()->first();
                 break;
-            case 'apparel';
+            case 'apparels';
                 $array = Product::find($id)->apparel()->first();
                 break;
-            case 'accessory';
+            case 'accessories';
                 $array = Product::find($id)->accessory()->first();
                 break;
         }
         return view('products.product-detail', [
             'product' => $array,
         ]);
-    }
+    } 
     /**
      * Display products rackets list
      */
-    public function showRackets()
-    {
-        return view('products.product-rackets');
-    }
-    /**
-     * Display products footwears list
-     */
-    public function showFootwears()
-    {
-        return view('products.product-footwears');
-    }
-    /**
-     * Display products bags list
-     */
-    public function showBags()
-    {
-        return view('products.product-bags');
+    public function list($category)
+    {        
+        return view('products.product-list',[
+            'category' => $category
+        ]);
     }    
-    /**
-     * Display products apparels list
-     */
-    public function showApparels()
-    {
-        return view('products.product-apparels');
-    }  
-    /**
-     * Display products accessories list
-     */
-    public function showAccessories()
-    {
-        return view('products.product-accessories');
-    } 
     /**
      * Store a newly created resource in storage.
      *
@@ -559,7 +597,41 @@ class ProductController extends Controller
 }
 
 
-
+    // /**
+    //  * Display products rackets list
+    //  */
+    // public function showRackets()
+    // {        
+    //     return view('products.product-rackets');
+    // }
+    // /**
+    //  * Display products footwears list
+    //  */
+    // public function showFootwears()
+    // {
+    //     return view('products.product-footwears');
+    // }
+    // /**
+    //  * Display products bags list
+    //  */
+    // public function showBags()
+    // {
+    //     return view('products.product-bags');
+    // }    
+    // /**
+    //  * Display products apparels list
+    //  */
+    // public function showApparels()
+    // {
+    //     return view('products.product-apparels');
+    // }  
+    // /**
+    //  * Display products accessories list
+    //  */
+    // public function showAccessories()
+    // {
+    //     return view('products.product-accessories');
+    // } 
 
     /**
      * Display products list

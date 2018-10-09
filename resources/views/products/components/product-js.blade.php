@@ -1,37 +1,32 @@
-@extends('layouts/app')
-
-@section('badminton-nav','active')
-@section('badminton-subnav', 'show-dropdown')
-@section('badminton-apparels', 'subnav-active')
-
-@section('style')
-<style>
-#product_list .card{
-    min-height: 400px;
-    height: 100%;
-}
-#product_list .card-header {
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#product_list .card-header .img-fluid {
-    max-width: 100%;
-    max-height: 100%;
-}
-</style>
-@endsection
-
 @section('script')
 <script>
 $(function() {    
-    
-    $.getJSON('/api/products/apparels', function(p_json) {
+    var url = new URL(window.location.href);
+    var pathname = url.pathname;
+    var search = url.search;
+    $.getJSON('/api'+pathname+'sorting', function(s_json) {
+        s_json.series.forEach(function(data){
+            if(data.series){
+                $('#series-dropdown').append('<a class="dropdown-item" href="?series='+data.series+'">'+data.series+'</a>')
+            }
+        })
+        s_json.categories.forEach(function(data){
+            if(data.categories){
+                $('#categories-dropdown').append('<a class="dropdown-item" href="?category='+data.categories+'">'+data.categories+'</a>')            
+            }
+        })
+        s_json.rank.forEach(function(data){
+            if(data.rank){
+                $('#rank-dropdown').append('<a class="dropdown-item" href="?rank='+data.rank+'">'+data.rank+'</a>')
+            }
+        })
+        
+    });
+    $.getJSON('/api'+pathname+search, function(p_json) {
         p_json.forEach(function(data){
             $('#product_list').append('\
             <div class="col-md-3 product-card mb-5">\
-                <a href="/products/apparel/'+data.product_id+'/detail" target="_blank">\
+                <a href="'+pathname+data.product_id+'/detail" target="_blank">\
                     <div class="card">\
                         <div class="card-header">\
                             <div id="image-'+data.product_id+'" style="position:relative">\
@@ -58,15 +53,7 @@ $(function() {
     })
     .done(function() {
         $('.loading-content').remove();    
-    })       
+    })
 });
 </script>
-@endsection
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center" id="product_list">       
-        <div class="loading loading-content"></div>        
-    </div>    
-</div>
 @endsection

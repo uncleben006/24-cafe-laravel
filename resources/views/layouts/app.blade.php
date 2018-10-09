@@ -47,11 +47,11 @@
                             <a class="nav-link product-nav dropdown-toggle" href="javascript:void(0);">羽球專區</a>
                             <div class="navbar-subnav @yield('badminton-subnav')">
                                 <div class="container">
-                                    <a href="/products/rackets" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
-                                    <a href="/products/footwears" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
-                                    <a href="/products/apparels" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>                                    
-                                    <a href="/products/bags" class="nav-link subnav-link @yield('badminton-bags')">拍包袋 & 背包</a>
-                                    <a href="/products/accessories" class="nav-link subnav-link @yield('badminton-accessories')">羽球、配件及器材</a>
+                                    <a href="/products/rackets/" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
+                                    <a href="/products/footwears/" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
+                                    <a href="/products/apparels/" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>                                    
+                                    <a href="/products/bags/" class="nav-link subnav-link @yield('badminton-bags')">拍包袋 & 背包</a>
+                                    <a href="/products/accessories/" class="nav-link subnav-link @yield('badminton-accessories')">羽球、配件及器材</a>
                                 </div>
                             </div>
                         </li>
@@ -60,9 +60,9 @@
                             <a class="nav-link product-nav dropdown-toggle" href="/products">咖啡專區</a>
                             <div class="navbar-subnav">
                                 <div class="container">
-                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡產品</a>
-                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡介紹</a>
-                                    <a href="/products/rackets" class="nav-link subnav-link">咖啡地圖</a>
+                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡產品</a>
+                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡介紹</a>
+                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡地圖</a>
                                 </div>
                             </div>
                         </li>
@@ -90,7 +90,7 @@
                             </li>
                         @else                            
                             @if (Auth::user()->authority == 1)
-                                <li class="nav-item @yield('products-admin-nav')"><a class="nav-link" href="/products/job">產品管理</a></li>
+                                <li class="nav-item @yield('products-admin-nav')"><a class="nav-link" href="/products/job/list">產品管理</a></li>
                                 <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>                                
                             @endif   
                             <li class="nav-item @yield('self-info-nav')">

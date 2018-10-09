@@ -19,23 +19,15 @@ Route::get('/posts', function() { return view('post.post'); });
 Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
 Route::post('/posts', 'PostController@store')->name('post');
 
-// product controller consumer
-Route::get('/products/rackets', 'ProductController@showRackets');
-Route::get('/products/footwears', 'ProductController@showFootwears');
-Route::get('/products/bags', 'ProductController@showBags');
-Route::get('/products/apparels', 'ProductController@showApparels');
-Route::get('/products/accessories', 'ProductController@showAccessories');
-// Route::get('/products', 'ProductController@list');
-// Route::get('/products/add-cart/{id}', 'ProductController@add_cart');
-// Route::get('/products/list-cart', 'ProductController@list_cart');
-// Route::get('/products/cart', 'ProductController@cart');
+
+
 
 // product controller administrator
-Route::get('/products/job', 'ProductController@job');
+Route::get('/products/{category}', 'ProductController@list');
+Route::get('/products/{category}/{id}/detail', 'ProductController@showDetail');
+Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@jobForm');
 Route::post('/products/job/new', 'ProductController@store');
-
-Route::get('/products/{category}/{id}/detail', 'ProductController@showDetail');
 Route::get('/products/{category}/{id}/edit', 'ProductController@edit');
 Route::post('/products/{category}/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
