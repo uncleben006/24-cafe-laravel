@@ -9,7 +9,7 @@
     @include heading-font;
     &.navbar-shrink {
         border-color: fade-out($gray-darker, .9);
-        background-color: rgba($theme-tertiary,0.25);;
+        background-color: rgba($theme-tertiary,0.25);
         &:hover {
             background-color: rgba($theme-tertiary,0.75);
         }
@@ -20,7 +20,10 @@
             }
         }
         .navbar-subnav {
-            background-color: transparent;
+            background-color: transparent !important;
+            &:hover {
+                background-color: rgba($theme-secondary,0.25)!important;
+            }
         }
     }
     .navbar-brand {

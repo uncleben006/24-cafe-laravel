@@ -50,30 +50,58 @@ class ProductController extends Controller
     /**
      * Display rackets api
      */
-    public function racketApi(Request $request)
+    public function filterApi(Request $request, $category)
     {
-        $category =  $request->category;
+        // 如果 request 接收到 url parameter，則依照 parameter 來抓出 database 裡的 product
+
+        $categories =  $request->categories;
         $series =  $request->series;
         $rank =  $request->rank;
-        $racketCategory = Racket::select('categories')->get()->unique('categories');
-        $racketSeries = Racket::select('series')->get()->unique('series');
-        $racketRank = Racket::select('rank')->get()->unique('rank');
-        foreach ($racketCategory as $key => $value) {
-            if(($category == $value->categories)&&($value->categories)){
-                return Racket::where('categories', $value->categories)->get();
-            }
-        }  
-        foreach ($racketSeries as $key => $value) {
-            if(($series == $value->series)&&($value->series)){
-                return Racket::where('series', $value->series)->get();
-            }
-        }  
-        foreach ($racketRank as $key => $value) {
-            if(($rank == $value->rank)&&($value->rank)){
-                return Racket::where('rank', $value->rank)->get();
-            }
-        }     
-        return Racket::all();
+        $brands = $request->brands; 
+
+        switch ($category) {
+            case 'rackets':
+                $table = Racket::class;
+                break;
+            case 'footwears':
+                $table = Footwear::class;
+                break;
+            case 'bags':
+                $table = Bag::class;
+                break;
+            case 'apparels':
+                $table = Apparel::class;
+                break;
+            case 'accessories':
+                $table = Accessory::class;
+                break;
+        } 
+
+        if($categories&&$series&&$rank&&$brands){
+            return $table::where('categories', $categories)->where('series', $series)->where('rank', $rank)->where('brands', $brands)->get();
+        }else if ($categories&&$series&&$rank){
+            return $table::where('categories', $categories)->where('series', $series)->where('rank', $rank)->get();
+        }else if ($categories&&$series&&$brands){
+            return $table::where('categories', $categories)->where('series', $series)->where('brands', $brands)->get();
+        }else if ($categories&&$rank&&$brands){
+            return $table::where('categories', $categories)->where('rank', $rank)->where('brands', $brands)->get();
+        }else if ($categories&&$series){
+            return $table::where('categories', $categories)->where('series', $series)->get();
+        }else if ($categories&&$rank){
+            return $table::where('categories', $categories)->where('rank', $rank)->get();
+        }else if ($categories&&$brands){
+            return $table::where('categories', $categories)->where('brands', $brands)->get();
+        }else if ($categories){
+            return $table::where('categories', $categories)->get();
+        }else if ($series){
+            return $table::where('series', $series)->get();
+        }else if ($rank){
+            return $table::where('rank', $rank)->get();
+        }else if ($brands){
+            return $table::where('brands', $brands)->get();
+        }else {
+            return $table::all();
+        }      
     }
     /**
      * Display footwears api
@@ -124,41 +152,44 @@ class ProductController extends Controller
     {
         switch ($category) {
             case 'rackets':
-                return $sorting = [
-                    'categories' => Racket::select('categories')->get()->unique('categories'),
-                    'series' => Racket::select('series')->get()->unique('series'),
-                    'rank' => Racket::select('rank')->get()->unique('rank')
-                ];
+                $table = Racket::class;
                 break;
             case 'footwears':
-                return $sorting = [
-                    'categories' => Footwear::select('categories')->get()->unique('categories'),
-                    'series' => Footwear::select('series')->get()->unique('series'),
-                    'rank' => Footwear::select('rank')->get()->unique('rank')
-                ];
+                $table = Footwear::class;
                 break;
             case 'bags':
-                return $sorting = [
-                    'categories' => Bag::select('categories')->get()->unique('categories'),
-                    'series' => Bag::select('series')->get()->unique('series'),
-                    'rank' => Bag::select('rank')->get()->unique('rank')
-                ];
+                $table = Bag::class;
                 break;
             case 'apparels':
-                return $sorting = [
-                    'categories' => Apparel::select('categories')->get()->unique('categories'),
-                    'series' => Apparel::select('series')->get()->unique('series'),
-                    'rank' => Apparel::select('rank')->get()->unique('rank')
-                ];
+                $table = Apparel::class;
                 break;
             case 'accessories':
-                return $sorting = [
-                    'categories' => Accessory::select('categories')->get()->unique('categories'),
-                    'series' => Accessory::select('series')->get()->unique('series'),
-                    'rank' => Accessory::select('rank')->get()->unique('rank')
-                ];
+                $table = Accessory::class;
                 break;
         }  
+        $categories = $table::select('categories')->get()->unique('categories');
+        foreach ($categories as $key => $value) {
+            $categoriesArray []= $value->categories;
+        }
+        $series = $table::select('series')->get()->unique('series');
+        foreach ($series as $key => $value) {
+            $seriesArray []= $value->series;
+        }
+        $rank = $table::select('rank')->get()->unique('rank');
+        foreach ($rank as $key => $value) {
+            $rankArray []= $value->rank;
+        }
+        $brands = $table::select('brands')->get()->unique('brands');
+        foreach ($brands as $key => $value) {
+            $brandsArray []= $value->brands;
+        }
+        $sorting = [
+            'categories' => $categoriesArray,
+            'series' => $seriesArray,
+            'rank' => $rankArray,
+            'brands' => $brandsArray
+        ];
+        return $sorting;
     }    
     /**
      * Display product job. 
@@ -183,8 +214,7 @@ class ProductController extends Controller
      * @param  int  $id
      */
     public function showDetail($category, $id)
-    {
-        $array = [];
+    {        
         switch ($category) {
             case 'rackets';
                 $array = Product::find($id)->racket()->first();
@@ -256,7 +286,7 @@ class ProductController extends Controller
                 self::storeAccessory($product_id, $request);
                 break;
         }
-        return redirect('/products/job');
+        return redirect('/products/job/list');
     } 
     /**
      *  Store a racket into product database, and then store the images. 
@@ -267,11 +297,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }    
     /**
@@ -283,11 +313,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }  
     /**
@@ -299,11 +329,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }   
     /**
@@ -315,11 +345,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     } 
     /**
@@ -331,11 +361,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     } 
     /**
@@ -474,7 +504,7 @@ class ProductController extends Controller
                     break;
             }
         }
-        return redirect('/products/job');
+        return redirect('/products/job/list');
     }
     /**
      *  Update racket
@@ -486,11 +516,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }
     /**
@@ -503,11 +533,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }
     /**
@@ -520,11 +550,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }
     /**
@@ -537,11 +567,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }
     /**
@@ -554,11 +584,11 @@ class ProductController extends Controller
             'product_id'=>$id,
             'name'=>$request->name,
             'price'=>$request->price,
-            'description'=>$request->description? $request->description : '',
-            'series'=>$request->series? $request->series : '',
-            'categories'=>$request->categories? $request->categories : '',
-            'rank'=>$request->rank? $request->rank : '',
-            'brands'=>$request->brands? $request->brands : ''
+            'description'=>$request->description? $request->description : '無',
+            'series'=>$request->series? $request->series : '其他',
+            'categories'=>$request->categories? $request->categories : '其他',
+            'rank'=>$request->rank? $request->rank : '其他',
+            'brands'=>$request->brands? $request->brands : '其他'
         ]);
     }
     /**
@@ -592,7 +622,7 @@ class ProductController extends Controller
     {
         Storage::deleteDirectory("/public/images/$id");
         Product::destroy($id);
-        return redirect('/products/job');
+        return redirect('/products/job/list');
     }
 }
 

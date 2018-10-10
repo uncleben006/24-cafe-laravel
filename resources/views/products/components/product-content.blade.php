@@ -35,6 +35,11 @@
         <div class="dropdown-menu" id="rank-dropdown">
         </div>
     </div>  
+    <div class="dropdown mr-5">
+        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">品牌</button>
+        <div class="dropdown-menu" id="brands-dropdown">
+        </div>
+    </div>  
 </div>
 {{-- sorting end --}}
 {{-- product card start --}}

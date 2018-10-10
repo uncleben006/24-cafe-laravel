@@ -10792,7 +10792,11 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 }
 
 #mainNav.navbar-shrink .navbar-subnav {
-  background-color: transparent;
+  background-color: transparent !important;
+}
+
+#mainNav.navbar-shrink .navbar-subnav:hover {
+  background-color: rgba(255, 225, 168, 0.25) !important;
 }
 
 #mainNav .navbar-brand {

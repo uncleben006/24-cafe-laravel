@@ -25,4 +25,4 @@
 
 {{-- components --}}
 @include('products/components/product-js')
-@include('products/components/product-card')
+@include('products/components/product-content')

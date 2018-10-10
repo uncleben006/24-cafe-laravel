@@ -2,26 +2,31 @@
 <script>
 $(function() {    
     var url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search.slice(1));
+    params.set('series', '3');
+    url.searchParams.set('series', '出擊')
+    console.log(url);
     var pathname = url.pathname;
     var search = url.search;
+    var urlParams = url.searchParams;
+    var href = url.href;
+    // console.log(url.href);
+    // console.log(urlParams.has('categories'))
+    console.log(url.searchParams.value);
     $.getJSON('/api'+pathname+'sorting', function(s_json) {
         s_json.series.forEach(function(data){
-            if(data.series){
-                $('#series-dropdown').append('<a class="dropdown-item" href="?series='+data.series+'">'+data.series+'</a>')
-            }
+            $('#series-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" >'+data+'</a>')
         })
         s_json.categories.forEach(function(data){
-            if(data.categories){
-                $('#categories-dropdown').append('<a class="dropdown-item" href="?category='+data.categories+'">'+data.categories+'</a>')            
-            }
+            $('#categories-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')      
         })
         s_json.rank.forEach(function(data){
-            if(data.rank){
-                $('#rank-dropdown').append('<a class="dropdown-item" href="?rank='+data.rank+'">'+data.rank+'</a>')
-            }
+            $('#rank-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')
         })
-        
-    });
+        s_json.brands.forEach(function(data){
+            $('#brands-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')
+        })        
+    })        
     $.getJSON('/api'+pathname+search, function(p_json) {
         p_json.forEach(function(data){
             $('#product_list').append('\
@@ -48,6 +53,9 @@ $(function() {
                 var domain = window.location.origin;
                 var image_path = domain + '/storage/images/' + i_json[0].product_id + '/' + i_json[0].filename;
                 $('#image-'+i_json[0].product_id).html('<img src="'+image_path+'" alt="" class="img-fluid">');
+            })
+            .done(function () {
+                $('.loading-image').remove();
             })
         })
     })
