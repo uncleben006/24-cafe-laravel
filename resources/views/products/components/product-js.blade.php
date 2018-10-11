@@ -20,37 +20,40 @@ $(function() {
                 $('#series-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="series" >'+data+'</a>')
             })
             s_json.categories.forEach(function(data){
-                $('#categories-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')      
+                $('#categories-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="categories">'+data+'</a>')      
             })
             s_json.rank.forEach(function(data){
-                $('#rank-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')
+                $('#rank-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="rank">'+data+'</a>')
             })
             s_json.brands.forEach(function(data){
-                $('#brands-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'">'+data+'</a>')
+                $('#brands-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="brands">'+data+'</a>')
             })        
         })  
         .done(function(){
+            // 按下分類後，如果url 已經有該屬性則取代，如果沒有則新增(append)
+            
+            var urlHref = url.href
             var urlParameters = ''
             for(var pair of url.searchParams.entries()){
-                urlParameters += pair[0]+'='+pair[1] 
+                urlParameters += pair[0]+'='+pair[1]+'&'
             }
-            var urlHref = url.href
+            console.log('urlParameter=',urlParameters)
+            console.log('pathname= ',pathname)
             $('.prodouct-filter').on('click', function(){
-
                 
-                
-                console.log(urlHref)
-
-                
-                console.log(urlHref)
-                // window.location.href = urlHref;
-                // console.log(urlPath)
-                // window.location.href = pathname + '?series=&categories=&rank=&brands='
-                // if( $(this).data('sort')=='series' ) {
-                //     for(var pair of url.searchParams.entries()){
-                //         window.location.href = pathname + '?series=&categories=&rank=&brands='
-                //     }
-                // }               
+                if(url.searchParams.has($(this).data('sort'))){
+                    urlParameters = ''
+                    for(var pair of url.searchParams.entries()){
+                        if(pair[0]==$(this).data('sort')){
+                            pair[1] = $(this).data('filter')
+                        }
+                        urlParameters += pair[0]+'='+pair[1]+'&'
+                    }
+                    console.log(urlParameters)
+                    window.location.href = pathname + '?' + urlParameters
+                }else{
+                    window.location.href = pathname + '?' + urlParameters + $(this).data('sort') + '=' + $(this).data('filter')
+                }  
             })
         })
         .fail(function() {
