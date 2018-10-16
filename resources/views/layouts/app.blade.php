@@ -58,11 +58,11 @@
 
                         <li class="nav-item @yield('coffee-nav')">
                             <a class="nav-link product-nav dropdown-toggle" href="/products">咖啡專區</a>
-                            <div class="navbar-subnav">
+                            <div class="navbar-subnav @yield('coffee-subnav')">
                                 <div class="container">
-                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡產品</a>
-                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡介紹</a>
-                                    <a href="/products/rackets/" class="nav-link subnav-link">咖啡地圖</a>
+                                    <a href="/products/coffee/show/" class="nav-link subnav-link @yield('coffee-show')">咖啡產品</a>
+                                    <a href="/products/coffee/show/" class="nav-link subnav-link @yield('coffee-show')">咖啡介紹</a>
+                                    <a href="/products/coffee/show/" class="nav-link subnav-link @yield('coffee-show')">咖啡地圖</a>
                                 </div>
                             </div>
                         </li>

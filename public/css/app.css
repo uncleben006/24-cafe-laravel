@@ -10884,6 +10884,7 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
     opacity: 1;
     height: 100%;
     color: #472D30;
+    z-index: -1;
   }
 
   #mainNav .navbar-nav .nav-item .show-dropdown a {

@@ -95,6 +95,7 @@
                     opacity: 1;
                     height: 100%;
                     color: $theme-primary;
+                    z-index: -1;
                     a {
                         color: inherit !important;
                         border-bottom: none !important;

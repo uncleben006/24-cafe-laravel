@@ -236,6 +236,9 @@ class ProductController extends Controller
             'product' => $array,
         ]);
     } 
+    public function showCoffee(){
+        return view('products.product-coffee');
+    }
     /**
      * Display products rackets list
      */

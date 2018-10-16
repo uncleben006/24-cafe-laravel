@@ -32,6 +32,9 @@ Route::get('/products/{category}/{id}/edit', 'ProductController@edit');
 Route::post('/products/{category}/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
 
+
+Route::get('/products/coffee/show','ProductController@showCoffee');
+
 // order-list controller
 // Route::get('/products/checkout', 'OrderListController@index');
 // Route::post('/products/checkout', 'OrderListController@store');
