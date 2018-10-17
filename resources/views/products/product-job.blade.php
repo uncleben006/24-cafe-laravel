@@ -104,8 +104,8 @@ $(function() {
                     <div class="Rtable-cell"><div class="d-flex" style="word-break: break-all"><div class="w-25">'+data.series+'</div><div class="w-25">'+data.categories+'</div><div class="w-25">'+data.rank+'</div><div class="w-25">'+data.brands+'</div></div></div>\
                     <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
                     <div class="Rtable-cell">\
-                        <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
-                        <button data-id="'+data.product_id+'" class="btn btn-danger btn-delete-product">刪除</button>\
+                        <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-outline-primary btn-edit-product">編輯</button>\
+                        <button data-id="'+data.product_id+'" class="btn btn-outline-danger btn-delete-product">刪除</button>\
                     </div>\
                 ');
                 $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {
