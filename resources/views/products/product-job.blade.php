@@ -105,7 +105,7 @@ $(function() {
                     <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
                     <div class="Rtable-cell">\
                         <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-primary btn-edit-product">編輯</button>\
-                        <button data-id="'+data.product_id+'" class="btn btn-theme-tertiary btn-delete-product">刪除</button>\
+                        <button data-id="'+data.product_id+'" class="btn btn-danger btn-delete-product">刪除</button>\
                     </div>\
                 ');
                 $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {

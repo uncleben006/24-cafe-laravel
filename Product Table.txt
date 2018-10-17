@@ -1,0 +1,13 @@
+Product 
+ID
+Price
+Name
+Description
+class
+category
+series
+rank
+brand
+
+hasmany-> image
+hasmany-> tag
