@@ -13,7 +13,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name','price','description','class','category','series','rank','brand'
     ];
 
     /**
@@ -28,24 +28,4 @@ class Product extends Model
     {
         return $this->hasMany('App\ProductImage', 'product_id', 'id');
     }    
-    public function racket()
-    {
-        return $this->hasOne('App\Racket', 'product_id', 'id');
-    }
-    public function footwear()
-    {
-        return $this->hasOne('App\Footwear', 'product_id', 'id');
-    }
-    public function bag()
-    {
-        return $this->hasOne('App\Bag', 'product_id', 'id');
-    }
-    public function apparel()
-    {
-        return $this->hasOne('App\Apparel', 'product_id', 'id');
-    }
-    public function accessory()
-    {
-        return $this->hasOne('App\Accessory', 'product_id', 'id');
-    }
 }

@@ -10995,15 +10995,17 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 
 .slick-slider .slick-prev {
   left: 15px;
+  z-index: 2;
 }
 
 .slick-slider .slick-next {
   right: 15px;
+  z-index: 2;
 }
 
 .slick-slider .slick-prev:before,
 .slick-slider .slick-next:before {
-  color: #C9CBA3;
+  color: #472D30;
 }
 
 .slick-slider .slick-track {
@@ -11050,7 +11052,7 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 }
 
 .slick-slider .slick-dots li.slick-active button:before {
-  color: #C9CBA3;
+  color: #472D30;
 }
 
 .dropup,

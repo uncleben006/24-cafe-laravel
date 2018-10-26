@@ -23,13 +23,13 @@ Route::post('/posts', 'PostController@store')->name('post');
 
 
 // product controller administrator
-Route::get('/products/{category}', 'ProductController@list');
-Route::get('/products/{category}/{id}/detail', 'ProductController@showDetail');
+Route::get('/products/{class}', 'ProductController@list');
+Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@jobForm');
 Route::post('/products/job/new', 'ProductController@store');
-Route::get('/products/{category}/{id}/edit', 'ProductController@edit');
-Route::post('/products/{category}/{id}/edit', 'ProductController@update');
+Route::get('/products/{class}/{id}/edit', 'ProductController@edit');
+Route::post('/products/{class}/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
 
 

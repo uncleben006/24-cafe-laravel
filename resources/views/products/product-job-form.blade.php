@@ -68,28 +68,22 @@ $(function () {
                     <div class="col-md-4">
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label">產品名稱</label>
-
                             <div class="col-md-8">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group row">
-                            <label for="category" class="col-md-4 col-form-label">產品類別</label>
+                            <label for="class" class="col-md-4 col-form-label">產品類別</label>
                             <div class="col-md-8">
-                                <select class="form-control" id="category" name="category">
+                                <select class="form-control" id="class" name="class">
                                     <option value="racket">羽球拍</option>
                                     <option value="footwear">羽球鞋</option>
-                                    <option value="bag">拍包袋 & 背包</option>
-                                    <option value="apparel">服裝</option>
-                                    <option value="accessory">羽球、配件及器材</option>
+                                    <option value="bag">羽球袋</option>
+                                    <option value="apparel">羽球衣</option>
+                                    <option value="accessory">羽球配件及器材</option>
+                                    <option value="coffee">咖啡</option>
                                 </select>
                             </div>                            
                         </div>
@@ -100,18 +94,11 @@ $(function () {
         
                             <div class="col-md-8">
                                 <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="" required>
-        
-                                @if ($errors->has('price'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('price') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr class="my-3">           
-
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group row">
@@ -124,17 +111,16 @@ $(function () {
                     </div>
                     <div class="col-md-3">
                         <div class="form-group row">
-                            <label for="categories" class="col-md-4 col-form-label">分類</label>
+                            <label for="category" class="col-md-4 col-form-label">分類</label>
 
                             <div class="col-md-8">
-                                <input id="categories" type="text" class="form-control" name="categories" value="" placeholder="速度、進攻...">
+                                <input id="category" type="text" class="form-control" name="category" value="" placeholder="速度、進攻...">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group row">
                             <label for="rank" class="col-md-4 col-form-label">等級</label>
-
                             <div class="col-md-8">
                                 <input id="rank" type="text" class="form-control" name="rank" value="" placeholder="適合初級...">
                             </div>
@@ -142,41 +128,27 @@ $(function () {
                     </div>
                     <div class="col-md-3">
                         <div class="form-group row">
-                            <label for="brands" class="col-md-4 col-form-label">品牌</label>
-
+                            <label for="brand" class="col-md-4 col-form-label">品牌</label>
                             <div class="col-md-8">
-                                <input id="brands" type="text" class="form-control" name="brands" value="" placeholder="VICTOR...">
+                                <input id="brand" type="text" class="form-control" name="brand" value="" placeholder="VICTOR...">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label for="description" class="col-md-2 col-form-label">敘述</label>
-        
+                            <label for="description" class="col-md-2 col-form-label">敘述</label>        
                             <div class="col-md-10">
                                 <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5"></textarea>
-        
-                                @if ($errors->has('description'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label for="images" class="col-md-2 col-form-label">上傳圖片</label>
+                            <label for="image" class="col-md-2 col-form-label">上傳圖片</label>
                             <div class="col-md-10">
                                 <div class="input-group mb-3">
-                                    {{-- <div class="custom-file">
-                                        <input type="file" class="custom-file-input {{ $errors->has('image') ? ' is-invalid' : '' }}" id="image" name="image" multiple>
-                                        <label class="custom-file-label" for="image">尚未選擇檔案</label>
-                                    </div> --}}
-                                    <input id="images" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="images[]" multiple>
-                                </div>
-                                
-        
+                                    <input id="image" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
+                                </div>                       
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('image') }}</strong>
@@ -186,10 +158,9 @@ $(function () {
                         </div>
                     </div>
                 </div>             
-
                 <div class="text-center">
                     <div id="images-preview"></div>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-sm btn-primary rounded-0">
                         新增產品
                     </button>
                 </div>

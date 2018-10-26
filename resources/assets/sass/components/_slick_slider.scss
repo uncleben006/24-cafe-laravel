@@ -1,13 +1,15 @@
 .slick-slider {
     .slick-prev {
-        left: 15px
+        left: 15px;
+        z-index: 2;
     }
     .slick-next {
-        right: 15px
+        right: 15px;
+        z-index: 2;
     }
     .slick-prev:before,
     .slick-next:before {
-        color: $theme-tertiary;
+        color: $theme-primary;
     }
     .slick-track {
         display: flex;
@@ -33,7 +35,7 @@
         left: 50%;
         transform: translateX(-50%);
         li.slick-active button:before {
-            color: $theme-tertiary;
+            color: $theme-primary;
         }
     }
 }

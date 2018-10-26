@@ -50,86 +50,9 @@ class ProductController extends Controller
     /**
      * Display rackets api
      */
-    public function filterApi(Request $request, $category)
+    public function filterApi(Request $request, $class)
     {
-        // 如果 request 接收到 url parameter，則依照 parameter 來抓出 database 裡的 product
-
-        $categories =  $request->categories;
-        $series =  $request->series;
-        $rank =  $request->rank;
-        $brands = $request->brands; 
-
-        switch ($category) {
-            case 'rackets':
-                $table = Racket::class;
-                break;
-            case 'footwears':
-                $table = Footwear::class;
-                break;
-            case 'bags':
-                $table = Bag::class;
-                break;
-            case 'apparels':
-                $table = Apparel::class;
-                break;
-            case 'accessories':
-                $table = Accessory::class;
-                break;
-        } 
-
-        if($categories&&$series&&$rank&&$brands){
-            return $table::where('categories', $categories)->where('series', $series)->where('rank', $rank)->where('brands', $brands)->get();
-        }else if ($categories&&$series&&$rank){
-            return $table::where('categories', $categories)->where('series', $series)->where('rank', $rank)->get();
-        }else if ($categories&&$series&&$brands){
-            return $table::where('categories', $categories)->where('series', $series)->where('brands', $brands)->get();
-        }else if ($categories&&$rank&&$brands){
-            return $table::where('categories', $categories)->where('rank', $rank)->where('brands', $brands)->get();
-        }else if ($categories&&$series){
-            return $table::where('categories', $categories)->where('series', $series)->get();
-        }else if ($categories&&$rank){
-            return $table::where('categories', $categories)->where('rank', $rank)->get();
-        }else if ($categories&&$brands){
-            return $table::where('categories', $categories)->where('brands', $brands)->get();
-        }else if ($categories){
-            return $table::where('categories', $categories)->get();
-        }else if ($series){
-            return $table::where('series', $series)->get();
-        }else if ($rank){
-            return $table::where('rank', $rank)->get();
-        }else if ($brands){
-            return $table::where('brands', $brands)->get();
-        }else {
-            return $table::all();
-        }      
-    }
-    /**
-     * Display footwears api
-     */
-    public function footwearApi()
-    {
-        return Footwear::all();
-    }
-    /**
-     * Display bags api
-     */
-    public function bagApi()
-    {
-        return Bag::all();
-    }
-    /**
-     * Display apparels api
-     */
-    public function apparelApi()
-    {
-        return Apparel::all();
-    }
-    /**
-     * Display accessories api
-     */
-    public function accessoryApi()
-    {
-        return Accessory::all();
+        return Product::where('class', $class)->get();   
     }
     /**
      * Display single product api
@@ -242,10 +165,17 @@ class ProductController extends Controller
     /**
      * Display products rackets list
      */
-    public function list($category)
+    public function list($class)
     {        
+        $product_data = Product::where('class', $class)->get();
+        $product_img = ProductImage::where('class', $class)->get();
+        // return $product_data;
+        // return $product_img;
+        
         return view('products.product-list',[
-            'category' => $category
+            'class' => $class,
+            'datas' => $product_data,
+            'imgs' => $product_img
         ]);
     }    
     /**
@@ -256,120 +186,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'name'=>'required:',
-            'price'=>'required|integer',
-        ]);       
-        
-        if ($validate->fails()) {
-            return redirect('/products/job/new/')
-                        ->withErrors($validate)
-                        ->withInput();
-        }
-
         $product = Product::create([
-            'name'=>$request->name
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'description'=>$request->description,
+            'class'=>$request->class,
+            'category'=>$request->category,
+            'series'=>$request->series,
+            'rank'=>$request->rank,
+            'brand'=>$request->brand
         ]);        
-        $product_id = $product->id;
-        self::storeImage($product_id,$request);
-        switch ($request->category) {
-            case 'racket':
-                self::storeRacket($product_id, $request);
-                break;
-            case 'footwear':
-                self::storeFootwear($product_id, $request);
-                break;
-            case 'bag':
-                self::storeBag($product_id, $request);
-                break;
-            case 'apparel':
-                self::storeApparel($product_id, $request);
-                break;
-            case 'accessory':
-                self::storeAccessory($product_id, $request);
-                break;
-        }
-        return redirect('/products/job/list');
-    } 
-    /**
-     *  Store a racket into product database, and then store the images. 
-     */
-    public function storeRacket($id, $request)
-    {
-        $racket = Racket::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }    
-    /**
-     * Store a footwear into product database
-     */
-    public function storeFootwear($id, $request)
-    {                 
-        $racket = Footwear::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }  
-    /**
-     * Store a bag into product database
-     */
-    public function storeBag($id, $request)
-    {
-        $racket = Bag::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }   
-    /**
-     * Store a apparel into product database
-     */
-    public function storeApparel($id, $request)
-    {
-        $racket = Apparel::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    } 
-    /**
-     * Store a accessory into product database
-     */
-    public function storeAccessory($id, $request)
-    {
-        $racket = Accessory::create([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
+        $id = $product->id;
+        self::storeImage($id,$request);     
+        return redirect('/products/job/list');     
     } 
     /**
      * Store images into product image database.
@@ -377,17 +206,17 @@ class ProductController extends Controller
     public function storeImage($id, $request)
     {                
         $image_path = '/public/images/'.$id.'/';
-        if($request->images){
-            foreach ($request->images as $image) {
-                echo 
+        if($request->image){
+            foreach ($request->image as $image) {
                 $fileName = $image->getClientOriginalName();     
                 $image->storeAs($image_path, $fileName);
                 ProductImage::create([
                     'product_id' => $id,
+                    'class' => $request->class,
                     'filename' => $fileName
                 ]);
             }   
-        }                
+        }                      
     }
     /**
      * Display the product edit form to edit the specified product.
