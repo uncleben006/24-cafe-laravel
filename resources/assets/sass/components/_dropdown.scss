@@ -13,7 +13,6 @@
 
 // The dropdown menu
 .dropdown-menu {
-  // position: absolute;
   padding: 0;
   margin: 0;
   z-index: -1;
@@ -25,31 +24,23 @@
   display: none; // none by default, but block on "open" of the menu
   float: left;
   min-width: $dropdown-min-width;
-  // padding: $dropdown-padding-y 0;
-  // margin: 0.5rem 0 0;
-  // override default ul
   font-size: $font-size-base; // Redeclare because nesting can cause inheritance issues
   color: $body-color;
   text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
   list-style: none;
-  // background-color: $dropdown-bg;
   background-color: rgba(255,255,255,0.5);
   background-clip: padding-box;
   border: $dropdown-border-width solid $dropdown-border-color;
   transition: 0.5s;
   transform: translate3d(0,10px,0);
   -webkit-transform: translate3d(0,10px,0);
-  // @include border-radius($dropdown-border-radius);
   @include box-shadow($dropdown-box-shadow); 
-  &:hover {
+  
+  &.show {
     opacity: 1;
     visibility: visible;
     transform: translate3d(0,0px,0);
-    -webkit-transform: translate3d(0,0px,0);
-    transition: 0.5s; 
-  }   
-  &.show {
-    display: block;
+    transition: 0s; 
   }
   .dropdown-item {    
     border-bottom: solid 1px rgba(0,0,0,0.5);
@@ -63,20 +54,27 @@
   .dropdown-menu {
     display: block;
     background-color: $dropdown-bg;
-  }    
-}
-
-.dropdown-toggle {
-  &:hover {
-    + .dropdown-menu{
+    &:hover {
       opacity: 1;
       visibility: visible;
       transform: translate3d(0,0px,0);
       -webkit-transform: translate3d(0,0px,0);
       transition: 0.5s; 
+    }   
+  }    
+
+  .dropdown-toggle {
+    &:hover {
+      + .dropdown-menu{
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0,0px,0);
+        -webkit-transform: translate3d(0,0px,0);
+        transition: 0.5s; 
+      }
     }
-  }
-} 
+  } 
+}
 
 .dropdown-menu-right {
   right: 0;
@@ -162,7 +160,7 @@
   color: $dropdown-link-color;
   text-align: inherit; // For `<button>`s
   white-space: nowrap; // prevent links from randomly breaking onto new lines
-  background-color: transparent; // For `<button>`s
+  background-color: white; // For `<button>`s
   border: 0; // For `<button>`s
 
   @include hover-focus {

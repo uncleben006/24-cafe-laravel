@@ -47,17 +47,17 @@
                             <a class="nav-link product-nav dropdown-toggle" href="javascript:void(0);">羽球專區</a>
                             <div class="navbar-subnav @yield('badminton-subnav')">
                                 <div class="container">
-                                    <a href="/products/rackets/" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
-                                    <a href="/products/footwears/" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
-                                    <a href="/products/apparels/" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>                                    
-                                    <a href="/products/bags/" class="nav-link subnav-link @yield('badminton-bags')">拍包袋 & 背包</a>
-                                    <a href="/products/accessories/" class="nav-link subnav-link @yield('badminton-accessories')">羽球、配件及器材</a>
+                                    <a href="/products/racket/" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
+                                    <a href="/products/footwear/" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
+                                    <a href="/products/apparel/" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>                                    
+                                    <a href="/products/bag/" class="nav-link subnav-link @yield('badminton-bags')">拍包袋 & 背包</a>
+                                    <a href="/products/accessory/" class="nav-link subnav-link @yield('badminton-accessories')">羽球、配件及器材</a>
                                 </div>
                             </div>
                         </li>
 
                         <li class="nav-item @yield('coffee-nav')">
-                            <a class="nav-link product-nav dropdown-toggle" href="/products">咖啡專區</a>
+                            <a class="nav-link product-nav dropdown-toggle" href="javascript: void(0);">咖啡專區</a>
                             <div class="navbar-subnav @yield('coffee-subnav')">
                                 <div class="container">
                                     <a href="/products/coffee/show/" class="nav-link subnav-link @yield('coffee-show')">咖啡產品</a>
@@ -118,7 +118,7 @@
             </div>
         </nav>
 
-        <main style="min-height: 100vh; padding-top: 20vh; @yield('index')">
+        <main style="min-height: 100vh; @yield('index')">
             @yield('content')
         </main>
 

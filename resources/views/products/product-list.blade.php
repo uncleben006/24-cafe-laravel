@@ -26,58 +26,35 @@
 @section('script')
 <script>
 $(function() {    
+    // get data
+    var images = {!! $imgs !!}
+    images.forEach(function (img) {
+        $('.card-'+img.product_id).append('<img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid">');
+    })
+    
+    // slick generate
+    $('.card-header').slick({
+        infinite: true,
+        adaptiveHeight: true,
+        // variableWidth: true,
+        centerMode: true,
+        centerPadding: '25px',
+        dots: true,
+    })    
+
+    // hide slick dots if only one
+    for (let i = 0; i < $('.slick-dots').length; i++) {
+        if($('.slick-dots')[i].children.length==1){
+            $($('.slick-dots')[i]).hide()
+        }
+    }
+
     // var url = new URL(window.location.href);
     // // url.searchParams.set('series', '亮劍')
-    // console.log(url);
-    // var pathname = url.pathname;
-    // var search = url.search;
-    // var urlParams = url.searchParams;
-    // var href = url.href;
-    // // console.log(url.href);
-    // // console.log(urlParams.has('categories'))
-    // console.log(url.searchParams.value);
-    
-    // show product list
-    // var productList = '';
-    // (function showProduct() {
-    //     $.getJSON('/api'+pathname+search, function(p_json) {        
-    //         p_json.forEach(function(data){
-    //             productList += '\
-    //             <div class="col-md-3 product-card mb-5">\
-    //                 <a href="'+pathname+data.product_id+'/detail" target="_blank">\
-    //                     <div class="card">\
-    //                         <div class="card-header">\
-    //                             <div id="image-'+data.product_id+'" style="position:relative">\
-    //                                 <div class="loading loading-image"></div>\
-    //                             </div>\
-    //                         </div>\
-    //                         <div class="card-body">\
-    //                             <h5 class="card-title">'+data.name+'</h5>\
-    //                         </div>\
-    //                         <div class="card-footer">\
-    //                             <p class="card-text">NT. '+data.price+'</p>\
-    //                         </div>\
-    //                     </div>\
-    //                 </a>\
-    //             </div>';
-    //             $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {
-    //                 var domain = window.location.origin;
-    //                 var image_path = domain + '/storage/images/' + i_json[0].product_id + '/' + i_json[0].filename;
-    //                 $('#image-'+i_json[0].product_id).html('<img src="'+image_path+'" alt="" class="img-fluid">');
-    //             })
-    //             .done(function () {
-    //                 $('.loading-image').remove();
-    //             })
-    //         })
-    //         $('#product_list').html(productList);
-    //     })
-    //     .done(function() {
-    //         $('.loading-content').remove();    
-    //     })
-    // })()  
-
-
+    // console.log(url)
+    // var pathname = url.pathname
     // var sortPath = '/api'+pathname+'sorting';
+    // console.log(sortPath)
 
     // (function createSortBar(apiPath) {
     //     $.getJSON(apiPath, function(s_json) {
@@ -125,104 +102,181 @@ $(function() {
     //         var sortPathUpdate = '/api'+pathname+'/sorting';
     //         createSortBar(sortPathUpdate)
     //     })   
-    // })(sortPath);    
-    $('.card-header').slick({
-        variableWidth: true,
-        infinite: true,
-    })
-    
+    // })(sortPath);   
+
 });
 </script>
 @endsection
 
 @section('style')
 <style>
-#product_list .card{
+.sorting {
+    margin-top: 10vh;
+    border-bottom: 1.5px solid black; 
+    margin-bottom:50px;
+}
+.sorting-primary {
+    width: 158px;
+}
+@media (min-width: 992px) {
+    .sorting {
+        margin-top: 20vh;
+    }
+    .sorting-primary {
+        width: auto;
+    }
+}
+
+.card {
     min-height: 400px;
     height: 100%;
 }
-#product_list .card-header {
-    height: 200px !important;
+.card-header {
+    text-align: center;
+    padding: 30px 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#product_list .card-header .img-fluid {
+.card-header .img-fluid {
     max-width: 100%;
     max-height: 100%;
 }
-#product_list .card-header .image-block {
+.card-header .image-block {
     max-width: 100%;
     max-height: 100%;
 }
-.slick-slider, .slick-list, .slick-track {
-  max-height: 100%;
-  max-width: 100%;
-  width: auto !important;
-  height: auto !important;
-  transform: translate3d(0px, 0px, 0px) !important;
+.card-title{
+    font-size: 1.2rem;
 }
-.slick-slider, .slick-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.card-description{
+    font-size: 1rem;
 }
-
+.slick-slide {
+    width: 200px;
+    opacity: 0;
+    transition: 0.5s;
+}
+.slick-current {
+    opacity: 1;
+}
+.slick-prev {
+    display: none !important;
+}
+.slick-next {
+    display: none !important;
+}
+.slick-dots {
+    bottom: 0px;
+}
+@media (min-width: 576px) {
+    .card-header {
+        height: 200px !important;
+    }
+    .slick-list {
+        max-height: 200px;
+    }
+    .slick-track {
+        max-height: 200px;
+    }
+}
 </style>
 @endsection
 
 @section('content')
 {{-- sorting start --}}
-<div class="container d-flex mb-5">
-    <div class="dropdown mr-5">
+<div class="container">
+    {{-- <div class="d-inline-block dropdown m-5">
         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">系列</button>
         <div class="dropdown-menu" id="series-dropdown">
+            <a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="series">全英系列</a>
         </div>
     </div>
-    <div class="dropdown mr-5">
+    <div class="d-inline-block dropdown m-5">
         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
         <div class="dropdown-menu" id="categories-dropdown">
         </div>
-    </div>    
-    <div class="dropdown mr-5">
+    </div> 
+    <div class="d-inline-block dropdown m-5">
         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">等級</button>
         <div class="dropdown-menu" id="rank-dropdown">
         </div>
     </div>  
-    <div class="dropdown mr-5">
+    <div class="d-inline-block dropdown m-5">
         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">品牌</button>
         <div class="dropdown-menu" id="brands-dropdown">
         </div>
-    </div>  
+    </div>   --}}
+
+    <div class="sorting">
+        <div class="row pb-3">
+            <div class="col-md-9">
+                <div class="text-nowrap float-left pr-3">篩選 |</div>
+                <div class="d-flex flex-column flex-lg-row">
+                    <div class="d-inline-block dropdown pr-3">
+                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">系列</button>
+                        <div class="dropdown-menu" id="series-dropdown">
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                        </div>
+                    </div>
+                    <div class="d-inline-block dropdown pr-3">
+                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
+                        <div class="dropdown-menu" id="categories-dropdown">
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                        </div>
+                    </div> 
+                    <div class="d-inline-block dropdown pr-3">
+                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">等級</button>
+                        <div class="dropdown-menu" id="rank-dropdown">
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                        </div>
+                    </div>  
+                    <div class="d-inline-block dropdown pr-3">
+                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">品牌</button>
+                        <div class="dropdown-menu" id="brands-dropdown">
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-nowrap float-left pr-3">排序 |</div>
+                <div></div>
+            </div>
+        </div>
+    </div>    
 </div>
 {{-- sorting end --}}
 {{-- product card start --}}
 <div class="container">
     <div class="row justify-content-center" id="product_list">       
         @foreach ($datas as $data)                       
-            <div class="col-md-3 product-card mb-5">
-                
+            <div class="col-lg-3 col-md-4 col-sm-6 product-card mb-5">                
                 <div class="card">
-                    <div class="card-header">
-                        @foreach ($imgs as $img)                  
-                            @if($img->product_id == $data->id)
-                                <img src="/storage/images/{{$img->product_id}}/{{$img->filename}}" alt="" class="img-fluid">
-                            @endif
-                        @endforeach
+                    <div class="card-header card-{{$data->id}}">
+                    </div>                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{$data->name}}</h5>
+                        <p class="card-description">{{$data->description}}</p>
                     </div>
-                    <a href="{{$data->id}}/detail" target="_blank">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$data->name}}</h5>
-                        </div>
-                        <div class="card-footer">
-                            <p class="card-text">NT. {{$data->price}}</p>
-                        </div>
-                    </a>
-                </div>
-                
+                    <div class="card-footer">
+                        <p class="card-text">NT. {{$data->price}}</p>
+                    </div>
+                </div>                
             </div>    
-        @endforeach       
-        
+        @endforeach               
     </div>        
 </div>
 {{-- product card end --}}
