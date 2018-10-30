@@ -11053,7 +11053,6 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
 
 .dropdown-menu .dropdown-item {
   border-bottom: solid 1px rgba(0, 0, 0, 0.5);
-  /* width: 100%; */
 }
 
 .dropdown-menu .dropdown-item:last-child {
@@ -11649,6 +11648,16 @@ section h2 {
 .product-card a:hover {
   color: inherit !important;
   text-decoration: none;
+}
+
+.spacing {
+  margin-top: 10vh;
+}
+
+@media (min-width: 992px) {
+  .spacing {
+    margin-top: 20vh;
+  }
 }
 
 .navbar-laravel {

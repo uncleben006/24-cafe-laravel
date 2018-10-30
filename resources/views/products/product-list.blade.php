@@ -5,19 +5,19 @@
 @section('badminton-subnav', 'show-dropdown')
 
 @switch($class)
-    @case('rackets')
+    @case('racket')
         @section('badminton-rackets', 'subnav-active')
         @break
-    @case('footwears')
+    @case('footwear')
         @section('badminton-footwears', 'subnav-active')
         @break
-    @case('apparels')
+    @case('apparel')
         @section('badminton-apparels', 'subnav-active')
         @break
-    @case('bags')
+    @case('bag')
         @section('badminton-bags', 'subnav-active')
         @break
-    @case('accessories')
+    @case('accessory')
         @section('badminton-accessories', 'subnav-active')
         @break
     @default        
@@ -28,6 +28,7 @@
 $(function() {    
     // get data
     var images = {!! $imgs !!}
+    console.log(images)
     images.forEach(function (img) {
         $('.card-'+img.product_id).append('<img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid">');
     })
@@ -36,7 +37,7 @@ $(function() {
     $('.card-header').slick({
         infinite: true,
         adaptiveHeight: true,
-        // variableWidth: true,
+        variableWidth: true,
         centerMode: true,
         centerPadding: '25px',
         dots: true,
@@ -111,7 +112,6 @@ $(function() {
 @section('style')
 <style>
 .sorting {
-    margin-top: 10vh;
     border-bottom: 1.5px solid black; 
     margin-bottom:50px;
 }
@@ -119,9 +119,6 @@ $(function() {
     width: 158px;
 }
 @media (min-width: 992px) {
-    .sorting {
-        margin-top: 20vh;
-    }
     .sorting-primary {
         width: auto;
     }
@@ -153,7 +150,7 @@ $(function() {
     font-size: 1rem;
 }
 .slick-slide {
-    width: 200px;
+    height: 150px;
     opacity: 0;
     transition: 0.5s;
 }
@@ -185,7 +182,7 @@ $(function() {
 
 @section('content')
 {{-- sorting start --}}
-<div class="container">
+<div class="container spacing">
     {{-- <div class="d-inline-block dropdown m-5">
         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">系列</button>
         <div class="dropdown-menu" id="series-dropdown">

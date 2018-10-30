@@ -181,3 +181,12 @@ section {
         text-decoration: none;
     }
 }
+
+.spacing {
+    margin-top: 10vh
+}
+@media (min-width: 992px) {
+    .spacing {
+        margin-top: 20vh;
+    }
+}

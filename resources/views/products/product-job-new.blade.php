@@ -14,11 +14,13 @@
 <script>
 
 $(function () {
-    $('.custom-file-input').on('change', function() {
-        let fileName = $(this).val().split('\\').pop();
-        console.log(fileName);
-        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
-    });
+
+    // $('.custom-file-input').on('change', function() {
+    //     let fileName = $(this).val().split('\\').pop();
+    //     console.log(fileName);
+    //     $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+    // });
+
     // Check File API support
     if(window.File && window.FileList && window.FileReader)
     {
@@ -56,11 +58,10 @@ $(function () {
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container spacing">
         
     <div class="card mb-5">
         <div class="card-header"><h1 class="mb-0 text-center" >新增產品</h1></div>
-
         <div class="card-body">
             <form method="POST" action="/products/job/new/" enctype="multipart/form-data">
                 @csrf
@@ -147,7 +148,7 @@ $(function () {
                             <label for="image" class="col-md-2 col-form-label">上傳圖片</label>
                             <div class="col-md-10">
                                 <div class="input-group mb-3">
-                                    <input id="image" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
+                                    <input id="images" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
                                 </div>                       
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">

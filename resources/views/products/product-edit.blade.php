@@ -8,15 +8,15 @@ $(function() {
 
     // 抓取 image api 顯示現在的圖片，
     // 缺點是 input 裡無法顯示
-    // $.getJSON('/api/products/{{$product->id}}/images', function (json) {
-    //     // console.log(json);
-    //     var domain = window.location.origin;
-    //     json.forEach(function (e) {
-    //         var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename
-    //         $('#images-preview').append('<img src="'+ image_path +'" alt="" style="height: 150px; margin: 0 1rem 1rem 0">')
-    //     })        
-    //     console.log(image_path);
-    // })
+    $.getJSON('/api/products/{{$data[0]->id}}/images', function (json) {
+        // console.log(json);
+        var domain = window.location.origin;
+        json.forEach(function (e) {
+            var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename
+            $('#images-preview').append('<img src="'+ image_path +'" alt="" style="height: 150px; margin: 0 1rem 1rem 0">')
+        })        
+        console.log(image_path);
+    })
 
     // Give current url to form
     var currentUrl = window.location.href;
@@ -59,11 +59,11 @@ $(function() {
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container spacing">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{$product->name}}</div>
+                <div class="card-header">{{$data[0]->name}}</div>
 
                 <div class="card-body">
                     <form method="POST" action="" enctype="multipart/form-data">
@@ -74,7 +74,7 @@ $(function() {
                                     <label for="name" class="col-md-4 col-form-label">產品名稱</label>
         
                                     <div class="col-md-8">
-                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$product->name}}" required autofocus>
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$data[0]->name}}" required autofocus>
         
                                         @if ($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
@@ -86,9 +86,9 @@ $(function() {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group row">
-                                    <label for="category" class="col-md-4 col-form-label">產品類別</label>
+                                    <label for="class" class="col-md-4 col-form-label">產品類別</label>
                                     <div class="col-md-8">
-                                        <select class="form-control" id="category" name="category">
+                                        <select class="form-control" id="class" name="class">
                                             <option value="racket">羽球拍</option>
                                             <option value="footwear">羽球鞋</option>
                                             <option value="bag">拍包袋 & 背包</option>
@@ -103,7 +103,7 @@ $(function() {
                                     <label for="price" class="col-md-4 col-form-label">產品價格</label>
                 
                                     <div class="col-md-8">
-                                        <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{$product->price}}" required>
+                                        <input id="price" type="number" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{$data[0]->price}}" required>
                 
                                         @if ($errors->has('price'))
                                             <span class="invalid-feedback" role="alert">
@@ -122,16 +122,16 @@ $(function() {
                                     <label for="series" class="col-md-4 col-form-label">系列</label>
         
                                     <div class="col-md-8">
-                                        <input id="series" type="text" class="form-control" name="series" value="{{$product->series}}" placeholder="亮劍系列...">
+                                        <input id="series" type="text" class="form-control" name="series" value="{{$data[0]->series}}" placeholder="亮劍系列...">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group row">
-                                    <label for="categories" class="col-md-4 col-form-label">分類</label>
+                                    <label for="category" class="col-md-4 col-form-label">分類</label>
         
                                     <div class="col-md-8">
-                                        <input id="categories" type="text" class="form-control" name="categories" value="{{$product->categories}}" placeholder="速度、進攻...">
+                                        <input id="category" type="text" class="form-control" name="category" value="{{$data[0]->category}}" placeholder="速度、進攻...">
                                     </div>
                                 </div>
                             </div>
@@ -140,16 +140,16 @@ $(function() {
                                     <label for="rank" class="col-md-4 col-form-label">等級</label>
         
                                     <div class="col-md-8">
-                                        <input id="rank" type="text" class="form-control" name="rank" value="{{$product->rank}}" placeholder="適合初級...">
+                                        <input id="rank" type="text" class="form-control" name="rank" value="{{$data[0]->rank}}" placeholder="適合初級...">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group row">
-                                    <label for="brands" class="col-md-4 col-form-label">品牌</label>
+                                    <label for="brand" class="col-md-4 col-form-label">品牌</label>
         
                                     <div class="col-md-8">
-                                        <input id="brands" type="text" class="form-control" name="brands" value="{{$product->brands}}" placeholder="VICTOR...">
+                                        <input id="brand" type="text" class="form-control" name="brand" value="{{$data[0]->brand}}" placeholder="VICTOR...">
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ $(function() {
                                     <label for="description" class="col-md-2 col-form-label">敘述</label>
                 
                                     <div class="col-md-10">
-                                        <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5">{{$product->description}}</textarea>
+                                        <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5">{{$data[0]->description}}</textarea>
                 
                                         @if ($errors->has('description'))
                                             <span class="invalid-feedback" role="alert">

@@ -26,10 +26,10 @@ Route::post('/posts', 'PostController@store')->name('post');
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 Route::get('/products/job/list', 'ProductController@job');
-Route::get('/products/job/new', 'ProductController@jobForm');
+Route::get('/products/job/new', 'ProductController@jobNew');
 Route::post('/products/job/new', 'ProductController@store');
-Route::get('/products/{class}/{id}/edit', 'ProductController@edit');
-Route::post('/products/{class}/{id}/edit', 'ProductController@update');
+Route::get('/products/job/{id}/edit', 'ProductController@edit');
+Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/{id}/delete', 'ProductController@destroy');
 
 

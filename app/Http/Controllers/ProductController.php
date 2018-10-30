@@ -30,22 +30,7 @@ class ProductController extends Controller
     public function api()
     {
         // 把各類的產品資料庫都merge起來，去掉id，sortby product_id
-        $racket = Racket::all();
-        $footwear = Footwear::all();
-        $bag = Bag::all();
-        $apparel = Apparel::all();
-        $accessory = Accessory::all();
-        $product = [
-            'racket'=>$racket,
-            'footwear'=>$footwear,
-            'bag'=>$bag,
-            'apparel'=>$apparel,
-            'accessory'=>$accessory
-        ];    
-        return $product;
-        
-        $merge = Racket::all()->merge(Footwear::all());    
-        return Racket::all();
+        return Product::all();
     }
     /**
      * Display rackets api
@@ -121,15 +106,18 @@ class ProductController extends Controller
      */
     public function job() 
     {
-        return view('products.product-job');
+        $product_data = Product::all();
+        return view('products.product-job-list',[
+            'datas' => $product_data
+        ]);
     }
     /**
      * Display product form to create a new product.
      *
      */
-    public function jobForm()
+    public function jobNew()
     {
-        return view('products.product-job-form');
+        return view('products.product-job-new');
     }       
     /**
      * Display product detail page.
@@ -224,28 +212,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($category, $id)
+    public function edit($id)
     {
-        $array = [];
-        switch ($category) {
-            case 'racket';
-                $array = Product::find($id)->racket()->first();
-                break;
-            case 'footwear';
-                $array = Product::find($id)->footwear()->first();
-                break;
-            case 'bag';
-                $array = Product::find($id)->bag()->first();
-                break;
-            case 'apparel';
-                $array = Product::find($id)->apparel()->first();
-                break;
-            case 'accessory';
-                $array = Product::find($id)->accessory()->first();
-                break;
-        }
+        $product_data = Product::where('id', $id)->get();
+        // return $product_data;
         return view('products.product-edit', [
-            'product' => $array,
+            'data' => $product_data,
         ]);
     }
     /**
@@ -254,180 +226,40 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $category, $id)
-    {        
+    public function update(Request $request, $id)
+    {      
         $validate = Validator::make($request->all(), [
             'name'=>'required:',
             'price'=>'required|integer',
-        ]);       
-        
+        ]);          
         if ($validate->fails()) {
-            return redirect("/products/$category/$id/edit/")
+            return redirect("/products/job/$id/edit/")
                         ->withErrors($validate)
                         ->withInput();
         }     
-        // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
-        // 同時刪除資料庫裡的圖片，並新增新的圖
-
-        // 改 Product 資料庫 (主資料庫)
+        // 改 Product 資料庫 
         Product::where('id', $id)
         ->update([
             'name' => $request->name,
+            'class' => $request->class,
+            'price' => $request->price,
+            'description' => $request->description,
+            'series' => $request->series,
+            'category' => $request->category,
+            'rank' => $request->rank,
+            'brand' => $request->brand
         ]);
-
         // 改圖
         self::updateImage($id,$request);
-
-        // 如果 User 選的類別汗腺在是一樣的，那就在現在這個 Model更新，若否則刪除並再新的 Model 新增
-        if($request->category==$category){
-            switch ($category) {
-                case 'racket';
-                    self::updateRacket($id, $request);     
-                    break;
-                case 'footwear';
-                    self::updateFootwear($id, $request);
-                    break;
-                case 'bag':
-                    self::updateBag($id, $request);
-                    break;
-                case 'apparel':
-                    self::updateApparel($id, $request);
-                    break;
-                case 'accessory':
-                    self::updateAccessory($id, $request);
-                    break;
-            }
-        }
-        // 若否則刪除並再新的 Model 新增
-        else {
-            // self::destroy($id);
-            switch ($category) {
-                case 'racket';
-                    Racket::where('product_id', $id)->delete();
-                    break;
-                case 'footwear';
-                    Footwear::where('product_id', $id)->delete();
-                    break;
-                case 'bag':
-                    Bag::where('product_id', $id)->delete();
-                    break;
-                case 'apparel':
-                    Apparel::where('product_id', $id)->delete();
-                    break;
-                case 'accessory':
-                    Accessory::where('product_id', $id)->delete();
-                    break;
-            }
-            switch ($request->category) {
-                case 'racket':
-                    self::storeRacket($id, $request);
-                    break;
-                case 'footwear':
-                    self::storeFootwear($id, $request);
-                    break;
-                case 'bag':
-                    self::storeBag($id, $request);
-                    break;
-                case 'apparel':
-                    self::storeApparel($id, $request);
-                    break;
-                case 'accessory':
-                    self::storeAccessory($id, $request);
-                    break;
-            }
-        }
         return redirect('/products/job/list');
-    }
-    /**
-     *  Update racket
-     */
-    public function updateRacket($id, $request)
-    {              
-        $racket = Racket::where('product_id', $id)
-        ->update([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }
-    /**
-     *  Update footwear
-     */
-    public function updateFootwear($id, $request)
-    {    
-        $racket = Footwear::where('product_id', $id)
-        ->update([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }
-    /**
-     *  Update bag
-     */
-    public function updateBag($id, $request)
-    {    
-        $racket = Bag::where('product_id', $id)
-        ->update([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }
-    /**
-     *  Update apparel
-     */
-    public function updateApparel($id, $request)
-    {    
-        $racket = Apparel::where('product_id', $id)
-        ->update([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
-    }
-    /**
-     *  Update accessory
-     */
-    public function updateAccessory($id, $request)
-    {    
-        $racket = Accessory::where('product_id', $id)
-        ->update([
-            'product_id'=>$id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'description'=>$request->description? $request->description : '無',
-            'series'=>$request->series? $request->series : '其他',
-            'categories'=>$request->categories? $request->categories : '其他',
-            'rank'=>$request->rank? $request->rank : '其他',
-            'brands'=>$request->brands? $request->brands : '其他'
-        ]);
     }
     /**
      * Update images.
      */
     public function updateImage($id, $request)
     {        
+        // 如果有上傳圖片，則刪除原本資料結構裡的圖片，
+        // 同時刪除資料庫裡的圖片，並新增新的圖
         if($request->images){
             Storage::deleteDirectory("/public/images/$id");
             $originalImages = ProductImage::where('product_id',$id);
@@ -438,11 +270,12 @@ class ProductController extends Controller
                 $image->storeAs($image_path, $fileName);
                 ProductImage::create([
                     'product_id' => $id,
-                    'filename' => $fileName
+                    'class' => $request->class,
+                    'filename' => $fileName,
                 ]);
             }
         }      
-    }    
+    }  
     /**
      * Remove the specified file from storage, including the images inside.
      * Remove the information from products DB and product_images DB.
