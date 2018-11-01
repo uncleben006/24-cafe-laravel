@@ -11639,17 +11639,6 @@ section h2 {
   background: rgba(255, 255, 255, 0.5);
 }
 
-.product-card:hover .card {
-  opacity: 0.75;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.product-card a:hover {
-  color: inherit !important;
-  text-decoration: none;
-}
-
 .spacing {
   margin-top: 10vh;
 }

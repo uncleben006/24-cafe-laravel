@@ -274,6 +274,11 @@ class ProductController extends Controller
                     'filename' => $fileName,
                 ]);
             }
+        }
+        else {
+            ProductImage::where('product_id',$id)->update([
+                'class' => $request->class
+            ]);
         }      
     }  
     /**

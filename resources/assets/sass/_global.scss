@@ -169,19 +169,6 @@ section {
     background: rgba(255,255,255,0.5);
 }
 
-.product-card {
-    &:hover {
-        .card {
-            opacity: 0.75;
-            transition: 0.5s;
-        }        
-    }
-    a:hover {
-        color: inherit !important;
-        text-decoration: none;
-    }
-}
-
 .spacing {
     margin-top: 10vh
 }

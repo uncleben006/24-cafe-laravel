@@ -124,6 +124,19 @@ $(function() {
     }
 }
 
+/* .product-card {
+    &:hover {
+        .card {
+            opacity: 0.75;
+            transition: 0.5s;
+        }        
+    }
+    a:hover {
+        color: inherit !important;
+        text-decoration: none;
+    }
+} */
+
 .card {
     min-height: 400px;
     height: 100%;
@@ -150,7 +163,8 @@ $(function() {
     font-size: 1rem;
 }
 .slick-slide {
-    height: 150px;
+    height: auto;
+    width: 250px;
     opacity: 0;
     transition: 0.5s;
 }
@@ -166,6 +180,9 @@ $(function() {
 .slick-dots {
     bottom: 0px;
 }
+.slick-dotted.slick-slider {
+    margin-bottom: 0px;
+}
 @media (min-width: 576px) {
     .card-header {
         height: 200px !important;
@@ -175,6 +192,10 @@ $(function() {
     }
     .slick-track {
         max-height: 200px;
+    }
+    .slick-slide {
+        height: 150px;
+        width: auto;
     }
 }
 </style>
@@ -261,7 +282,7 @@ $(function() {
     <div class="row justify-content-center" id="product_list">       
         @foreach ($datas as $data)                       
             <div class="col-lg-3 col-md-4 col-sm-6 product-card mb-5">                
-                <div class="card">
+                <div class="card rounded-0">
                     <div class="card-header card-{{$data->id}}">
                     </div>                    
                     <div class="card-body">
