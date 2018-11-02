@@ -32,63 +32,77 @@ $(function() {
     $('#image-block').slick({
         infinite: true,
         adaptiveHeight: true,
-        // variableWidth: true,
+        variableWidth: true,
         centerMode: true,
         centerPadding: '0px',
         dots: true,
     })    
-
-    {{-- $.getJSON('/api/products/'+{{$datas->product_id}}+'/images', function (i_json) {                
-        var domain = window.location.origin;                 
-        i_json.forEach(function (e) {
-            var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename;
-            console.log(image_path);
-            $('#image-block').append('\
-                <div><img class="img-fluid" src="'+image_path+'" alt=""></div>\
-            ');
-        });                 
-    })
-    .then(function() {
-        $('.loading').remove();    
-    })
-    .done(function () {
-        $('#image-block').slick({
-            dots: true,
-            infinite: true,
-        });    
-    }) --}}
 });
 </script>
+@endsection
+
+@section('style')
+<style>
+.slick-slide {
+    height: auto;
+    width: 250px;
+    opacity: 0;
+    transition: 0.5s;
+}
+.slick-current {
+    opacity: 1;
+}
+.slick-prev {
+    display: none !important;
+}
+.slick-next {
+    display: none !important;
+}
+.slick-dots {
+    bottom: 0px;
+}
+.slick-dotted.slick-slider {
+    margin-bottom: 0px;
+}
+@media (min-width: 576px) {
+    .slick-list {
+        max-height: 200px;
+    }
+    .slick-track {
+        max-height: 200px;
+    }
+    .slick-slide {
+        height: 150px;
+        width: auto;
+    }
+}
+</style>
 @endsection
 
 @section('content')
 <div class="container spacing">
     <div class="row">
-        <div class="col-md-10 offset-md-1">
-            <div class="row">
-                <div class="col-md-7 text-center border p-5" id="image-block"><div class="loading"></div></div>
-                <div class="col-md-5 ">
-                    <div class="d-flex justify-content-between flex-column h-100">
-                        @foreach ($datas as $data) 
+        <div class="col-md-7 text-center border" id="image-block"><div class="loading"></div></div>
+        <div class="col-md-5 ">
+            <div class="d-flex justify-content-between flex-column h-100">
+                @foreach ($datas as $data) 
+                <div>
+                    <h2>{{$data->name}}</h2>
+                    <h4>NT. {{$data->price}}</h4>
+                    <div class="py-3">
                         <div>
-                            <h2>{{$data->name}}</h2>
-                            <h4>NT. {{$data->price}}</h4>
-                            <div class="py-3">
-                                <div>
-                                    系列: <span class="bg-info p-1 rounded">{{$data->series}}</span>
-                                    分類: <span class="bg-info p-1 rounded">{{$data->category}}</span>
-                                    等級: <span class="bg-info p-1 rounded">{{$data->rank}}</span>
-                                    品牌: <span class="bg-info p-1 rounded">{{$data->brand}}</span>
-                                </div>
-                            </div>
-                            <div class="border p-3">{{$data->description}}</div>
+                            系列: <span class="bg-info p-1 rounded">{{$data->series}}</span>
+                            分類: <span class="bg-info p-1 rounded">{{$data->category}}</span>
+                            等級: <span class="bg-info p-1 rounded">{{$data->rank}}</span>
+                            品牌: <span class="bg-info p-1 rounded">{{$data->brand}}</span>
                         </div>
-                        <div>最後編輯: {{$data->created_at}}</div>
-                        @endforeach
                     </div>
+                    <div class="border p-3">{{$data->description}}</div>
                 </div>
-            </div>            
-        </div>
+                <div>最後編輯: {{$data->created_at}}</div>
+                @endforeach
+            </div>
+        </div>        
     </div>    
 </div>
 @endsection

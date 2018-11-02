@@ -123,20 +123,6 @@ $(function() {
         width: auto;
     }
 }
-
-/* .product-card {
-    &:hover {
-        .card {
-            opacity: 0.75;
-            transition: 0.5s;
-        }        
-    }
-    a:hover {
-        color: inherit !important;
-        text-decoration: none;
-    }
-} */
-
 .card {
     min-height: 400px;
     height: 100%;
