@@ -156,11 +156,20 @@ $(function() {
     max-width: 100%;
     max-height: 100%;
 }
-.card-title{
+.card-title {
     font-size: 1.2rem;
 }
-.card-description{
+.card-description {
     font-size: 1rem;
+}
+.card-footer-learn-more {
+    color: #472D30;
+}
+.card-footer-learn-more:hover {
+    text-decoration: none;    
+    background-color: #E26D5C;
+    color: #FFE1A8;
+    transition: 0.5s;
 }
 .slick-slide {
     height: auto;
@@ -284,14 +293,19 @@ $(function() {
             <div class="col-lg-3 col-md-4 col-sm-6 product-card mb-5">                
                 <div class="card rounded-0">
                     <div class="card-header card-{{$data->id}}">
-                    </div>                    
+                    </div>    
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h5 class="card-title m-0">{{$data->name}}</h5>                            
+                        </li>
+                        <li class="list-group-item">NT. {{$data->price}}</li>
+                    </ul>                
                     <div class="card-body">
-                        <h5 class="card-title">{{$data->name}}</h5>
                         <p class="card-description">{{$data->description}}</p>
                     </div>
-                    <div class="card-footer">
-                        <p class="card-text">NT. {{$data->price}}</p>
-                    </div>
+                    <a href="/products/{{$data->class}}/{{$data->id}}/detail" class="card-footer card-footer-learn-more">
+                        了解更多
+                    </a>
                 </div>                
             </div>    
         @endforeach               

@@ -124,27 +124,31 @@ class ProductController extends Controller
      *
      * @param  int  $id
      */
-    public function showDetail($category, $id)
-    {        
-        switch ($category) {
-            case 'rackets';
-                $array = Product::find($id)->racket()->first();
-                break;
-            case 'footwears';
-                $array = Product::find($id)->footwear()->first();
-                break;
-            case 'bags';
-                $array = Product::find($id)->bag()->first();
-                break;
-            case 'apparels';
-                $array = Product::find($id)->apparel()->first();
-                break;
-            case 'accessories';
-                $array = Product::find($id)->accessory()->first();
-                break;
-        }
+    public function showDetail($class, $id)
+    {      
+        $product_img = ProductImage::where('product_id',$id)->get();
+        $product_data =  Product::where('id',$id)->get();  
+        // switch ($category) {
+        //     case 'rackets';
+        //         $array = Product::find($id)->racket()->first();
+        //         break;
+        //     case 'footwears';
+        //         $array = Product::find($id)->footwear()->first();
+        //         break;
+        //     case 'bags';
+        //         $array = Product::find($id)->bag()->first();
+        //         break;
+        //     case 'apparels';
+        //         $array = Product::find($id)->apparel()->first();
+        //         break;
+        //     case 'accessories';
+        //         $array = Product::find($id)->accessory()->first();
+        //         break;
+        // }
         return view('products.product-detail', [
-            'product' => $array,
+            'class' => $class,
+            'datas' => $product_data,
+            'imgs' => $product_img
         ]);
     } 
     public function showCoffee(){
