@@ -50,12 +50,54 @@ $(function() {
         }
     }
 
-    // var url = new URL(window.location.href);
-    // // url.searchParams.set('series', '亮劍')
-    // console.log(url)
-    // var pathname = url.pathname
-    // var sortPath = '/api'+pathname+'sorting';
-    // console.log(sortPath)
+    var url = new URL(window.location.href);
+    // url.searchParams.set('series', '亮劍')
+    
+    var pathname = url.pathname
+    var urlHref = url.href
+    var urlParameters = ''
+    for(var pair of url.searchParams.entries()){
+        urlParameters += pair[0]+'='+pair[1]+'&'
+    }
+    console.log('url = ', url)
+    console.log('urlParameter = ',urlParameters)
+    console.log('pathname = ',pathname)
+    console.log('urlHref = ',urlHref)
+
+    // function filtering(value) {
+    //     return value.series == ;
+    // }
+
+    // if(url.searchParams.has($(this).data('sort'))){
+    //     urlParameters = ''
+    //     for(var pair of url.searchParams.entries()){
+    //         if(pair[0]==$(this).data('sort')){
+    //             pair[1] = $(this).data('filter')
+    //         }
+    //         urlParameters += pair[0]+'='+pair[1]+'&'
+    //     }
+    //     console.log(urlParameters)
+    //     window.location.href = pathname + '?' + urlParameters
+    // }else{
+    //     window.location.href = pathname + '?' + urlParameters + $(this).data('sort') + '=' + $(this).data('filter')
+    // }  
+
+    $('.prodouct-filter').on('click', function(){
+        console.log($(this).data('filter-class'))
+        if(url.searchParams.has($(this).data('filter-class'))){
+            urlParameters = ''
+            for(var pair of url.searchParams.entries()){
+                if(pair[0]==$(this).data('filter-class')){
+                    pair[1] = $(this).data('filter-name')
+                }
+                urlParameters += pair[0]+'='+pair[1]+'&'
+            }
+            console.log(urlParameters)
+            window.location.href = pathname + '?' + urlParameters
+        }else{
+            window.location.href = pathname + '?' + urlParameters + $(this).data('filter-class') + '=' + $(this).data('filter-name')
+        }  
+    })
 
     // (function createSortBar(apiPath) {
     //     $.getJSON(apiPath, function(s_json) {
@@ -75,29 +117,7 @@ $(function() {
     //     .done(function(){
     //         // 按下分類後，如果url 已經有該屬性則取代，如果沒有則新增(append)
             
-    //         var urlHref = url.href
-    //         var urlParameters = ''
-    //         for(var pair of url.searchParams.entries()){
-    //             urlParameters += pair[0]+'='+pair[1]+'&'
-    //         }
-    //         console.log('urlParameter=',urlParameters)
-    //         console.log('pathname= ',pathname)
-    //         $('.prodouct-filter').on('click', function(){
-                
-    //             if(url.searchParams.has($(this).data('sort'))){
-    //                 urlParameters = ''
-    //                 for(var pair of url.searchParams.entries()){
-    //                     if(pair[0]==$(this).data('sort')){
-    //                         pair[1] = $(this).data('filter')
-    //                     }
-    //                     urlParameters += pair[0]+'='+pair[1]+'&'
-    //                 }
-    //                 console.log(urlParameters)
-    //                 window.location.href = pathname + '?' + urlParameters
-    //             }else{
-    //                 window.location.href = pathname + '?' + urlParameters + $(this).data('sort') + '=' + $(this).data('filter')
-    //             }  
-    //         })
+            
     //     })
     //     .fail(function() {
     //         var sortPathUpdate = '/api'+pathname+'/sorting';
@@ -110,90 +130,97 @@ $(function() {
 @endsection
 
 @section('style')
-<style>
-.sorting {
-    border-bottom: 1.5px solid black; 
-    margin-bottom:50px;
-}
-.sorting-primary {
-    width: 158px;
-}
-@media (min-width: 992px) {
-    .sorting-primary {
-        width: auto;
-    }
-}
-.card {
-    min-height: 400px;
-    height: 100%;
-}
-.card-header {
-    text-align: center;
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card-header .img-fluid {
-    max-width: 100%;
-    max-height: 100%;
-}
-.card-header .image-block {
-    max-width: 100%;
-    max-height: 100%;
-}
-.card-title {
-    font-size: 1.2rem;
-}
-.card-description {
-    font-size: 1rem;
-}
-.card-footer-learn-more {
-    color: #472D30;
-}
-.card-footer-learn-more:hover {
-    text-decoration: none;    
-    background-color: #E26D5C;
-    color: #FFE1A8;
-    transition: 0.5s;
-}
-.slick-slide {
-    height: auto;
-    width: 250px;
-    opacity: 0;
-    transition: 0.5s;
-}
-.slick-current {
-    opacity: 1;
-}
-.slick-prev {
-    display: none !important;
-}
-.slick-next {
-    display: none !important;
-}
-.slick-dots {
-    bottom: 0px;
-}
-.slick-dotted.slick-slider {
-    margin-bottom: 0px;
-}
-@media (min-width: 576px) {
-    .card-header {
-        height: 200px !important;
-    }
-    .slick-list {
-        max-height: 200px;
-    }
-    .slick-track {
-        max-height: 200px;
-    }
-    .slick-slide {
-        height: 150px;
-        width: auto;
-    }
-}
-</style>
+    <style>
+        .sorting {
+            border-bottom: 1.5px solid black; 
+            margin-bottom:50px;
+        }
+        .sorting-primary {
+            width: 158px;
+        }
+        @media (min-width: 992px) {
+            .sorting-primary {
+                width: auto;
+            }
+        }
+        .card {
+            min-height: 400px;
+            height: 100%;
+        }
+        .card-header {
+            text-align: center;
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card-header .img-fluid {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .card-header .image-block {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .card-title {
+            font-size: 1.2rem;
+        }
+        .card-description {
+            font-size: 1rem;
+        }
+        .card-footer-learn-more {
+            color: #472D30;
+        }
+        .card-footer-learn-more:hover {
+            text-decoration: none;    
+            background-color: #E26D5C;
+            color: #FFE1A8;
+            transition: 0.5s;
+        }
+        .slick-slide {
+            height: auto;
+            width: 250px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .slick-current {
+            opacity: 1;
+        }
+        .slick-prev {
+            display: none !important;
+        }
+        .slick-next {
+            display: none !important;
+        }
+        .slick-dots {
+            bottom: 0px;
+        }
+        .slick-dotted.slick-slider {
+            margin-bottom: 0px;
+        }
+        @media (min-width: 576px) {
+            .card-header {
+                height: 200px !important;
+            }
+            .slick-list {
+                max-height: 200px;
+            }
+            .slick-track {
+                max-height: 200px;
+            }
+            .slick-track img {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .slick-track img:focus {
+                outline: none;
+            }
+            .slick-slide {
+                height: 150px;
+                /* width: 200px; */
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -226,19 +253,23 @@ $(function() {
             <div class="col-md-9">
                 <div class="text-nowrap float-left pr-3">篩選 |</div>
                 <div class="d-flex flex-column flex-lg-row">
-                    <div class="d-inline-block dropdown pr-3">
-                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">系列</button>
-                        <div class="dropdown-menu" id="series-dropdown">
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                        </div>
-                    </div>
-                    <div class="d-inline-block dropdown pr-3">
+                    @foreach ($filter_classes as $filter_class)
+                        <div class="d-inline-block dropdown pr-3">
+                            <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">{{$filter_class->filter_class}}</button>
+                            <div class="dropdown-menu" id="categories-dropdown">
+                                <a class="dropdown-item prodouct-filter" data-filter-class="{{$filter_class->filter_class}}" data-filter-name="">全部</a>
+                                @foreach ($filter_datas as $filter_data)
+                                    @if( $filter_data->filter_class == $filter_class->filter_class )
+                                        <a class="dropdown-item prodouct-filter" data-filter-class="{{$filter_data->filter_class}}" data-filter-name="{{$filter_data->filter_name}}">{{$filter_data->filter_name}}</a>
+                                    @endif                                    
+                                @endforeach
+                            </div>
+                        </div> 
+                    @endforeach
+                    {{-- <div class="d-inline-block dropdown pr-3">
                         <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
                         <div class="dropdown-menu" id="categories-dropdown">
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
+                            <a class="dropdown-item prodouct-filter" data-sort="全英">全英系列</a>
                             <a class="dropdown-item prodouct-filter">全英系列</a>
                             <a class="dropdown-item prodouct-filter">全英系列</a>
                             <a class="dropdown-item prodouct-filter">全英系列</a>
@@ -261,7 +292,7 @@ $(function() {
                             <a class="dropdown-item prodouct-filter">全英系列</a>
                             <a class="dropdown-item prodouct-filter">全英系列</a>
                         </div>
-                    </div>  
+                    </div>   --}}
                 </div>
             </div>
             <div class="col-md-3">
@@ -280,14 +311,12 @@ $(function() {
                 <div class="card rounded-0">
                     <div class="card-header card-{{$data->id}}">
                     </div>    
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <h5 class="card-title m-0">{{$data->name}}</h5>                            
-                        </li>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><h5 class="card-title m-0">{{$data->name}}</h5></li>
                         <li class="list-group-item">NT. {{$data->price}}</li>
                     </ul>                
                     <div class="card-body">
-                        <p class="card-description">{{$data->description}}</p>
+                        <p class="card-description">{!! $data->description !!}</p>
                     </div>
                     <a href="/products/{{$data->class}}/{{$data->id}}/detail" class="card-footer card-footer-learn-more">
                         了解更多

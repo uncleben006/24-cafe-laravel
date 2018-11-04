@@ -5,11 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
-use App\Racket;
-use App\Footwear;
-use App\Bag;
-use App\Apparel;
-use App\Accessory;
+use App\Filter;
 use Log;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -52,53 +48,7 @@ class ProductController extends Controller
     public function imagesApi($id)
     {
         return ProductImage::where('product_id', $id)->get();
-    }  
-    /**
-     * Display sorting api
-     */
-    public function sortingApi($category)
-    {
-        switch ($category) {
-            case 'rackets':
-                $table = Racket::class;
-                break;
-            case 'footwears':
-                $table = Footwear::class;
-                break;
-            case 'bags':
-                $table = Bag::class;
-                break;
-            case 'apparels':
-                $table = Apparel::class;
-                break;
-            case 'accessories':
-                $table = Accessory::class;
-                break;
-        }  
-        $categories = $table::select('categories')->get()->unique('categories');
-        foreach ($categories as $key => $value) {
-            $categoriesArray []= $value->categories;
-        }
-        $series = $table::select('series')->get()->unique('series');
-        foreach ($series as $key => $value) {
-            $seriesArray []= $value->series;
-        }
-        $rank = $table::select('rank')->get()->unique('rank');
-        foreach ($rank as $key => $value) {
-            $rankArray []= $value->rank;
-        }
-        $brands = $table::select('brands')->get()->unique('brands');
-        foreach ($brands as $key => $value) {
-            $brandsArray []= $value->brands;
-        }
-        $sorting = [
-            'categories' => $categoriesArray,
-            'series' => $seriesArray,
-            'rank' => $rankArray,
-            'brands' => $brandsArray
-        ];
-        return $sorting;
-    }    
+    }   
     /**
      * Display product job. 
      * Including add, edit and delete function to adjust product database. 
@@ -115,10 +65,18 @@ class ProductController extends Controller
      * Display product form to create a new product.
      *
      */
-    public function jobNew()
+    public function createJob()
     {
         return view('products.product-job-new');
-    }       
+    } 
+    /**
+     * Display filter form to create a new filter tag.
+     *
+     */
+    public function createFilter()
+    {
+        return view('products.product-job-filter-new');
+    }             
     /**
      * Display product detail page.
      *
@@ -128,23 +86,6 @@ class ProductController extends Controller
     {      
         $product_img = ProductImage::where('product_id',$id)->get();
         $product_data =  Product::where('id',$id)->get();  
-        // switch ($category) {
-        //     case 'rackets';
-        //         $array = Product::find($id)->racket()->first();
-        //         break;
-        //     case 'footwears';
-        //         $array = Product::find($id)->footwear()->first();
-        //         break;
-        //     case 'bags';
-        //         $array = Product::find($id)->bag()->first();
-        //         break;
-        //     case 'apparels';
-        //         $array = Product::find($id)->apparel()->first();
-        //         break;
-        //     case 'accessories';
-        //         $array = Product::find($id)->accessory()->first();
-        //         break;
-        // }
         return view('products.product-detail', [
             'class' => $class,
             'datas' => $product_data,
@@ -157,15 +98,103 @@ class ProductController extends Controller
     /**
      * Display products rackets list
      */
-    public function list($class)
+    public function list(Request $request, $class)
     {        
-        $product_data = Product::where('class', $class)->get();
+        if ($request->series && $request->category && $request->rank && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('category', $request->category )
+                ->where('rank', $request->rank )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->series && $request->category && $request->rank) {
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('category', $request->category )
+                ->where('rank', $request->rank )
+                ->get();
+        }else if ($request->series && $request->category && $request->brand) {
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('category', $request->category )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->series && $request->rank && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('rank', $request->rank )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->category && $request->rank && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('category', $request->category )
+                ->where('rank', $request->rank )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->series && $request->category){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('category', $request->category )
+                ->get();
+        }else if ($request->series && $request->rank){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('rank', $request->rank )
+                ->get();
+        }else if ($request->series && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->series && $request->rank){
+            $product_data = Product::where('class', $class)
+                ->where('category', $request->category )
+                ->where('rank', $request->rank )
+                ->get();
+        }else if ($request->category && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('category', $request->category )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->rank && $request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('rank', $request->rank )
+                ->where('brand', $request->brand )
+                ->get();
+        }else if ($request->series){
+            $product_data = Product::where('class', $class)
+                ->where('series', $request->series )
+                ->get();
+        }else if ($request->category){
+            $product_data = Product::where('class', $class)
+                ->where('category', $request->category )
+                ->get();
+        }else if ($request->rank){
+            $product_data = Product::where('class', $class)
+                ->where('rank', $request->rank )
+                ->get();
+        }else if ($request->brand){
+            $product_data = Product::where('class', $class)
+                ->where('brand', $request->brand )
+                ->get();
+        }else {
+            $product_data = Product::where('class', $class)
+                ->get();
+        }
+        
         $product_img = ProductImage::where('class', $class)->get();
+        $product_filter_data = Filter::where('product_class', $class)->orderBy('sequence')->get();
+        $product_filter_class = Filter::where('product_class', $class)->select('filter_class')->get()->unique('filter_class');
+        
+        // return $request->all();
         // return $product_data;
         // return $product_img;
+        // return $product_filter;
         
         return view('products.product-list',[
             'class' => $class,
+            'filter_classes' => $product_filter_class,
+            'filter_datas' => $product_filter_data,
             'datas' => $product_data,
             'imgs' => $product_img
         ]);
@@ -176,7 +205,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeJob(Request $request)
     {
         $product = Product::create([
             'name'=>$request->name,
@@ -210,6 +239,22 @@ class ProductController extends Controller
             }   
         }                      
     }
+    /**
+     * Store a newly created filter in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFilter(Request $request)
+    {
+        $product = Filter::create([
+            'product_class'=>$request->product_class,
+            'filter_class'=>$request->filter_class,
+            'filter_name'=>$request->filter_name,
+            'sequence'=>$request->sequence
+        ]);        
+        return redirect('/products/job/list');     
+    } 
     /**
      * Display the product edit form to edit the specified product.
      *

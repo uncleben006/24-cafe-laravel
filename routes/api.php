@@ -24,15 +24,8 @@ Route::post('/posts', 'PostController@store');
 
 // product api
 Route::get('/products', 'ProductController@api');
-Route::get('/products/{class}/sorting', 'ProductController@sortingApi');
 Route::get('/products/{class}', 'ProductController@filterApi');
 Route::get('/products/{class}/image', 'ProductController@imageApi');
-
-// Route::get('/products/rackets', 'ProductController@racketApi');
-// Route::get('/products/footwears', 'ProductController@footwearApi');
-// Route::get('/products/bags', 'ProductController@bagApi');
-// Route::get('/products/apparels', 'ProductController@apparelApi');
-// Route::get('/products/accessories', 'ProductController@apparelApi');
-
 Route::get('/products/{id}/show', 'ProductController@singleApi');
 Route::get('/products/{id}/images', 'ProductController@imagesApi');
+

@@ -145,6 +145,9 @@
     <!-- Slick Slider -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+    <!-- jQuery Zoom -->
+    <script type="text/javascript" src="https://wp.incredibbble.com/writsy-shop/wp-content/themes/writsy-shop/assets/vendor/jquery-zoom/jquery.zoom.min.js?ver=1.7.18"></script>
+
     <!-- Custom Scripts -->
     @yield('script')
 </body>

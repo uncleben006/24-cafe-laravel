@@ -144,7 +144,10 @@ $(function() {
         <div class="col-md-12">
             <div class="d-flex align-items-center justify-content-between">
                 <h1 class="float-left">商品列表</h1>
-                <a href="/products/job/new/" class="btn btn-primary float-right">新增產品</a>
+                <div class="float-right">
+                    <a href="/products/job/filter/new/" class="btn btn-warning btn-sm rounded-0">新增篩選</a>
+                    <a href="/products/job/new/" class="btn btn-primary btn-sm rounded-0">新增產品</a>
+                </div>                
             </div>
             <div id="product-list">
                 <div class="Rtable Rtable--6cols" id="tbody">  
@@ -156,8 +159,7 @@ $(function() {
                     <div class="Rtable-cell"><strong>編輯產品</strong></div>     
                     <div id="trow"></div>                                               
                 </div>
-            </div>
-            
+            </div>            
         </div>
     </div>    
 </div>
