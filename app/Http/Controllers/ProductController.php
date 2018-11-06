@@ -57,8 +57,10 @@ class ProductController extends Controller
     public function job() 
     {
         $product_data = Product::all();
+        $filter_data = Filter::all();
         return view('products.product-job-list',[
-            'datas' => $product_data
+            'productDatas' => $product_data,
+            'filterDatas'=>$filter_data
         ]);
     }
     /**
@@ -303,6 +305,37 @@ class ProductController extends Controller
         return redirect('/products/job/list');
     }
     /**
+     * Display the product edit form to edit the specified product.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editFilter($id)
+    {
+        $filter_data = Filter::where('id', $id)->get();
+        return view('products.product-filter-edit', [
+            'filterDatas'=>$filter_data
+        ]);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateFilter(Request $request, $id)
+    {      
+        // 改 Filter 資料庫 
+        Filter::where('id', $id)
+        ->update([
+            'product_class' => $request->product_class,
+            'filter_class' => $request->filter_class,
+            'filter_name' => $request->filter_name,
+            'sequence' => $request->sequence,
+        ]);
+        return redirect('/products/job/list');
+    }
+    /**
      * Update images.
      */
     public function updateImage($id, $request)
@@ -341,6 +374,17 @@ class ProductController extends Controller
     {
         Storage::deleteDirectory("/public/images/$id");
         Product::destroy($id);
+        return redirect('/products/job/list');
+    }
+    /**
+     * Remove the filter data from database
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyFilter($id)
+    {
+        Filter::destroy($id);
         return redirect('/products/job/list');
     }
 }

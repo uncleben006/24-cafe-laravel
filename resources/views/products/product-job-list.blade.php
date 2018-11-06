@@ -4,7 +4,11 @@
 
 @section('style')
 <style>
-    
+
+/* * {
+    border: solid 1px;
+}     */
+
 /* Tables
 ================================== */
 .Rtable {
@@ -48,91 +52,29 @@
 
 @section('script')
 <script>
-$(function() {    
+$(function() {   
 
     
     
-    // var category = '';
+    console.log(filterDatas);
 
-    // function titleCategory(category){
-    //     return '\
-    //         <div class="Rtable-cell w-100 text-center bg-info h3 py-2 mb-0 mt-3"><strong>'+ category +'</strong></div>\
-    //         <div class="Rtable-cell"><div class="d-flex"><div class="w-50"><strong>ID</strong></div><div class="w-50"><strong>價錢</strong></div></div></div>\
-    //         <div class="Rtable-cell"><strong>商品名稱</strong></div>\
-    //         <div class="Rtable-cell"><strong>產品敘述</strong></div>\
-    //         <div class="Rtable-cell"><div class="d-flex"><div class="w-25"><strong>系列</strong></div><div class="w-25"><strong>分類</strong></div><div class="w-25"><strong>等級</strong></div><div class="w-25"><strong>品牌</strong></div></div></div>\
-    //         <div class="Rtable-cell"><strong>產品圖</strong></div>\
-    //         <div class="Rtable-cell"><strong>編輯產品</strong></div>'
-    // }    
-
-    // $.getJSON('/api/products', function(p_json) {
-        
-    //     $.each(p_json, function(index, value) {
-    //         switch (index) {
-    //             case 'racket':
-    //                 $('#tbody').append(titleCategory('羽球拍'));
-    //                 break;
-    //             case 'footwear':
-    //                 $('#tbody').append(titleCategory('羽球鞋'));
-    //                 break;
-    //             case 'bag':
-    //                 $('#tbody').append(titleCategory('羽球袋'));
-    //                 break;
-    //             case 'apparel':
-    //                 $('#tbody').append(titleCategory('羽球衣'));
-    //                 break;
-    //             case 'accessory':
-    //                 $('#tbody').append(titleCategory('羽球配件'));
-    //                 break;
-    //         }
-    //         value.forEach(function(data){
-    //             $('#tbody').append('\
-    //                 <div class="Rtable-cell"><div class="d-flex"><div class="w-50"><strong>'+data.product_id+'</strong></div><div class="w-50"><strong>'+data.price+'</strong></div></div></div>\
-    //                 <div class="Rtable-cell"><strong>'+data.name+'</strong></div>\
-    //                 <div class="Rtable-cell">'+data.description+'</div>\
-    //                 <div class="Rtable-cell"><div class="d-flex" style="word-break: break-all"><div class="w-25">'+data.series+'</div><div class="w-25">'+data.categories+'</div><div class="w-25">'+data.rank+'</div><div class="w-25">'+data.brands+'</div></div></div>\
-    //                 <div class="Rtable-cell" id="image-'+data.product_id+'"></div>\
-    //                 <div class="Rtable-cell">\
-    //                     <button data-category="'+index+'" data-id="'+data.product_id+'" class="btn btn-outline-primary btn-edit-product">編輯</button>\
-    //                     <button data-id="'+data.product_id+'" class="btn btn-outline-danger btn-delete-product">刪除</button>\
-    //                 </div>\
-    //             ');
-    //             $.getJSON('/api/products/'+data.product_id+'/images', function (i_json) {
-    //                 var domain = window.location.origin;
-    //                 image_path = [];                
-    //                 i_json.forEach(function (e) {
-    //                     image_path.push(domain+'/storage/images/'+e.filename);
-    //                     $('#image-'+e.product_id).append('<a href="'+domain+'/storage/images/'+e.product_id+'/'+e.filename+'" target="_blank">'+e.filename+'</a><hr>');
-    //                 });            
-    //             })
-    //         })
-    //     })
-    // });   
-
-
-
-    var datas = {!! $datas !!};
-    var str = ''
-    datas.forEach(function (data) {
+    // create product table
+    var productDatas = {!! $productDatas !!};
+    var product_str = ''
+    productDatas.forEach(function (data) {
         console.log(data)
-        str += '<div class="Rtable-cell">'+data.id+'</div><div class="Rtable-cell">'+data.class+'</div><div class="Rtable-cell">'+data.name+'</div><div class="Rtable-cell">'+data.price+'</div><div class="Rtable-cell">'+data.description+'</div><div class="Rtable-cell text-center"><a class="btn btn-sm btn-outline-primary px-3 mr-3" href="/products/job/'+data.id+'/edit">編輯</a><a class="btn btn-sm btn-outline-danger px-3" href="/products/'+data.id+'/delete"">刪除</a></div>'
+        product_str += '<div class="Rtable-cell">'+data.id+'</div><div class="Rtable-cell">'+data.class+'</div><div class="Rtable-cell">'+data.name+'</div><div class="Rtable-cell">'+data.price+'</div><div class="Rtable-cell">'+data.description+'</div><div class="Rtable-cell text-center"><a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a><a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/'+data.id+'/delete"">刪除</a></div>'
     })
-    $('#trow').replaceWith(str)
+    $('#productDatas').replaceWith(product_str)
 
-    // // 這種形式沒辦法綁定動態產生的 html
-    // $('.btn-add-cart').click(function () {
-    //     alert('click');
-    // })
-
-    // $(document).on('click','.btn-edit-product', function () {
-    //     var id = $(this).data('id');
-    //     var category = $(this).data('category');
-    //     window.location = '/products/'+category+'/'+id+'/edit/';
-    // });
-    $(document).on('click','.btn-delete-product', function () {
-        var id = $(this).data('id');
-        window.location = '/products/'+id+'/delete/';
-    });
+    // create filter table
+    var filterDatas = {!! $filterDatas !!};
+    var filter_str = ''
+    filterDatas.forEach(function (data) {
+        console.log(data)
+        filter_str += '<div class="Rtable-cell">'+data.id+'</div><div class="Rtable-cell">'+data.product_class+'</div><div class="Rtable-cell">'+data.filter_class+'</div><div class="Rtable-cell">'+data.filter_name+'</div><div class="Rtable-cell">'+data.sequence+'</div><div class="Rtable-cell text-center"><a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/edit">編輯</a><a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/delete"">刪除</a></div>'
+    })
+    $('#filterDatas').replaceWith(filter_str)
 
 });
 </script>
@@ -140,8 +82,58 @@ $(function() {
 
 @section('content')
 <div class="container spacing">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="row flex-column">
+        <div class="col-md-4">
+            <div class="list-group flex-row" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0 active" data-toggle="list" href="#product-list">編輯商品</a>
+                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0" data-toggle="list" href="#fliter-list">編輯篩選</a>
+                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0" data-toggle="list" href="#list-messages">編輯標籤</a>   
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade mt-3 show active" id="product-list">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h1 class="float-left">商品列表</h1>
+                        <div class="float-right">
+                            <a href="/products/job/new/" class="btn btn-primary btn-sm rounded-0">新增產品</a>
+                        </div>                
+                    </div>
+                    <div id="product-list">
+                        <div class="Rtable Rtable--6cols" id="tbody">  
+                            <div class="Rtable-cell"><strong>ID</strong></div>                    
+                            <div class="Rtable-cell"><strong>產品類別</strong></div>
+                            <div class="Rtable-cell"><strong>商品名稱</strong></div>
+                            <div class="Rtable-cell"><strong>價格</strong></div>
+                            <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
+                            <div class="Rtable-cell"><strong>編輯產品</strong></div>     
+                            <div id="productDatas"></div>                                               
+                        </div>
+                    </div>      
+                </div>
+                <div class="tab-pane fade mt-3" id="fliter-list">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h1 class="float-left">篩選列表</h1>
+                        <div class="float-right">
+                            <a href="/products/job/filter/new/" class="btn btn-primary btn-sm rounded-0">新增篩選</a>
+                        </div>                
+                    </div>
+                    <div id="product-list">
+                        <div class="Rtable Rtable--6cols">  
+                            <div class="Rtable-cell"><strong>ID</strong></div>                    
+                            <div class="Rtable-cell"><strong>產品類別</strong></div>
+                            <div class="Rtable-cell"><strong>篩選類別</strong></div>
+                            <div class="Rtable-cell"><strong>篩選名稱</strong></div>
+                            <div class="Rtable-cell"><strong>順序</strong></div>   
+                            <div class="Rtable-cell"><strong>編輯產品</strong></div>                
+                            <div id="filterDatas"></div>                                               
+                        </div>
+                    </div>    
+                </div>
+                <div class="tab-pane fade mt-3" id="list-messages">3</div>
+            </div>
+        </div>
+        {{-- <div class="col-md-12">
             <div class="d-flex align-items-center justify-content-between">
                 <h1 class="float-left">商品列表</h1>
                 <div class="float-right">
@@ -150,6 +142,18 @@ $(function() {
                 </div>                
             </div>
             <div id="product-list">
+                <div class="Rtable Rtable--6cols">  
+                    <div class="Rtable-cell"><strong>ID</strong></div>                    
+                    <div class="Rtable-cell"><strong>產品類別</strong></div>
+                    <div class="Rtable-cell"><strong>商品名稱</strong></div>
+                    <div class="Rtable-cell"><strong>價格</strong></div>
+                    <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
+                    <div class="Rtable-cell"><strong>編輯產品</strong></div>     
+                    <div id="productData"></div>                                               
+                </div>
+            </div>      
+            <h1>篩選列表</h1>
+            <div id="product-list">
                 <div class="Rtable Rtable--6cols" id="tbody">  
                     <div class="Rtable-cell"><strong>ID</strong></div>                    
                     <div class="Rtable-cell"><strong>產品類別</strong></div>
@@ -157,10 +161,10 @@ $(function() {
                     <div class="Rtable-cell"><strong>價格</strong></div>
                     <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
                     <div class="Rtable-cell"><strong>編輯產品</strong></div>     
-                    <div id="trow"></div>                                               
+                    <div id="filterData"></div>                                               
                 </div>
-            </div>            
-        </div>
+            </div>        
+        </div> --}}
     </div>    
 </div>
 @endsection

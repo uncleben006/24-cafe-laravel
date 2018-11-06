@@ -187,9 +187,8 @@ $(function() {
         
                         <div class="text-center">
                             <div id="images-preview"></div>
-                            <button type="submit" class="btn btn-primary">
-                                確認修改
-                            </button>
+                            <a href="/products/job/list" class="btn btn-sm btn-secondary rounded-0">返回</a>
+                            <button type="submit" class="btn btn-sm btn-primary rounded-0">確認修改</button>
                         </div>
                     </form>
                 </div>
