@@ -53,9 +53,6 @@
 @section('script')
 <script>
 $(function() {   
-
-    
-    
     console.log(filterDatas);
 
     // create product table
@@ -63,7 +60,16 @@ $(function() {
     var product_str = ''
     productDatas.forEach(function (data) {
         console.log(data)
-        product_str += '<div class="Rtable-cell">'+data.id+'</div><div class="Rtable-cell">'+data.class+'</div><div class="Rtable-cell">'+data.name+'</div><div class="Rtable-cell">'+data.price+'</div><div class="Rtable-cell">'+data.description+'</div><div class="Rtable-cell text-center"><a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a><a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/'+data.id+'/delete"">刪除</a></div>'
+        product_str += '\
+        <div class="Rtable-cell">'+data.id+'</div>\
+        <div class="Rtable-cell">'+data.class+'</div>\
+        <div class="Rtable-cell">'+data.name+'</div>\
+        <div class="Rtable-cell">'+data.price+'</div>\
+        <div class="Rtable-cell">'+data.description+'</div>\
+        <div class="Rtable-cell text-center">\
+            <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除'+data.name+'嗎?\');">刪除</a>\
+        </div>'
     })
     $('#productDatas').replaceWith(product_str)
 
@@ -72,11 +78,25 @@ $(function() {
     var filter_str = ''
     filterDatas.forEach(function (data) {
         console.log(data)
-        filter_str += '<div class="Rtable-cell">'+data.id+'</div><div class="Rtable-cell">'+data.product_class+'</div><div class="Rtable-cell">'+data.filter_class+'</div><div class="Rtable-cell">'+data.filter_name+'</div><div class="Rtable-cell">'+data.sequence+'</div><div class="Rtable-cell text-center"><a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/edit">編輯</a><a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/delete"">刪除</a></div>'
-    })
+        filter_str += '\
+        <div class="Rtable-cell">'+data.id+'</div>\
+        <div class="Rtable-cell">'+data.product_class+'</div>\
+        <div class="Rtable-cell">'+data.filter_class+'</div>\
+        <div class="Rtable-cell">'+data.filter_name+'</div>\
+        <div class="Rtable-cell">'+data.sequence+'</div>\
+        <div class="Rtable-cell text-center">\
+            <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/edit">編輯</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/delete">刪除</a>\
+        </div>'
+    })    
+
     $('#filterDatas').replaceWith(filter_str)
 
 });
+
+function doForward(url, warning) {
+    confirm(warning)? window.location=url: '';
+}
 </script>
 @endsection
 
