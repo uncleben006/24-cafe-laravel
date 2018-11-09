@@ -27,6 +27,7 @@ Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 
 Route::get('/products/job/list', 'ProductController@job');
+Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@createJob');
 Route::post('/products/job/new', 'ProductController@storeJob');
 Route::get('/products/job/filter/new', 'ProductController@createFilter');

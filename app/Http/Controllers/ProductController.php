@@ -187,11 +187,31 @@ class ProductController extends Controller
         $product_img = ProductImage::where('class', $class)->get();
         $product_filter_data = Filter::where('product_class', $class)->orderBy('sequence')->get();
         $product_filter_class = Filter::where('product_class', $class)->select('filter_class')->get()->unique('filter_class');
-        
+        foreach ($product_filter_class as $key => $value) {
+            // echo "key = $key<br>";
+            // echo "value = $value<br>";
+            switch ($value->filter_class) {
+                case 'series':
+                    $value->translation = '系列';
+                    break;
+                case 'category':
+                    $value->translation = '分類';
+                    break;
+                case 'series':
+                    $value->translation = '等級';
+                    break;
+                case 'series':
+                    $value->translation = '品牌';
+                    break;                
+                default:
+                    break;
+            }
+        }
+        // return 'complete';
         // return $request->all();
         // return $product_data;
         // return $product_img;
-        // return $product_filter;
+        // return $product_filter_class;
         
         return view('products.product-list',[
             'class' => $class,

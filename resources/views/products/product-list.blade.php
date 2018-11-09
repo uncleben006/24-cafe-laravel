@@ -255,7 +255,7 @@ $(function() {
                 <div class="d-flex flex-column flex-lg-row">
                     @foreach ($filter_classes as $filter_class)
                         <div class="d-inline-block dropdown pr-3">
-                            <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">{{$filter_class->filter_class}}</button>
+                            <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">{{$filter_class->translation}}</button>
                             <div class="dropdown-menu" id="categories-dropdown">
                                 <a class="dropdown-item prodouct-filter" data-filter-class="{{$filter_class->filter_class}}" data-filter-name="">全部</a>
                                 @foreach ($filter_datas as $filter_data)

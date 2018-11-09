@@ -8,7 +8,9 @@
 /* * {
     border: solid 1px;
 }     */
-
+.list-group-item:last-child {
+    margin-bottom: -1px;
+}
 /* Tables
 ================================== */
 .Rtable {
@@ -68,7 +70,7 @@ $(function() {
         <div class="Rtable-cell">'+data.description+'</div>\
         <div class="Rtable-cell text-center">\
             <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a>\
-            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除'+data.name+'嗎?\');">刪除</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除 '+data.name+' 嗎?\');">刪除</a>\
         </div>'
     })
     $('#productDatas').replaceWith(product_str)
@@ -86,7 +88,7 @@ $(function() {
         <div class="Rtable-cell">'+data.sequence+'</div>\
         <div class="Rtable-cell text-center">\
             <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/edit">編輯</a>\
-            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="/products/job/filter/'+data.id+'/delete">刪除</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/filter/'+data.id+'/delete\',\'確定要刪除 '+data.filter_name+' 嗎?\');">刪除</a>\
         </div>'
     })    
 
@@ -153,38 +155,6 @@ function doForward(url, warning) {
                 <div class="tab-pane fade mt-3" id="list-messages">3</div>
             </div>
         </div>
-        {{-- <div class="col-md-12">
-            <div class="d-flex align-items-center justify-content-between">
-                <h1 class="float-left">商品列表</h1>
-                <div class="float-right">
-                    <a href="/products/job/filter/new/" class="btn btn-warning btn-sm rounded-0">新增篩選</a>
-                    <a href="/products/job/new/" class="btn btn-primary btn-sm rounded-0">新增產品</a>
-                </div>                
-            </div>
-            <div id="product-list">
-                <div class="Rtable Rtable--6cols">  
-                    <div class="Rtable-cell"><strong>ID</strong></div>                    
-                    <div class="Rtable-cell"><strong>產品類別</strong></div>
-                    <div class="Rtable-cell"><strong>商品名稱</strong></div>
-                    <div class="Rtable-cell"><strong>價格</strong></div>
-                    <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
-                    <div class="Rtable-cell"><strong>編輯產品</strong></div>     
-                    <div id="productData"></div>                                               
-                </div>
-            </div>      
-            <h1>篩選列表</h1>
-            <div id="product-list">
-                <div class="Rtable Rtable--6cols" id="tbody">  
-                    <div class="Rtable-cell"><strong>ID</strong></div>                    
-                    <div class="Rtable-cell"><strong>產品類別</strong></div>
-                    <div class="Rtable-cell"><strong>商品名稱</strong></div>
-                    <div class="Rtable-cell"><strong>價格</strong></div>
-                    <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
-                    <div class="Rtable-cell"><strong>編輯產品</strong></div>     
-                    <div id="filterData"></div>                                               
-                </div>
-            </div>        
-        </div> --}}
     </div>    
 </div>
 @endsection
