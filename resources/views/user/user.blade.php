@@ -5,7 +5,7 @@ active
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container spacing">
     <h1>{{ $title }}</h1>
     <div class="row">
         <div class="col-md-12">
@@ -25,8 +25,8 @@ active
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td><button data-id="{{$user->id}}" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
-                    <td><a href="/user/{{$user->id}}/edit" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td><button data-id="{{$user->id}}" class="btn rounded-0 btn-danger btn-sm btn-delete">Delete</button></td>
+                    <td><a href="/user/{{$user->id}}/edit" class="btn rounded-0 btn-primary btn-sm">Edit</a></td>
                     {{-- <td><a href="{{ route('home') }}" class="btn btn-sm btn-secondary">Test</a></td> --}}
                 </tr>
                 @endforeach
@@ -96,7 +96,7 @@ active
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">新增</button>
+                                <button type="submit" class="btn btn-primary btn-sm rounded-0">新增</button>
                             </div>
                         </div>
                     </form>

@@ -10,7 +10,7 @@ class Chat extends Model
      * @var array
      */
     protected $fillable = [
-        'message', 'author'
+        'message', 'product_id', 'author'
     ];
     /**
      * The attributes that should be hidden for arrays.

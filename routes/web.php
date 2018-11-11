@@ -50,7 +50,7 @@ Route::get('/products/coffee/show','ProductController@showCoffee');
 
 // chat controller
 Route::get('/chat', 'ChatController@index');
-Route::get('/chat/all', 'ChatController@all');
+Route::get('/chat/all/{id}/', 'ChatController@all');
 Route::get('/chat/last/', 'ChatController@last');
 Route::post('/chat', 'ChatController@create');
 

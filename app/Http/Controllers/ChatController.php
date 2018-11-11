@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Chat;
 use Auth;
 
@@ -17,8 +16,8 @@ class ChatController extends Controller
         return view('chat');
     }
     // 印出所有聊天內容
-    public function all() {
-        $chat = Chat::all();
+    public function all(Request $request) {
+        $chat = Chat::where('product_id', $request->id)->get();
         // 取得關聯
         foreach ($chat as $key => $value) {
             $value->author = $value->author()->first()->name;
@@ -29,17 +28,16 @@ class ChatController extends Controller
     }
     // 印出最後一個聊天內容
     public function last(){
-        $count = Chat::count();
-        $data = Chat::find($count);
+        $data = Chat::orderBy('created_at', 'desc')->first();
         $data->author = $data->author()->first()->name;
         return $data;
     }
     // 輸入所有聊天內容
     public function create(Request $request){
-        $message = $request->input('message');
         $data = [
-            'message'=>$message,
-            'author'=>Auth::user()->id
+            'message'=>$request->input('message'),
+            'product_id'=>$request->input('product_id'),
+            'author'=>Auth::user()->id,
         ];
         return Chat::create($data);
     }

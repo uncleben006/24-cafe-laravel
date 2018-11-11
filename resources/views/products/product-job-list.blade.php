@@ -55,12 +55,14 @@
 @section('script')
 <script>
 $(function() {   
-    console.log(filterDatas);
-
     // create product table
-    var productDatas = {!! $productDatas !!};
+    createProductTable( {!! $productDatas !!} )
+    // create filter table
+    createFilterTable( {!! $filterDatas !!} )
+});
+function createProductTable(php_datas) {
     var product_str = ''
-    productDatas.forEach(function (data) {
+    php_datas.forEach(function (data) {
         console.log(data)
         product_str += '\
         <div class="Rtable-cell">'+data.id+'</div>\
@@ -74,11 +76,10 @@ $(function() {
         </div>'
     })
     $('#productDatas').replaceWith(product_str)
-
-    // create filter table
-    var filterDatas = {!! $filterDatas !!};
+}
+function createFilterTable(php_datas) {
     var filter_str = ''
-    filterDatas.forEach(function (data) {
+    php_datas.forEach(function (data) {
         console.log(data)
         filter_str += '\
         <div class="Rtable-cell">'+data.id+'</div>\
@@ -91,11 +92,8 @@ $(function() {
             <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/filter/'+data.id+'/delete\',\'確定要刪除 '+data.filter_name+' 嗎?\');">刪除</a>\
         </div>'
     })    
-
     $('#filterDatas').replaceWith(filter_str)
-
-});
-
+}
 function doForward(url, warning) {
     confirm(warning)? window.location=url: '';
 }

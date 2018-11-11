@@ -2,15 +2,6 @@
 
 @section('products-admin-nav','active')
 
-@section('script')
-<script>
-$(function() {    
-
-
-});
-</script>
-@endsection
-
 @section('content')
 <div class="container spacing">
     <div class="row justify-content-center">

@@ -45,8 +45,6 @@ active
         getAllData();
         getSingleData();
 
-        // setInterval(getSingleData(), 3000);
-
         $('#chat-form').submit(function (event) {
             // 阻止 Form 透過預設方法送出
             event.preventDefault();
@@ -92,7 +90,7 @@ active
 </script>
 @endsection
 @section('content')
-<div class="container">
+<div class="container spacing">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">

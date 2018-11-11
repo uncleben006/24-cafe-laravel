@@ -62,7 +62,11 @@ class UserController extends Controller
                         ->withErrors($validate)
                         ->withInput();
         }
-        User::create($request->all());
+        User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password)
+        ]);
         return redirect('/user');
     }
 
