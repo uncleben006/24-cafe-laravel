@@ -69,9 +69,12 @@
 
 @section('script')
 <script>
-let product_datas = {!! $datas !!};
-let product_id = product_datas[0].id;
+
 $(function() {
+    var product_datas = {!! $datas !!};
+    var product_id = product_datas[0].id;
+    showImage({!! $imgs !!});
+    getAllData(product_id);
     $('#chat-form').submit(function (event) {
         var message = $('#message').val();
         $.post('/chat',{ 'message': message, 'product_id': product_id }, function (resp) {
@@ -82,7 +85,7 @@ $(function() {
     })
 });
 // 取得圖片
-(function showImage(php_datas) {
+function showImage(php_datas) {
     var thumbnail = ''
     var overview = ''
     php_datas.forEach(function (img) {
@@ -98,21 +101,22 @@ $(function() {
     $('#image-overview').html(overview)
     $($('.tab-content')[0].firstChild).addClass('active show')
     $('.zooming').zoom({magnify: 1});
-})({!! $imgs !!});
-
+};
 // 取得所有聊天資料並更新 textarea
-(function getAllData() {
+function getAllData(product_id) {
     $.getJSON('/chat/all/'+product_id, function (json) {            
         var str='';
         var floar = 1;
+
         json.forEach(function (data) {
             str+='<li class="list-group-item rounded-0"><div class="author-data">'+data.author+' ['+floar+'樓]</div><div>'+data.message+'</div></li>';
             floar++
         })        
+        str = $.parseHTML(str)
         $('.reply').html(str);
         $('.reply-number').html(json.length);
     })
-})();
+};
 
 </script>
 @endsection
@@ -145,14 +149,14 @@ $(function() {
                         @if($datas[0]->rank)<div class="col-lg-6"><div>等級: {{$datas[0]->rank}}</div></div>@endif
                         @if($datas[0]->brand)<div class="col-lg-6"><div>品牌: {{$datas[0]->brand}}</div></div>@endif
                     </div>
-                    <div class="border p-3">{!! $datas[0]->description !!}</div>
+                    <div class="border p-3">{!! $datas[0]->detail !!}</div>
                 </div>
                 <div>最後編輯: {{$datas[0]->created_at}}</div>
             </div>
         </div>        
     </div>    
     <div class="row py-5">
-        <div class="col-lg-8" style="max-height: 15rem">
+        <div class="col-lg-8" style="max-height: 15rem; min-height: 10rem">
             <ul class="list-group h-100">
                 <li class="list-group-item d-flex justify-content-between align-items-center border" style="z-index: 2;">查看留言<span class="badge badge-primary badge-pill reply-number"></span></li>            
                 <div style="overflow: auto;" class="border h-100 reply">
@@ -163,7 +167,7 @@ $(function() {
             </ul>            
         </div>
         @if(Auth::check())
-        <div class="col-lg-4" style="max-height: 15rem">
+        <div class="col-lg-4" style="max-height: 15rem; min-height: 10rem">
             <form id="chat-form" class="h-100">
                 <ul class="list-group h-100">
                     <li class="list-group-item d-flex justify-content-between align-items-center">留言牆<span>發言人: {{Auth::user()->name}} </span></li>                  
@@ -175,7 +179,7 @@ $(function() {
             </form>
         </div>
         @else
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="max-height: 15rem; min-height: 10rem">
             <ul class="list-group h-100">
                 <li class="list-group-item d-flex justify-content-between align-items-center">留言牆</li>                  
                 <div class="form-group mb-0 h-100">

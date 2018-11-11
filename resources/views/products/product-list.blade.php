@@ -64,24 +64,6 @@ $(function() {
     console.log('pathname = ',pathname)
     console.log('urlHref = ',urlHref)
 
-    // function filtering(value) {
-    //     return value.series == ;
-    // }
-
-    // if(url.searchParams.has($(this).data('sort'))){
-    //     urlParameters = ''
-    //     for(var pair of url.searchParams.entries()){
-    //         if(pair[0]==$(this).data('sort')){
-    //             pair[1] = $(this).data('filter')
-    //         }
-    //         urlParameters += pair[0]+'='+pair[1]+'&'
-    //     }
-    //     console.log(urlParameters)
-    //     window.location.href = pathname + '?' + urlParameters
-    // }else{
-    //     window.location.href = pathname + '?' + urlParameters + $(this).data('sort') + '=' + $(this).data('filter')
-    // }  
-
     $('.prodouct-filter').on('click', function(){
         console.log($(this).data('filter-class'))
         if(url.searchParams.has($(this).data('filter-class'))){
@@ -97,33 +79,7 @@ $(function() {
         }else{
             window.location.href = pathname + '?' + urlParameters + $(this).data('filter-class') + '=' + $(this).data('filter-name')
         }  
-    })
-
-    // (function createSortBar(apiPath) {
-    //     $.getJSON(apiPath, function(s_json) {
-    //         s_json.series.forEach(function(data){
-    //             $('#series-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="series" >'+data+'</a>')
-    //         })
-    //         s_json.categories.forEach(function(data){
-    //             $('#categories-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="categories">'+data+'</a>')      
-    //         })
-    //         s_json.rank.forEach(function(data){
-    //             $('#rank-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="rank">'+data+'</a>')
-    //         })
-    //         s_json.brands.forEach(function(data){
-    //             $('#brands-dropdown').append('<a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="brands">'+data+'</a>')
-    //         })        
-    //     })  
-    //     .done(function(){
-    //         // 按下分類後，如果url 已經有該屬性則取代，如果沒有則新增(append)
-            
-            
-    //     })
-    //     .fail(function() {
-    //         var sortPathUpdate = '/api'+pathname+'/sorting';
-    //         createSortBar(sortPathUpdate)
-    //     })   
-    // })(sortPath);   
+    }) 
 
 });
 </script>
@@ -226,27 +182,6 @@ $(function() {
 @section('content')
 {{-- sorting start --}}
 <div class="container spacing">
-    {{-- <div class="d-inline-block dropdown m-5">
-        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">系列</button>
-        <div class="dropdown-menu" id="series-dropdown">
-            <a class="dropdown-item prodouct-filter" data-filter="'+data+'" data-sort="series">全英系列</a>
-        </div>
-    </div>
-    <div class="d-inline-block dropdown m-5">
-        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
-        <div class="dropdown-menu" id="categories-dropdown">
-        </div>
-    </div> 
-    <div class="d-inline-block dropdown m-5">
-        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">等級</button>
-        <div class="dropdown-menu" id="rank-dropdown">
-        </div>
-    </div>  
-    <div class="d-inline-block dropdown m-5">
-        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">品牌</button>
-        <div class="dropdown-menu" id="brands-dropdown">
-        </div>
-    </div>   --}}
 
     <div class="sorting">
         <div class="row pb-3">
@@ -266,33 +201,6 @@ $(function() {
                             </div>
                         </div> 
                     @endforeach
-                    {{-- <div class="d-inline-block dropdown pr-3">
-                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">分類</button>
-                        <div class="dropdown-menu" id="categories-dropdown">
-                            <a class="dropdown-item prodouct-filter" data-sort="全英">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                        </div>
-                    </div> 
-                    <div class="d-inline-block dropdown pr-3">
-                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">等級</button>
-                        <div class="dropdown-menu" id="rank-dropdown">
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                        </div>
-                    </div>  
-                    <div class="d-inline-block dropdown pr-3">
-                        <button class="btn sorting-primary dropdown-toggle" type="button" data-toggle="dropdown">品牌</button>
-                        <div class="dropdown-menu" id="brands-dropdown">
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                            <a class="dropdown-item prodouct-filter">全英系列</a>
-                        </div>
-                    </div>   --}}
                 </div>
             </div>
             <div class="col-md-3">
@@ -316,7 +224,7 @@ $(function() {
                         <li class="list-group-item">NT. {{$data->price}}</li>
                     </ul>                
                     <div class="card-body">
-                        <p class="card-description">{!! $data->description !!}</p>
+                        <p class="card-description">{!! $data->introduction !!}</p>
                     </div>
                     <a href="/products/{{$data->class}}/{{$data->id}}/detail" class="card-footer card-footer-learn-more">
                         了解更多

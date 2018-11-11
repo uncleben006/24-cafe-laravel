@@ -69,7 +69,7 @@ function createProductTable(php_datas) {
         <div class="Rtable-cell">'+data.class+'</div>\
         <div class="Rtable-cell">'+data.name+'</div>\
         <div class="Rtable-cell">'+data.price+'</div>\
-        <div class="Rtable-cell">'+data.description+'</div>\
+        <div class="Rtable-cell">'+data.introduction+'</div>\
         <div class="Rtable-cell text-center">\
             <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a>\
             <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除 '+data.name+' 嗎?\');">刪除</a>\
@@ -125,7 +125,7 @@ function doForward(url, warning) {
                             <div class="Rtable-cell"><strong>產品類別</strong></div>
                             <div class="Rtable-cell"><strong>商品名稱</strong></div>
                             <div class="Rtable-cell"><strong>價格</strong></div>
-                            <div class="Rtable-cell"><strong>產品敘述</strong></div>                    
+                            <div class="Rtable-cell"><strong>產品簡介</strong></div>                    
                             <div class="Rtable-cell"><strong>編輯產品</strong></div>     
                             <div id="productDatas"></div>                                               
                         </div>

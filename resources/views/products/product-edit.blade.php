@@ -153,22 +153,37 @@ $(function() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label for="description" class="col-md-2 col-form-label">敘述</label>
+                                    <label for="introduction" class="col-md-2 col-form-label">產品簡介</label>
                 
                                     <div class="col-md-10">
-                                        <textarea id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="5">{{$data[0]->description}}</textarea>
+                                        <textarea id="introduction" type="text" class="form-control{{ $errors->has('introduction') ? ' is-invalid' : '' }}" name="introduction" rows="5">{{$data[0]->introduction}}</textarea>
                 
-                                        @if ($errors->has('description'))
+                                        @if ($errors->has('introduction'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('description') }}</strong>
+                                                <strong>{{ $errors->first('introduction') }}</strong>
                                             </span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="detail" class="col-md-2 col-form-label">產品簡介</label>
+                
+                                    <div class="col-md-10">
+                                        <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$data[0]->detail}}</textarea>
+                
+                                        @if ($errors->has('detail'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('detail') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group row">
                                     <label for="images" class="col-md-2 col-form-label">上傳圖片</label>
                                     <div class="col-md-10">
