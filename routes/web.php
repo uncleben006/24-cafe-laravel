@@ -19,9 +19,6 @@ Route::get('/posts', function() { return view('post.post'); });
 Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
 Route::post('/posts', 'PostController@store')->name('post');
 
-
-
-
 // product controller administrator
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');

