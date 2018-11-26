@@ -45,7 +45,7 @@
 .reply .list-group-item {
 }
 .author-data {
-    font-size: 10px;
+    font-size: 1rem;
 }
 @media ( min-width: 992px ) {
     .list-group-item {
@@ -75,6 +75,7 @@ $(function() {
     var product_id = product_datas[0].id;
     showImage({!! $imgs !!});
     getAllData(product_id);
+    console.log(product_id)
     $('#chat-form').submit(function (event) {
         var message = $('#message').val();
         $.post('/chat',{ 'message': message, 'product_id': product_id }, function (resp) {
@@ -104,17 +105,22 @@ function showImage(php_datas) {
 };
 // 取得所有聊天資料並更新 textarea
 function getAllData(product_id) {
-    $.getJSON('/chat/all/'+product_id, function (json) {            
+    $.getJSON('/chat/all/'+product_id, function (json) {
         var str='';
         var floar = 1;
-
+        var reply = document.querySelector('.reply');
         json.forEach(function (data) {
-            str+='<li class="list-group-item rounded-0"><div class="author-data">'+data.author+' ['+floar+'樓]</div><div>'+data.message+'</div></li>';
+            var listGroupItem = document.createElement('li');
+            var authorData = document.createElement('div');
+            var dataMessage = document.createElement('div');
+            listGroupItem.setAttribute('class', 'list-group-item rounded-0');
+            authorData.setAttribute('class', 'author-data');
+            authorData.textContent = (data.author)+' ['+floar+']'+'樓';
+            dataMessage.textContent = data.message;            
+            listGroupItem.appendChild(authorData).appendChild(dataMessage);
+            reply.appendChild(listGroupItem);
             floar++
         })        
-        str = $.parseHTML(str)
-        $('.reply').html(str);
-        $('.reply-number').html(json.length);
     })
 };
 

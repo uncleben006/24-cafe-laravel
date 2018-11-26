@@ -18,11 +18,15 @@ class ChatController extends Controller
     // 印出所有聊天內容
     public function all(Request $request) {
         $chat = Chat::where('product_id', $request->id)->get();
+        
         // 取得關聯
-        foreach ($chat as $key => $value) {
-            $value->author = $value->author()->first()->name;
-            // echo "key = $key<br>";
-            // echo "value = $value<br><br>";            
+        foreach ($chat as $value) {
+            
+            if ( isset($value->author()->first()->name) ) {
+                $value->author = $value->author()->first()->name;
+            }else {
+                $value->author = '此用戶已經被刪除了';
+            }
         }
         return $chat;
     }
