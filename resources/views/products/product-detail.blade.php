@@ -129,6 +129,7 @@ function getAllData(product_id) {
 
 @section('content')
 <div class="container spacing">
+    {{-- 產品區 --}}
     <div class="row">
         <div class="col-lg-8">
             <div class="row flex-column-reverse flex-lg-row">
@@ -150,7 +151,7 @@ function getAllData(product_id) {
                     <h2>{{$datas[0]->name}}</h2>
                     <h4>NT. {{$datas[0]->price}}</h4>
                     <div class="row py-3">
-                        @if($datas[0]->serires)<div class="col-lg-6"><div>系列: {{$datas[0]->series}}</div></div>@endif
+                        @if($datas[0]->series)<div class="col-lg-6"><div>系列: {{$datas[0]->series}}</div></div>@endif
                         @if($datas[0]->category)<div class="col-lg-6"><div>分類: {{$datas[0]->category}}</div></div>@endif
                         @if($datas[0]->rank)<div class="col-lg-6"><div>等級: {{$datas[0]->rank}}</div></div>@endif
                         @if($datas[0]->brand)<div class="col-lg-6"><div>品牌: {{$datas[0]->brand}}</div></div>@endif
@@ -161,6 +162,7 @@ function getAllData(product_id) {
             </div>
         </div>        
     </div>    
+    {{-- 留言區 --}}
     <div class="row py-5">
         <div class="col-lg-8" style="max-height: 15rem; min-height: 10rem">
             <ul class="list-group h-100">

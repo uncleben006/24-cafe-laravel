@@ -87,7 +87,7 @@ class ProductController extends Controller
     public function showDetail($class, $id)
     {      
         $product_img = ProductImage::where('product_id',$id)->get();
-        $product_data =  Product::where('id',$id)->get();  
+        $product_data =  Product::where('id',$id)->get();
         return view('products.product-detail', [
             'class' => $class,
             'datas' => $product_data,
@@ -102,86 +102,27 @@ class ProductController extends Controller
      */
     public function list(Request $request, $class)
     {        
-        if ($request->series && $request->category && $request->rank && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('category', $request->category )
-                ->where('rank', $request->rank )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->series && $request->category && $request->rank) {
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('category', $request->category )
-                ->where('rank', $request->rank )
-                ->get();
-        }else if ($request->series && $request->category && $request->brand) {
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('category', $request->category )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->series && $request->rank && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('rank', $request->rank )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->category && $request->rank && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('category', $request->category )
-                ->where('rank', $request->rank )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->series && $request->category){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('category', $request->category )
-                ->get();
-        }else if ($request->series && $request->rank){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('rank', $request->rank )
-                ->get();
-        }else if ($request->series && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->series && $request->rank){
-            $product_data = Product::where('class', $class)
-                ->where('category', $request->category )
-                ->where('rank', $request->rank )
-                ->get();
-        }else if ($request->category && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('category', $request->category )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->rank && $request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('rank', $request->rank )
-                ->where('brand', $request->brand )
-                ->get();
-        }else if ($request->series){
-            $product_data = Product::where('class', $class)
-                ->where('series', $request->series )
-                ->get();
-        }else if ($request->category){
-            $product_data = Product::where('class', $class)
-                ->where('category', $request->category )
-                ->get();
-        }else if ($request->rank){
-            $product_data = Product::where('class', $class)
-                ->where('rank', $request->rank )
-                ->get();
-        }else if ($request->brand){
-            $product_data = Product::where('class', $class)
-                ->where('brand', $request->brand )
-                ->get();
-        }else {
-            $product_data = Product::where('class', $class)
-                ->get();
+        $product_data = Product::where('class', $class);
+
+        if( $request->series ) {
+            $product_data = $product_data->where('series', $request->series );
+        }
+        if( $request->category ) {
+            $product_data = $product_data->where('category', $request->category );
+        }
+        if( $request->rank ) {
+            $product_data = $product_data->where('rank', $request->rank );
+        }
+        if( $request->brand ) {
+            $product_data = $product_data->where('brand', $request->brand );
+        }
+        if( $request->ordering ) {
+            if ( $request->ordering == 'price-low' ) {
+                $product_data = $product_data->orderBy('price');
+            }            
+            else if ( $request->ordering == 'price-high' ) {
+                $product_data = $product_data->orderBy('price', 'desc');
+            }
         }
         
         $product_img = ProductImage::where('class', $class)->get();
@@ -202,22 +143,23 @@ class ProductController extends Controller
                     break;
                 case 'series':
                     $value->translation = '品牌';
-                    break;                
+                    break;
                 default:
                     break;
             }
         }
         // return 'complete';
         // return $request->all();
-        // return $product_data;
+        // return $product_data->orderBy('price')->get();
         // return $product_img;
         // return $product_filter_class;
+        // return $product_filter_data;
         
         return view('products.product-list',[
             'class' => $class,
             'filter_classes' => $product_filter_class,
             'filter_datas' => $product_filter_data,
-            'datas' => $product_data,
+            'datas' => $product_data->get(),
             'imgs' => $product_img
         ]);
     }    
@@ -410,98 +352,3 @@ class ProductController extends Controller
         return redirect('/products/job/list');
     }
 }
-
-
-    // /**
-    //  * Display products rackets list
-    //  */
-    // public function showRackets()
-    // {        
-    //     return view('products.product-rackets');
-    // }
-    // /**
-    //  * Display products footwears list
-    //  */
-    // public function showFootwears()
-    // {
-    //     return view('products.product-footwears');
-    // }
-    // /**
-    //  * Display products bags list
-    //  */
-    // public function showBags()
-    // {
-    //     return view('products.product-bags');
-    // }    
-    // /**
-    //  * Display products apparels list
-    //  */
-    // public function showApparels()
-    // {
-    //     return view('products.product-apparels');
-    // }  
-    // /**
-    //  * Display products accessories list
-    //  */
-    // public function showAccessories()
-    // {
-    //     return view('products.product-accessories');
-    // } 
-
-    /**
-     * Display products list
-     */
-    // public function list()
-    // {
-    //     return view('products.product-list');
-    // }    
-    /**
-     * Add product into shopping cart
-     */
-    // public function add_cart(Request $request, $id)
-    // {
-    //     $prev = $request->session()->get('cart');
-    //     $arr = [];
-    //     if( $prev != null ){
-    //         $arr = $prev;
-    //     }
-    //     $arr[] = $id;
-    //     $request->session()->put('cart', $arr);
-    //     return (['status'=>true]);
-    // }
-    /**
-     * Display shopping cart api
-     */
-    // public function list_cart(Request $request)
-    // {
-    //     // return json_decode($request->session()->get('cart'));
-    //     // 取得當初存入 session 中的 id 陣列，然後再排序、歸類
-    //     $session_value = $request->session()->get('cart');
-    //     if ($session_value){
-    //         sort($session_value);   
-    //         $session_value = array_count_values($session_value);   
-    //     } else {
-    //         $session_value = array();
-    //     }
-
-    //     // 用 session id 陣列來搜尋 product，取得完整的產品資料，再傳給 $prod_list      
-    //     $prod_list = [];         
-    //     $i = 0;
-    //     foreach($session_value as $key => $value){
-    //         if(Product::find($key)){
-    //             $prod_list[] = Product::find($key);
-    //             $prod_list[$i]->{'quantity'} = $value;
-    //         }
-    //         $i++;
-    //     };
-    //     // echo $i;   
-    //     // print_r($prod_list);
-    //     return $prod_list;
-    // }
-    /**
-     * Display shopping cart interface
-     */
-    // public function cart(Request $request)
-    // {
-    //     return view('ecommerce.product-cart');
-    // }

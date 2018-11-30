@@ -97,6 +97,32 @@ function createFilterTable(php_datas) {
 function doForward(url, warning) {
     confirm(warning)? window.location=url: '';
 }
+
+// $('.list-group-item-action').on('click',function(e){
+//     window.location = e.target.href
+//     console.log()
+// })
+
+switch (window.location.hash) {
+    case '#product-list':
+        $('.product-list').toggleClass('active')
+        break;
+    case '#fliter-list':
+        $('.fliter-list').toggleClass('active')
+        break;
+    case '#product-pages':
+        $('.product-pages').toggleClass('active')
+        break;
+    case '#list-messages':
+        $('.list-messages').toggleClass('active')
+        break;
+    default:
+        break;
+}
+
+
+
+
 </script>
 @endsection
 
@@ -105,13 +131,15 @@ function doForward(url, warning) {
     <div class="row flex-column">
         <div class="col-md-4">
             <div class="list-group flex-row" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0 active" data-toggle="list" href="#product-list">編輯商品</a>
-                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0" data-toggle="list" href="#fliter-list">編輯篩選</a>
-                <a class="list-group-item list-group-item-action col-md-4 py-1 px-3 text-center rounded-0" data-toggle="list" href="#list-messages">編輯標籤</a>   
+                <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 product-list active" data-toggle="list" href="#product-list" >編輯商品</a>
+                <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 fliter-list" data-toggle="list" href="#fliter-list" >編輯篩選</a>
+                <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 list-messages" data-toggle="list" href="#list-messages" >編輯標籤</a>
             </div>
         </div>
         <div class="col-12">
             <div class="tab-content" id="nav-tabContent">
+
+                {{-- 編輯商品 --}}
                 <div class="tab-pane fade mt-3 show active" id="product-list">
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="float-left">商品列表</h1>
@@ -119,7 +147,7 @@ function doForward(url, warning) {
                             <a href="/products/job/new/" class="btn btn-primary btn-sm rounded-0">新增產品</a>
                         </div>                
                     </div>
-                    <div id="product-list">
+                    <div>
                         <div class="Rtable Rtable--6cols" id="tbody">  
                             <div class="Rtable-cell"><strong>ID</strong></div>                    
                             <div class="Rtable-cell"><strong>產品類別</strong></div>
@@ -131,6 +159,8 @@ function doForward(url, warning) {
                         </div>
                     </div>      
                 </div>
+
+                {{-- 編輯篩選 --}}
                 <div class="tab-pane fade mt-3" id="fliter-list">
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="float-left">篩選列表</h1>
@@ -138,7 +168,7 @@ function doForward(url, warning) {
                             <a href="/products/job/filter/new/" class="btn btn-primary btn-sm rounded-0">新增篩選</a>
                         </div>                
                     </div>
-                    <div id="product-list">
+                    <div>
                         <div class="Rtable Rtable--6cols">  
                             <div class="Rtable-cell"><strong>ID</strong></div>                    
                             <div class="Rtable-cell"><strong>產品類別</strong></div>
@@ -150,7 +180,9 @@ function doForward(url, warning) {
                         </div>
                     </div>    
                 </div>
-                <div class="tab-pane fade mt-3" id="list-messages">3</div>
+
+                {{-- 編輯標籤 --}}
+                <div class="tab-pane fade mt-3 list-messages" id="list-messages">3</div>
             </div>
         </div>
     </div>    

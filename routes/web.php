@@ -24,7 +24,6 @@ Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 
 Route::get('/products/job/list', 'ProductController@job');
-Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@createJob');
 Route::post('/products/job/new', 'ProductController@storeJob');
 Route::get('/products/job/filter/new', 'ProductController@createFilter');
@@ -33,6 +32,12 @@ Route::get('/products/job/{id}/edit', 'ProductController@edit');
 Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
+
+Route::get('/products/job/content/list', 'ProductController@contentList');
+Route::get('/products/job/content/new', 'ProductController@contentCreate');
+Route::post('/products/job/content/new', 'ProductController@contentStore');
+Route::get('/products/job/content/{id}/edit', 'ProductController@contentEdit');
+Route::post('/products/job/content/{id}/edit', 'ProductController@contentUpdate');
 
 Route::get('/products/job/{id}/delete', 'ProductController@destroy');
 Route::get('/products/job/filter/{id}/delete', 'ProductController@destroyFilter');

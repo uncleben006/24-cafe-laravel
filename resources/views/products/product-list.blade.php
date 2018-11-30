@@ -87,6 +87,9 @@ $(function() {
 
 @section('style')
     <style>
+        .list-group-item {
+            padding: 0.25rem 1.25rem;
+        }
         .sorting {
             border-bottom: 1.5px solid black; 
             margin-bottom:50px;
@@ -205,7 +208,14 @@ $(function() {
             </div>
             <div class="col-md-3">
                 <div class="text-nowrap float-left pr-3">排序 |</div>
-                <div></div>
+                <div class="d-inline-block dropdown pr-3">
+                    <button type="button" data-toggle="dropdown" class="btn sorting-primary dropdown-toggle">排序</button> 
+                    <div id="categories-dropdown" class="dropdown-menu">
+                        <a data-filter-class="ordering" data-filter-name="name" class="dropdown-item prodouct-filter">依名稱</a> 
+                        <a data-filter-class="ordering" data-filter-name="price-low" class="dropdown-item prodouct-filter">價格低至高</a> 
+                        <a data-filter-class="ordering" data-filter-name="price-high" class="dropdown-item prodouct-filter">價格高至低</a> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>    
@@ -222,6 +232,16 @@ $(function() {
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><h5 class="card-title m-0">{{$data->name}}</h5></li>
                         <li class="list-group-item">NT. {{$data->price}}</li>
+                        @if($data->series||$data->category||$data->category||$data->brand)
+                        <li class="list-group-item">
+                            <div class="d-flex flex-wrap">
+                                @if($data->series)<div class="pr-3">系列: {{$data->series}}</div>@endif
+                                @if($data->category)<div class="pr-3">分類: {{$data->category}}</div>@endif
+                                @if($data->rank)<div class="pr-3">等級: {{$data->rank}}</div>@endif
+                                @if($data->brand)<div class="pr-3">品牌: {{$data->brand}}</div>@endif
+                            </div>                            
+                        </li>
+                        @endif
                     </ul>                
                     <div class="card-body">
                         <p class="card-description">{!! $data->introduction !!}</p>
