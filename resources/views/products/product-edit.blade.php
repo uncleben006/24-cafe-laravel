@@ -155,7 +155,7 @@ $(function() {
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label for="introduction" class="col-md-2 col-form-label">產品簡介</label>
+                                    <label for="introduction" class="col-md-2 col-form-label">產品簡介<br><small>(簡介呈現於外面的產品卡)</small></label>
                 
                                     <div class="col-md-10">
                                         <textarea id="introduction" type="text" class="form-control{{ $errors->has('introduction') ? ' is-invalid' : '' }}" name="introduction" rows="5">{{$data[0]->introduction}}</textarea>
@@ -170,7 +170,7 @@ $(function() {
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label for="detail" class="col-md-2 col-form-label">產品簡介</label>
+                                    <label for="detail" class="col-md-2 col-form-label">產品詳述<br><small>(詳述呈現於產品內頁)</small></label>
                 
                                     <div class="col-md-10">
                                         <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$data[0]->detail}}</textarea>
@@ -178,6 +178,21 @@ $(function() {
                                         @if ($errors->has('detail'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('detail') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="html" class="col-md-2 col-form-label">產品延伸資訊<br><small>(延伸資訊會顯示於產品下方圖片上方，使用HTML編輯)</small></label>
+                
+                                    <div class="col-md-10">
+                                        <textarea id="html" type="text" class="form-control{{ $errors->has('html') ? ' is-invalid' : '' }}" name="html" rows="5">{{$data[0]->html}}</textarea>
+                
+                                        @if ($errors->has('html'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('html') }}</strong>
                                             </span>
                                         @endif
                                     </div>

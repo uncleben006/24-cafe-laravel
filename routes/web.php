@@ -13,8 +13,9 @@
 
 // 和session有關的api要用中介層管理或直接放在web
 
-// post controller
 Route::get('/', function () { return view('index'); });
+
+// post controller
 Route::get('/posts', function() { return view('post.post'); });
 Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
 Route::post('/posts', 'PostController@store')->name('post');
@@ -33,6 +34,7 @@ Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
+// content controller
 Route::get('/products/job/content/list', 'ProductController@contentList');
 Route::get('/products/job/content/new', 'ProductController@contentCreate');
 Route::post('/products/job/content/new', 'ProductController@contentStore');
@@ -41,20 +43,13 @@ Route::post('/products/job/content/{id}/edit', 'ProductController@contentUpdate'
 
 Route::get('/products/job/{id}/delete', 'ProductController@destroy');
 Route::get('/products/job/filter/{id}/delete', 'ProductController@destroyFilter');
-
-
 Route::get('/products/coffee/show','ProductController@showCoffee');
 
-// order-list controller
-// Route::get('/products/checkout', 'OrderListController@index');
-// Route::post('/products/checkout', 'OrderListController@store');
-// Route::get('/products/order-list', 'OrderListController@show');
-
 // chat controller
-Route::get('/chat', 'ChatController@index');
+Route::get('/chat', function() { return abort(404); });
+Route::post('/chat', 'ChatController@create');
 Route::get('/chat/all/{id}/', 'ChatController@all');
 Route::get('/chat/last/', 'ChatController@last');
-Route::post('/chat', 'ChatController@create');
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');

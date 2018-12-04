@@ -162,6 +162,7 @@ function getAllData(product_id) {
             </div>
         </div>        
     </div>    
+    {!! $datas[0]->html !!}
     {{-- 留言區 --}}
     <div class="row py-5">
         <div class="col-lg-8" style="max-height: 15rem; min-height: 10rem">

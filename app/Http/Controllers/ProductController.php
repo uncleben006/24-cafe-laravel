@@ -259,6 +259,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'introduction' => $request->introduction,
             'detail'=>$request->detail,
+            'html'=>$request->html,
             'series' => $request->series,
             'category' => $request->category,
             'rank' => $request->rank,

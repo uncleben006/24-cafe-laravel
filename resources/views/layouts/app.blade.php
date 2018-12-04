@@ -66,16 +66,9 @@
                                 </div>
                             </div>
                         </li>
-
-
                         <li class="nav-item @yield('post-nav')">
                             <a class="nav-link" href="/posts">文章</a>
                         </li>
-                        @auth                            
-                            <li class="nav-item @yield('chat-room-nav')">
-                                <a class="nav-link" href="/chat">聊天室</a>
-                            </li>   
-                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
