@@ -135,7 +135,7 @@ $(function () {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group row">
                             <label for="introduction" class="col-md-2 col-form-label">產品簡介</label>        
                             <div class="col-md-10">
@@ -143,11 +143,29 @@ $(function () {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group row">
                             <label for="detail" class="col-md-2 col-form-label">產品詳述</label>        
                             <div class="col-md-10">
-                                <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5"></textarea>
+                                <textarea id="detail" type="text" class="form-control" name="detail" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="topSection" class="col-md-2 col-form-label">產品內容(頂)<div class="text-disclaimers">顯示於產品頂端，建議使用 HTML 編輯</div></label>
+        
+                            <div class="col-md-10">
+                                <textarea id="topSection" type="text" class="form-control" name="topSection" rows="7" style="font-size: 12px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label for="middleSection" class="col-md-2 col-form-label">產品內容(尾)<div class="text-disclaimers">顯示於產品下方聊天室上方，建議使用 HTML 編輯</div></label>
+        
+                            <div class="col-md-10">
+                                <textarea id="middleSection" type="text" class="form-control" name="middleSection" rows="7" style="font-size: 12px"></textarea>
                             </div>
                         </div>
                     </div>

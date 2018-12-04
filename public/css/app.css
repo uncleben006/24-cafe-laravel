@@ -11562,42 +11562,6 @@ section h2 {
   }
 }
 
-.header-carousel-item {
-  height: 75vh;
-  background-color: #ccc;
-}
-
-.carousel-caption {
-  background-color: rgba(0, 0, 0, 0.35);
-}
-
-.carousel-indicators > li {
-  border-radius: 100%;
-  width: 15px;
-  height: 15px;
-}
-
-.carousel-inner > .item-1 {
-  background-image: url(/images/24-cafe-banner.jpg?71d1fc453bd55741f0700b5d6cf33b5a);
-  background-position: center 30%;
-}
-
-.carousel-inner > .item-2 {
-  background-image: url(/images/24-cafe-image-girl.jpg?b4451e9a5c52f513b624b61df063ae56);
-  background-position: right top;
-}
-
-.carousel-inner > .item-3 {
-  background-image: url(/images/24-cafe-coffee.jpg?a8fbece6ce0c1263299c10108b9d3f23);
-  background-position: 35% top;
-}
-
-@media (min-width: 992px) {
-  .carousel-inner > .item-3 {
-    background-position: right top;
-  }
-}
-
 .info-hover {
   -webkit-transition: 0.2s;
   transition: 0.2s;
@@ -11629,18 +11593,12 @@ section h2 {
   background-size: cover;
 }
 
-.info-background-one:before {
-  background-image: url(/images/coffee-background.jpg?d73cf72222391c32509a4e1676d55981);
-  background-position: left center;
-}
-
-.info-background-two:before {
-  background-image: url(/images/batminton-background.png?3aec734ec05e9bb7ef96e9f16d126ba8);
-  background-position: left top;
-}
-
 .muted-block {
   background: rgba(255, 255, 255, 0.5);
+}
+
+.text-disclaimers {
+  font-size: 50%;
 }
 
 .spacing {

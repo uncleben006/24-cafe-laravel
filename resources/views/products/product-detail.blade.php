@@ -128,7 +128,8 @@ function getAllData(product_id) {
 @endsection
 
 @section('content')
-<div class="container spacing">
+{!! $content[0]->topSection !!}
+<div class="container @unless($content[0]->topSection) spacing @endunless">
     {{-- 產品區 --}}
     <div class="row">
         <div class="col-lg-8">
@@ -156,13 +157,13 @@ function getAllData(product_id) {
                         @if($datas[0]->rank)<div class="col-lg-6"><div>等級: {{$datas[0]->rank}}</div></div>@endif
                         @if($datas[0]->brand)<div class="col-lg-6"><div>品牌: {{$datas[0]->brand}}</div></div>@endif
                     </div>
-                    <div class="border p-3">{!! $datas[0]->detail !!}</div>
+                    <div class="border p-3">{!! $content[0]->detail !!}</div>
                 </div>
                 <div>最後編輯: {{$datas[0]->created_at}}</div>
             </div>
         </div>        
     </div>    
-    {!! $datas[0]->html !!}
+    {!! $content[0]->middleSection !!}
     {{-- 留言區 --}}
     <div class="row py-5">
         <div class="col-lg-8" style="max-height: 15rem; min-height: 10rem">

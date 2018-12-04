@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
+use App\ProductContent;
 use App\Filter;
 use Log;
 use Auth;
@@ -87,11 +88,13 @@ class ProductController extends Controller
     public function showDetail($class, $id)
     {      
         $product_img = ProductImage::where('product_id',$id)->get();
-        $product_data =  Product::where('id',$id)->get();
+        $product_data =  Product::where('id',$id)->get();        
+        $product_content = ProductContent::where('id',$id)->get();
         return view('products.product-detail', [
             'class' => $class,
             'datas' => $product_data,
-            'imgs' => $product_img
+            'imgs' => $product_img,
+            'content' => $product_content
         ]);
     } 
     public function showCoffee(){
@@ -175,13 +178,17 @@ class ProductController extends Controller
             'name'=>$request->name,
             'price'=>$request->price,
             'introduction'=>$request->introduction,
-            'detail'=>$request->detail,
             'class'=>$request->class,
             'category'=>$request->category,
             'series'=>$request->series,
             'rank'=>$request->rank,
             'brand'=>$request->brand
-        ]);        
+        ]);     
+        ProductContent::create([
+            'detail'=>$request->detail,
+            'topSection'=>$request->topSection,
+            'middleSection'=>$request->middleSection
+        ]);           
         $id = $product->id;
         self::storeImage($id,$request);     
         return redirect('/products/job/list');     
@@ -229,9 +236,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product_data = Product::where('id', $id)->get();
+        $product_content = ProductContent::where('id',$id)->get();
         // return $product_data;
         return view('products.product-edit', [
             'data' => $product_data,
+            'content' => $product_content
         ]);
     }
     /**
@@ -258,12 +267,17 @@ class ProductController extends Controller
             'class' => $request->class,
             'price' => $request->price,
             'introduction' => $request->introduction,
-            'detail'=>$request->detail,
-            'html'=>$request->html,
             'series' => $request->series,
             'category' => $request->category,
             'rank' => $request->rank,
             'brand' => $request->brand
+        ]);
+        // 改 Product Content 資料庫
+        ProductContent::where('id', $id)
+        ->update([
+            'detail'=>$request->detail,
+            'topSection'=>$request->topSection,
+            'middleSection'=>$request->middleSection
         ]);
         // 改圖
         self::updateImage($id,$request);

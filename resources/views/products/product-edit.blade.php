@@ -5,7 +5,13 @@
 @section('script')
 <script>
 $(function() {    
-
+    var productClass = '{{ $data[0]->class }}'
+    $('#class').children().each(function(e){
+        console.log( $(this) );
+        if ( $(this).attr('value') == productClass ) {
+            $(this).attr('selected','selected')
+        }
+    });
     // 抓取 image api 顯示現在的圖片，
     // 缺點是 input 裡無法顯示
     $.getJSON('/api/products/{{$data[0]->id}}/images', function (json) {
@@ -59,7 +65,7 @@ $(function() {
 @endsection
 
 @section('content')
-<div class="container spacing">
+<div class="px-3 px-lg-5 spacing">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -153,9 +159,9 @@ $(function() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="introduction" class="col-md-2 col-form-label">產品簡介<br><small>(簡介呈現於外面的產品卡)</small></label>
+                                    <label for="introduction" class="col-md-2 col-form-label">產品簡介<div class="text-disclaimers">簡介顯示於產品卡</div></label>
                 
                                     <div class="col-md-10">
                                         <textarea id="introduction" type="text" class="form-control{{ $errors->has('introduction') ? ' is-invalid' : '' }}" name="introduction" rows="5">{{$data[0]->introduction}}</textarea>
@@ -168,12 +174,12 @@ $(function() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="detail" class="col-md-2 col-form-label">產品詳述<br><small>(詳述呈現於產品內頁)</small></label>
+                                    <label for="detail" class="col-md-2 col-form-label">產品詳述<div class="text-disclaimers">詳述顯示於產品內頁</div></label>
                 
                                     <div class="col-md-10">
-                                        <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$data[0]->detail}}</textarea>
+                                        <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$content[0]->detail}}</textarea>
                 
                                         @if ($errors->has('detail'))
                                             <span class="invalid-feedback" role="alert">
@@ -183,16 +189,35 @@ $(function() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="html" class="col-md-2 col-form-label">產品延伸資訊<br><small>(延伸資訊會顯示於產品下方圖片上方，使用HTML編輯)</small></label>
+                                    <label for="topSection" class="col-md-2 col-form-label">產品內容(頂)<div class="text-disclaimers">顯示於產品頂端，建議使用 HTML 編輯</div></label>
                 
                                     <div class="col-md-10">
-                                        <textarea id="html" type="text" class="form-control{{ $errors->has('html') ? ' is-invalid' : '' }}" name="html" rows="5">{{$data[0]->html}}</textarea>
+                                        <textarea id="topSection" type="text" class="form-control{{ $errors->has('topSection') ? ' is-invalid' : '' }}" name="topSection" rows="7" style="font-size: 12px">
+                                            {{$content[0]->topSection}}
+                                        </textarea>
                 
-                                        @if ($errors->has('html'))
+                                        @if ($errors->has('topSection'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('html') }}</strong>
+                                                <strong>{{ $errors->first('topSection') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="middleSection" class="col-md-2 col-form-label">產品內容(尾)<div class="text-disclaimers">顯示於產品下方聊天室上方，建議使用 HTML 編輯</div></label>
+                
+                                    <div class="col-md-10">
+                                        <textarea id="middleSection" type="text" class="form-control{{ $errors->has('middleSection') ? ' is-invalid' : '' }}" name="middleSection" rows="7" style="font-size: 12px">
+                                            {{$content[0]->middleSection}}
+                                        </textarea>
+                
+                                        @if ($errors->has('middleSection'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('middleSection') }}</strong>
                                             </span>
                                         @endif
                                     </div>

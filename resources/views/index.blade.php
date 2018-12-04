@@ -2,42 +2,44 @@
 
 @section('style')
 <style>
-    html, body {
-        font-weight: 100;
-        height: 90vh;
-        margin: 0;
+    .header-carousel-item {
+        height: 75vh;
+        background-color: #ccc;
     }
 
-    .full-height {
-        height: 80vh;
+    .carousel-caption {
+        background-color: rgba(0, 0, 0, .35)
     }
 
-    .flex-center {
-        align-items: center;
-        display: flex;
-        justify-content: center;
+    .carousel-indicators>li {
+        border-radius: 100%;
+        width: 15px;
+        height: 15px;
     }
-
-    .position-ref {
-        position: relative;
+    .carousel-inner > .item-1 {
+        background-image: url(../images/24-cafe-banner.jpg); 
+        background-position: center 30%;
     }
-
-    .top-right {
-        position: absolute;
-        right: 10px;
-        top: 18px;
+    .carousel-inner > .item-2 {
+        background-image: url(../images/24-cafe-image-girl.jpg); 
+        background-position: right top;
     }
-
-    .content {
-        text-align: center;
+    .carousel-inner > .item-3 {
+        background-image: url(../images/24-cafe-coffee.jpg); 
+        background-position: 35% top;
     }
-
-    .title {
-        font-size: 84px;
+    @media( min-width: 992px ){
+        .carousel-inner > .item-3 {
+            background-position: right top;
+        }
+    } 
+    .info-background-one:before {
+        background-image: url(../images/coffee-background.jpg);
+        background-position: left center;
     }
-
-    .m-b-md {
-        margin-bottom: 30px;
+    .info-background-two:before {
+        background-image: url(../images/batminton-background.png);
+        background-position: left top;
     }
 </style>
 @endsection
