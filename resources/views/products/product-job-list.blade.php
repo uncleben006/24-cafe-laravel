@@ -58,12 +58,66 @@ $(function() {
     // create product table
     createProductTable( {!! $productDatas !!} )
     // create filter table
-    createFilterTable( {!! $filterDatas !!} )
+    createFilterTable( {!! $filterDatas !!} )    
+    
+    var url = new URL(window.location.href);
+    var pathname = url.pathname
+    var urlHref = url.href
+    var urlParameters = ''
+    // console.log(urlParameters).
+    $('.sorting').on('click', function(e){
+        e.preventDefault()
+        if(url.searchParams.has('order')){
+            // console.log('it has order')   
+            // console.log(url.searchParams.get('order'))
+            for(var pair of url.searchParams.entries()){
+                if(pair[0]=='order'){
+                    if(pair[1]=='asc'){
+                        pair[1]='desc'
+                    }
+                    else {
+                        pair[1]='asc'
+                    }
+                }
+                // console.log(pair[0])
+                // console.log(pair[1])
+                urlParameters += pair[0]+'='+pair[1]+'&'
+            }
+            // console.log(urlParameters)
+           
+        }
+        else {
+            for(var pair of url.searchParams.entries()){
+                urlParameters += pair[0]+'='+pair[1]+'&order=desc'
+            }
+        }
+        window.location.href = pathname + '?' + urlParameters
+    }) 
+    $('.product-list').on('click',function(){
+        document.cookie = 'tab = ; expires = Wed; 01 Jan 1970'
+        document.cookie = 'tab = product-list'
+    })
+    $('.fliter-list').on('click',function(){
+        document.cookie = 'tab = ; expires = Wed; 01 Jan 1970'
+        document.cookie = 'tab = fliter-list'
+    })
+    $('.list-messages').on('click',function(){
+        document.cookie = 'tab = ; expires = Wed; 01 Jan 1970'
+        document.cookie = 'tab = list-messages'
+    })
+    if(getCookie('tab')){
+        $('.'+getCookie('tab')).addClass('active')
+        $('#'+getCookie('tab')).addClass('active show')
+    }    
+    else {
+        $('.product-list').addClass('active')
+        $('#product-list').addClass('active')
+    }
 });
 function createProductTable(php_datas) {
     var product_str = ''
     php_datas.forEach(function (data) {
-        console.log(data)
+        // console.log(data)
         product_str += '\
         <div class="Rtable-cell">'+data.id+'</div>\
         <div class="Rtable-cell">'+data.class+'</div>\
@@ -80,7 +134,7 @@ function createProductTable(php_datas) {
 function createFilterTable(php_datas) {
     var filter_str = ''
     php_datas.forEach(function (data) {
-        console.log(data)
+        // console.log(data)
         filter_str += '\
         <div class="Rtable-cell">'+data.id+'</div>\
         <div class="Rtable-cell">'+data.product_class+'</div>\
@@ -97,13 +151,17 @@ function createFilterTable(php_datas) {
 function doForward(url, warning) {
     confirm(warning)? window.location=url: '';
 }
-
-// $('.list-group-item-action').on('click',function(e){
-//     window.location = e.target.href
-//     console.log()
-// })
-
-switch (window.location.hash) {
+function getCookie(cookieName) {
+  var name = cookieName + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1);
+      if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+  }
+  return "";
+}
+switch (window.document.cookie) {
     case '#product-list':
         $('.product-list').toggleClass('active')
         break;
@@ -119,10 +177,6 @@ switch (window.location.hash) {
     default:
         break;
 }
-
-
-
-
 </script>
 @endsection
 
@@ -131,29 +185,29 @@ switch (window.location.hash) {
     <div class="row flex-column">
         <div class="col-md-4">
             <div class="list-group flex-row" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 product-list active" data-toggle="list" href="#product-list" >編輯商品</a>
+                <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 product-list" data-toggle="list" href="#product-list" >編輯商品</a>
                 <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 fliter-list" data-toggle="list" href="#fliter-list" >編輯篩選</a>
                 <a class="list-group-item list-group-item-action col-md-6 py-1 px-3 text-center rounded-0 list-messages" data-toggle="list" href="#list-messages" >編輯標籤</a>
             </div>
         </div>
         <div class="col-12">
-            <div class="tab-content" id="nav-tabContent">
-
+            <div class="tab-content" id="nav-tabContent">                
                 {{-- 編輯商品 --}}
-                <div class="tab-pane fade mt-3 show active" id="product-list">
+                <div class="tab-pane fade mt-3 show" id="product-list">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h1 class="float-left">商品列表</h1>
+                        <h1 class="float-left">商品列表</h1>                        
                         <div class="float-right">
+                            <a href="#" class="sorting">順序&#x25BC;</a>
                             <a href="/products/job/new/" class="btn btn-primary btn-sm rounded-0">新增產品</a>
                         </div>                
                     </div>
                     <div>
                         <div class="Rtable Rtable--6cols" id="tbody">  
-                            <div class="Rtable-cell"><strong>ID</strong></div>                    
-                            <div class="Rtable-cell"><strong>產品類別</strong></div>
-                            <div class="Rtable-cell"><strong>商品名稱</strong></div>
-                            <div class="Rtable-cell"><strong>價格</strong></div>
-                            <div class="Rtable-cell"><strong>產品簡介</strong></div>                    
+                            <a href="?productSort=id" class="Rtable-cell"><strong>ID</strong></a>                    
+                            <a href="?productSort=class" class="Rtable-cell"><strong>產品類別</strong></a>
+                            <a href="?productSort=name" class="Rtable-cell"><strong>商品名稱</strong></a>
+                            <a href="?productSort=price" class="Rtable-cell"><strong>價格</strong></a>
+                            <a href="?productSort=introduction" class="Rtable-cell"><strong>產品簡介</strong></a>                    
                             <div class="Rtable-cell"><strong>編輯產品</strong></div>     
                             <div id="productDatas"></div>                                               
                         </div>
@@ -165,16 +219,17 @@ switch (window.location.hash) {
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="float-left">篩選列表</h1>
                         <div class="float-right">
+                            <a href="#" class="sorting">順序&#x25BC;</a>
                             <a href="/products/job/filter/new/" class="btn btn-primary btn-sm rounded-0">新增篩選</a>
                         </div>                
                     </div>
                     <div>
                         <div class="Rtable Rtable--6cols">  
-                            <div class="Rtable-cell"><strong>ID</strong></div>                    
-                            <div class="Rtable-cell"><strong>產品類別</strong></div>
-                            <div class="Rtable-cell"><strong>篩選類別</strong></div>
-                            <div class="Rtable-cell"><strong>篩選名稱</strong></div>
-                            <div class="Rtable-cell"><strong>順序</strong></div>   
+                            <a href="?filterSort=id" class="Rtable-cell"><strong>ID</strong></a>                    
+                            <a href="?filterSort=product_class" class="Rtable-cell"><strong>產品類別</strong></a>
+                            <a href="?filterSort=filter_class" class="Rtable-cell"><strong>篩選類別</strong></a>
+                            <a href="?filterSort=filter_name" class="Rtable-cell"><strong>篩選名稱</strong></a>
+                            <a href="?filterSort=sequence" class="Rtable-cell"><strong>順序</strong></a>   
                             <div class="Rtable-cell"><strong>編輯產品</strong></div>                
                             <div id="filterDatas"></div>                                               
                         </div>

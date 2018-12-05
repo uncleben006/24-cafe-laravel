@@ -55,10 +55,20 @@ class ProductController extends Controller
      * Including add, edit and delete function to adjust product database. 
      * Will only show on administrator's navigation.
      */
-    public function job() 
+    public function job(Request $request) 
     {
+        // return $request->all();
         $product_data = Product::all();
         $filter_data = Filter::all();
+        $order = $request->order ? $request->order : 'asc';
+
+        if($request->productSort) {
+            $product_data = Product::orderBy($request->productSort, $order)->get();
+        }
+        if($request->filterSort) {
+            $filter_data = Filter::orderBy($request->filterSort, $order)->get();
+        }     
+        
         return view('products.product-job-list',[
             'productDatas' => $product_data,
             'filterDatas'=>$filter_data
