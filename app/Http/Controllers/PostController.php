@@ -25,6 +25,10 @@ class PostController extends Controller
         //     'posts' => Post::all()
         // ]);
     }
+    public function list()
+    {
+        return view('post.post-list');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +50,7 @@ class PostController extends Controller
     {
         Log::debug($request->all());
         $validate = Validator::make($request->all(), [
-            'title'=>'required|max:20',
+            'title'=>'required',
             'note'=>'required',
             'author'=>'required|integer'
         ]);
@@ -54,7 +58,7 @@ class PostController extends Controller
             return ['errors' => $validate->errors()];
         }
         Post::create($request->all());
-        return view('post.post');
+        return view('post.post-list');
     }
 
     /**

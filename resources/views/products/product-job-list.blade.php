@@ -161,22 +161,6 @@ function getCookie(cookieName) {
   }
   return "";
 }
-switch (window.document.cookie) {
-    case '#product-list':
-        $('.product-list').toggleClass('active')
-        break;
-    case '#fliter-list':
-        $('.fliter-list').toggleClass('active')
-        break;
-    case '#product-pages':
-        $('.product-pages').toggleClass('active')
-        break;
-    case '#list-messages':
-        $('.list-messages').toggleClass('active')
-        break;
-    default:
-        break;
-}
 </script>
 @endsection
 
