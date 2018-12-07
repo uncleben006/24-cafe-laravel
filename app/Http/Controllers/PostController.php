@@ -27,7 +27,9 @@ class PostController extends Controller
     }
     public function list()
     {
-        return view('post.post-list');
+        return view('post.post-list',[
+            'postData' => Post::all()
+        ]);
     }
 
     /**
@@ -35,9 +37,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function new()
     {
-        //
+        return view('post.post-new');
     }
 
     /**

@@ -36,7 +36,7 @@ Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
 // content controller
 Route::get('/products/job/content/', 'PostController@list');
-Route::get('/products/job/content/new', 'ProductController@contentCreate');
+Route::get('/products/job/content/new', 'PostController@new');
 Route::post('/products/job/content/new', 'ProductController@contentStore');
 Route::get('/products/job/content/{id}/edit', 'ProductController@contentEdit');
 Route::post('/products/job/content/{id}/edit', 'ProductController@contentUpdate');
