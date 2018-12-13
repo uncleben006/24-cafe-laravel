@@ -34,7 +34,8 @@
     border: solid 1px black;
     background: fade(slategrey,20%);
     max-height: 15vh;
-    overflow: auto;
+    overflow-y: auto;
+    word-break: break-all;
     > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
 }
 .Rtable-cell hr {
@@ -89,15 +90,18 @@ function createPostTable(php_datas) {
         post_str += '\
         <div class="Rtable-cell">'+data.id+'</div>\
         <div class="Rtable-cell">'+data.title+'</div>\
-        <div class="Rtable-cell">'+data.note+'</div>\
+        <div class="Rtable-cell">'+data.content+'</div>\
         <div class="Rtable-cell">'+data.created_at+'</div>\
         <div class="Rtable-cell">'+data.updated_at+'</div>\
         <div class="Rtable-cell text-center">\
             <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a>\
-            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除 '+data.name+' 嗎?\');">刪除</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/content/'+data.id+'/delete/\',\'確定要刪除 '+data.title+' 嗎?\');">刪除</a>\
         </div>'
     })
     $('#postDatas').replaceWith(post_str)
+}
+function doForward(url, warning) {
+    confirm(warning)? window.location=url: '';
 }
 </script>
 @endsection
@@ -124,17 +128,6 @@ function createPostTable(php_datas) {
                     <div class="Rtable-cell"><strong>編輯產品</strong></div>     
                     <div id="postDatas"></div>                                               
                 </div>
-        {{-- <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>note</th>
-            </tr>
-            </thead>
-            <tbody id="tbody1">
-            </tbody>
-        </table> --}}
             <a class="btn btn-primary" id="btn-pre">Previous</a>
             <a class="btn btn-primary" id="btn-next">Next</a>
         </div>

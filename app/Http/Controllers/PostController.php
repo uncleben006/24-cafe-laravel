@@ -50,17 +50,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
         Log::debug($request->all());
         $validate = Validator::make($request->all(), [
             'title'=>'required',
             'note'=>'required',
-            'author'=>'required|integer'
         ]);
+        // return $validate->errors();
         if ($validate->fails()) {
-            return ['errors' => $validate->errors()];
+            return view('post.post-new',
+                ['errors' => $validate->errors()
+            ]);
         }
-        Post::create($request->all());
-        return view('post.post-list');
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->note
+        ]);
+        return view('post.post-new');
     }
 
     /**
@@ -110,6 +116,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect('/products/job/content/');
     }
 }

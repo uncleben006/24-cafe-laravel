@@ -16,9 +16,9 @@
 Route::get('/', function () { return view('index'); });
 
 // post controller
-Route::get('/posts', function() { return view('post.post'); });
+
 Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
-Route::post('/posts', 'PostController@store')->name('post');
+// Route::post('/posts', 'PostController@store')->name('post');
 
 // product controller administrator
 Route::get('/products/{class}', 'ProductController@list');
@@ -35,9 +35,12 @@ Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
 // content controller
+Route::get('/posts', 'PostController@index');
 Route::get('/products/job/content/', 'PostController@list');
 Route::get('/products/job/content/new', 'PostController@new');
-Route::post('/products/job/content/new', 'ProductController@contentStore');
+Route::post('/products/job/content/new', 'PostController@store');
+Route::get('/products/job/content/{id}/delete', 'PostController@destroy');
+
 Route::get('/products/job/content/{id}/edit', 'ProductController@contentEdit');
 Route::post('/products/job/content/{id}/edit', 'ProductController@contentUpdate');
 
