@@ -1,38 +1,11 @@
 // Styling for the navbar
 #mainNav {
-    hr {        
-        max-width: 100px;
-    }
-    border-color: fade-out($gray-darker, .95);
-    background-color: $theme-tertiary;
     @include transition-all;
-    @include heading-font;
-    &.navbar-shrink {
-        border-color: fade-out($gray-darker, .9);
-        background-color: rgba($theme-tertiary,0.25);
-        &:hover {
-            background-color: rgba($theme-tertiary,0.75);
-        }
-        .navbar-brand {
-            color: $gray-darker !important;
-            &:hover {
-                color: $theme-primary;
-            }
-        }
-        .navbar-subnav {
-            background-color: transparent !important;
-            &:hover {
-                background-color: rgba($theme-secondary,0.25)!important;
-            }
-        }
-    }
-    .navbar-brand {
-        color: $theme-primary;
-        @include heading-font;
-        &:hover, &:focus {
-            color: darken($theme-primary, 10%);
-        }
-    }
+    @include heading-font;  
+    border-color: fade-out($gray-darker, .95);
+    background-color: $theme-tertiary;    
+    font-weight: 400;
+    letter-spacing: 1px;
     .navbar-toggler {
         font-size: 12px;
         padding: 8px 10px;
@@ -41,100 +14,44 @@
     .navbar-nav {
         .nav-item {
             a {
-                color: $dark;
-                @include alt-font;
+                color: $theme-primary;
                 &:hover {
                     color: $theme-quaternary;
                 }                           
             }            
-        // sub nav bar start
             .navbar-subnav {
                 visibility: hidden;        
                 background: $theme-secondary;
                 opacity: 0;
                 height: 0;
                 padding: 0;
-                transition: 0.25s;
+                transition: 0s;
                 a {        
                     transform: translateY(-25%);
                     transition: 0.1s;
                     display: block;
-                }
-                .subnav-active {
-                    color: $theme-quaternary !important;
-                }    
+                }  
             }
-            @media (min-width: 992px){
-                .navbar-subnav {
-                    position: absolute;
-                    left: 0;
-                    visibility: hidden;
-                    opacity: 0;
-                    width: 100%;
-                    a {
-                        display: inline-block;
-                        transform: initial;
-                    }    
-                    .subnav-active {
-                        border-bottom: $theme-quaternary solid 5px !important;
-                    }
-                    &:hover {
-                        visibility: visible;
-                        opacity: 1;
-                        height: 100%;
-                    }
+            .show-dropdown {
+                visibility: visible;
+                opacity: 1;
+                height: auto;
+                a {
+                    transform: translateY(0%);
                 }
             }
-
-            .show-dropdown a {
-                color: inherit !important;
-            }
-            @media (min-width: 992px) {
-                .show-dropdown {
-                    visibility: visible;
-                    opacity: 1;
-                    height: 100%;
-                    color: $theme-primary;
-                    z-index: -1;
-                    a {
-                        color: inherit !important;
-                        border-bottom: none !important;
-                    }
-                }
-            }  
             .dropdown {
                 visibility: visible;
                 opacity: 1;
                 transition: 0.25s;
-                height: 100%;
+                height: auto;
                 a {
                     transform: translateY(0%);
                     transition: 0.5s;
                 }
-            }
-            @media (min-width: 992px){    
-                .product-nav:hover {
-                    +.navbar-subnav {
-                        visibility: visible;
-                        opacity: 1;
-                        height: 100%;
-                    }        
-                }
-            }
-        //  sub nav bar end
+            }       
         }
-        .active {
-            a {
-                color: $theme-quaternary;
-            }                      
-            &:hover {
-                background-color: transparent;
-            }
-            background-color: transparent;
-        }
-        .dropdown-menu {
-            width: auto;
-            min-width: auto;            
+        .dropdown-menu {      
             .dropdown-item {
                 text-align: center;
                 background: $theme-quaternary;
@@ -145,15 +62,72 @@
                     color: $theme-secondary;
                     transition: 0.25s;
                 }
-            }
-        }        
+            } 
+        }
     }
-    @media (min-width: 992px) {
-        .navbar-nav {            
-            .active a {
-                border-bottom: $theme-quaternary solid 5px;
+    .active {
+        .nav-link {
+            color: $theme-quaternary !important;
+        }
+        .subnav-link {
+            color: $theme-primary !important;
+            &:hover {
+                color: $theme-quaternary !important;
             }
         }
+        .subnav-active {
+            color: $theme-quaternary !important;
+        }
+    }
+    @media (min-width: 992px) {
+        .navbar-nav {
+            .nav-item {
+                .navbar-subnav {
+                    position: absolute;
+                    left: 0;
+                    visibility: hidden;
+                    opacity: 0;
+                    width: 100%;
+                    a {
+                        display: inline-block;
+                        transform: translateY(0%);
+                    }    
+                    &:hover {
+                        visibility: visible;
+                        opacity: 1;
+                        height: 100%;
+                    }
+                }
+                .dropdown-toggle:hover {
+                    +.navbar-subnav {
+                        visibility: visible;
+                        opacity: 1;
+                        height: 100%;
+                        z-index: 2;
+                    }     
+                }
+            }            
+        }
+        .active {
+            .nav-link {
+                color: $theme-quaternary !important;
+            }
+            .subnav-link {
+                color: $theme-primary !important;
+            }
+            .subnav-active {
+                color: $theme-quaternary !important;
+                border-bottom: $theme-quaternary solid 5px !important;
+            }
+        }  
+        &.navbar-shrink {
+            opacity: 0.5;
+            transition: 0.5s;
+            &:hover {
+                opacity: 1;
+                transition: 0.25s;
+            }    
+        }  
     }
 }
 

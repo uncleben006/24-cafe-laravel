@@ -23,23 +23,19 @@
     @yield('style')
     
     <style>
-    
-    
+        #mainNav {
+            
+        }
     </style>
 </head>
 <body>
     <div id="app">        
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">
-                
-            <div class="container">
-                
-                
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">                
+            <div class="container">              
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                <a class="navbar-brand" href="/">24 Cafe</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -67,7 +63,7 @@
                             </div>
                         </li>
                         <li class="nav-item @yield('post-nav')">
-                            <a class="nav-link" href="/posts">文章</a>
+                            <a class="nav-link" href="/posts">最新消息</a>
                         </li>
                     </ul>
 
@@ -83,27 +79,28 @@
                             </li>
                         @else                            
                             @if (Auth::user()->authority == 1)
-                                <li class="nav-item @yield('content-admin-nav')"><a class="nav-link" href="/products/job/content/">內容管理</a></li>
-                                <li class="nav-item @yield('products-admin-nav')"><a class="nav-link" href="/products/job/list">產品管理</a></li>
-                                <li class="nav-item @yield('user-admin-nav')"><a class="nav-link" href="/user">會員管理</a></li>                                
+                                <li class="nav-item @yield('content-admin-nav')">
+                                    <a class="nav-link" href="/products/job/content/">內容管理</a>
+                                </li>
+                                <li class="nav-item @yield('products-admin-nav')">
+                                    <a class="nav-link" href="/products/job/list">產品管理</a>
+                                </li>
+                                <li class="nav-item @yield('user-admin-nav')">
+                                    <a class="nav-link" href="/user">會員管理</a>
+                                </li>                                
                             @endif   
                             <li class="nav-item @yield('self-info-nav')">
                                 <a class="nav-link" href="/user/{{ Auth::user()->id }}/edit">個人資料</a>
                             </li>                         
-                            <li class="nav-item @yield('user-home-nav') dropdown">
-                                <a id="logout-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="logout-dropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" 
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                            <li class="nav-item @yield('user-home-nav') position-relative px-lg-5 text-lg-center">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" v-pre>{{ Auth::user()->name }} <span class="caret"></span></a>
+                                <div class="navbar-subnav">
+                                    <div class="container">
+                                        <a class="nav-link subnav-link " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </li>
                         @endguest

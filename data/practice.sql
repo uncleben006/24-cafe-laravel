@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2018 年 12 月 04 日 11:19
+-- 產生時間： 2018 年 12 月 17 日 10:53
 -- 伺服器版本: 10.1.34-MariaDB
 -- PHP 版本： 7.2.8
 
@@ -57,34 +57,43 @@ INSERT INTO `filters` (`id`, `product_class`, `filter_class`, `filter_name`, `se
 (13, 'racket', 'category', '全面', 3, '2018-11-08 17:10:44', '2018-11-08 17:11:01');
 
 --
+-- 資料表的匯出資料 `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `content`, `created_at`, `updated_at`) VALUES
+(3, 'first post', '<p>dsc1a53c13asd1c35ac</p>', '2018-12-11 09:33:17', '2018-12-11 09:33:17'),
+(7, 'hihihihih', '<p>ihhihihi</p>', '2018-12-17 09:44:37', '2018-12-17 09:44:37'),
+(8, 'jsdlkjsdlkj', '<p style=\"text-align: center;\"><strong>dcdscsdcdscsdcdscdscsdcs</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscdscsd</strong></p>', '2018-12-17 09:48:42', '2018-12-17 09:48:42'),
+(9, 'sdvdsvsdcsdc', '<p style=\"text-align: center;\"><strong>sdcsdcsdcsdcsdcsd</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscsdcsd</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscsdcccccccccccccc', '2018-12-17 09:49:43', '2018-12-17 09:49:43'),
+(11, 'sdfsdcfdscdsc', '<p style=\"text-align: center;\"><strong>sdcsdcdscds</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscdscs</strong></p>\r\n<p style=\"text-align: center;\"><strong>sdcsdcsdcsdcsd</strong></p', '2018-12-17 09:50:49', '2018-12-17 09:50:49');
+
+--
 -- 資料表的匯出資料 `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `class`, `introduction`, `category`, `series`, `rank`, `brand`, `created_at`, `updated_at`) VALUES
-(1, 'Durax 10', 5180, 'racket', '雙面式的設計，全面提升球員能力，達到進攻與防守兼具的效果', '力量', '亮劍', '專業', 'Yonax', '2018-11-04 12:28:16', '2018-12-04 09:37:47'),
+(1, 'Durax 10', 5180, 'racket', '雙面式的設計，全面提升球員能力，達到進攻與防守兼具的效果', '力量', '亮劍', '專業', 'Yonax', '2018-11-04 12:28:16', '2018-11-11 12:54:13'),
 (2, 'PG8801 JC', 1000, 'bag', '好背實用的VICTOR藍色包包', NULL, NULL, NULL, 'VICTOR', '2018-11-08 14:19:33', '2018-11-11 13:17:49'),
 (3, 'MX-80', 3000, 'racket', '中桿硬，適合攻擊', '攻擊', '尖峰', '專業', 'VICTOR', '2018-11-08 14:20:18', '2018-11-11 13:33:27'),
 (4, 'JS-10 C', 4900, 'racket', '低調墨色消光漆底，襯托細緻內斂塗裝，帶給消費者視覺和手感都與眾不凡的極致享受。', '速度', '極速系列', NULL, NULL, '2018-11-11 13:24:32', '2018-11-11 13:24:32'),
 (5, 'SH-A960 DF', 2300, 'footwear', '紅色的鞋子', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:45:46', '2018-11-11 15:45:46'),
 (6, 'SH-P9200-BA 藏青-珠光白', 2500, 'footwear', '青色的鞋子', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:46:24', '2018-11-11 15:48:06'),
 (7, 'P8510-CX 黑-亮金', 2100, 'footwear', '黑色的鞋子', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:46:52', '2018-11-11 15:51:08'),
-(8, 'PG8801 MC', 1300, 'bag', '藍色包包', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:52:02', '2018-11-11 15:52:02'),
-(9, 'J-3873 BO', 2000, 'apparel', '帥炸了', NULL, NULL, '專業', 'VICTOR', '2018-12-04 10:03:08', '2018-12-04 10:03:08');
+(8, 'PG8801 MC', 1300, 'bag', '藍色包包', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:52:02', '2018-11-11 15:52:02');
 
 --
 -- 資料表的匯出資料 `product_contents`
 --
 
 INSERT INTO `product_contents` (`id`, `detail`, `topSection`, `middleSection`, `created_at`, `updated_at`) VALUES
-(1, '正拍採用<b>盒式</b>設計增加整體穩定度，\r\n<br>反拍採用<b>破風</b>設計增加回球速度，\r\n<br>能夠全面提升球員能力，達到進攻與防守兼具的效果', '<div class=\"container spacing pb-5\">\r\n    <div class=\"row\">\r\n        <div class=\"col-12\">\r\n            <div class=\"embed-responsive embed-responsive-21by9\">\r\n                <iframe class=\"embed-responsive-item\" src=\"https://www.youtube.com/embed/BsDYRublRiU\" frameborder=\"0\"\r\n                    allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>', '<div class=\"row pt-5\">    \r\n    <img src=\"http://www.bestline.com.tw/image/data/YONEX_product/Racket/DUO.png\" alt=\"\" class=\"\">    \r\n    <div class=\"col-md-12 pt-3\">\r\n            <h2>DUORA 10 LT</h2>\r\n            憑藉DUORA的尖端技術，每一次射門都能指揮球場。巨大的前瞻。快速反手。\r\n            <br> DUORA讓玩家可以使用一種革命性的設計。\r\n            <br> “我覺得我的手臂是正手和反手的球拍，所以我可以在網上快速推進。” - 李崇偉\r\n    </div>\r\n</div>', '2018-11-04 12:28:16', '2018-12-04 09:37:48'),
+(1, '正拍採用<b>盒式</b>設計增加整體穩定度，\r\n<br>反拍採用<b>破風</b>設計增加回球速度，\r\n<br>能夠全面提升球員能力，達到進攻與防守兼具的效果', NULL, NULL, '2018-11-04 12:28:16', '2018-11-11 12:54:13'),
 (2, '好背實用的VICTOR藍色包包', NULL, NULL, '2018-11-08 14:19:33', '2018-11-11 13:17:49'),
 (3, '在經典高端拍MX-80的基礎上增加強芯填充技術，優化球拍操控性能，精准掌控每一個落點，盡享揮拍時優越手感。', NULL, NULL, '2018-11-08 14:20:18', '2018-11-11 13:33:27'),
 (4, 'VICTOR兩大尖端材料「PYROFIL 三菱百洛碳素纖維」與「NANO FORTIFY 增韌奈米碳管」技術，搭載特殊小拍面及細中管設計，賦予JETSPEED S 10輕快銳利的紮實打感。低調墨色消光漆底，襯托細緻內斂塗裝，帶給消費者視覺和手感都與眾不凡的極致享受。', NULL, NULL, '2018-11-11 13:24:32', '2018-11-11 13:24:32'),
 (5, '紅色的鞋子', NULL, NULL, '2018-11-11 15:45:46', '2018-11-11 15:45:46'),
 (6, '青色的鞋子', NULL, NULL, '2018-11-11 15:46:24', '2018-11-11 15:48:06'),
 (7, '黑色的鞋子', NULL, NULL, '2018-11-11 15:46:52', '2018-11-11 15:51:08'),
-(8, '藍色包包', NULL, NULL, '2018-11-11 15:52:02', '2018-11-11 15:52:02'),
-(9, '超級帥', 'good', 'good good good', '2018-12-04 10:03:08', '2018-12-04 10:03:08');
+(8, '藍色包包', NULL, NULL, '2018-11-11 15:52:02', '2018-11-11 15:52:02');
 
 --
 -- 資料表的匯出資料 `product_images`
@@ -92,9 +101,9 @@ INSERT INTO `product_contents` (`id`, `detail`, `topSection`, `middleSection`, `
 
 INSERT INTO `product_images` (`id`, `product_id`, `class`, `filename`, `created_at`, `updated_at`) VALUES
 (4, 2, 'bag', 'PG8801 JC.jpg', '2018-11-08 14:19:34', '2018-11-11 13:17:49'),
-(10, 1, 'racket', '57d0e5a5-591b-46bf-ad90-6d0659f13107.jpg', '2018-11-11 12:54:13', '2018-12-04 09:37:48'),
-(11, 1, 'racket', '204b913e-8254-4569-bbbf-40b51f18f972.jpg', '2018-11-11 12:54:14', '2018-12-04 09:37:48'),
-(12, 1, 'racket', '02103489-4e98-405b-93f0-53dc2157c2e2.jpg', '2018-11-11 12:54:14', '2018-12-04 09:37:48'),
+(10, 1, 'racket', '57d0e5a5-591b-46bf-ad90-6d0659f13107.jpg', '2018-11-11 12:54:13', '2018-11-11 12:54:13'),
+(11, 1, 'racket', '204b913e-8254-4569-bbbf-40b51f18f972.jpg', '2018-11-11 12:54:14', '2018-11-11 12:54:14'),
+(12, 1, 'racket', '02103489-4e98-405b-93f0-53dc2157c2e2.jpg', '2018-11-11 12:54:14', '2018-11-11 12:54:14'),
 (13, 3, 'racket', '2017101715115545848.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
 (14, 3, 'racket', '2017101715115614531.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
 (15, 3, 'racket', '2017101715115726939.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
@@ -112,9 +121,7 @@ INSERT INTO `product_images` (`id`, `product_id`, `class`, `filename`, `created_
 (33, 6, 'footwear', 'SH-P9200-BA-2.jpg', '2018-11-11 15:48:07', '2018-11-11 15:48:07'),
 (38, 7, 'footwear', 'P8510-CX-1.jpg', '2018-11-11 15:50:58', '2018-11-11 15:51:08'),
 (39, 7, 'footwear', 'P8510-CX-2.jpg', '2018-11-11 15:50:59', '2018-11-11 15:51:08'),
-(40, 8, 'bag', 'PG8801 MC.jpg', '2018-11-11 15:52:03', '2018-11-11 15:52:03'),
-(41, 9, 'apparel', 'J-3873 BO.jpg', '2018-12-04 10:03:08', '2018-12-04 10:03:08'),
-(42, 9, 'apparel', 'J-3873 BO-2.jpg', '2018-12-04 10:03:08', '2018-12-04 10:03:08');
+(40, 8, 'bag', 'PG8801 MC.jpg', '2018-11-11 15:52:03', '2018-11-11 15:52:03');
 
 --
 -- 資料表的匯出資料 `users`

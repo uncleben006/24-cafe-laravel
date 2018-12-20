@@ -26,13 +26,23 @@ $(function() {
         // console.log(json);
         // console.log(json.data);
         var data = json.data;
+        // for( var index in data){
+        //     $('#tbody').append('\
+        //         <tr>\
+        //             <td>'+ data[index].id +'</td>\
+        //             <td><a href="/posts/'+ data[index].id +'/show">'+ data[index].title +'</a></td>\
+        //             <td>'+ data[index].content +'</td>\
+        //         <tr>\
+        //     ')
+        // }
         for( var index in data){
-            $('#tbody').append('\
-                <tr>\
-                    <td>'+ data[index].id +'</td>\
-                    <td><a href="/posts/'+ data[index].id +'/show">'+ data[index].title +'</a></td>\
-                    <td>'+ data[index].note +'</td>\
-                <tr>\
+            console.log(data)
+            $('#news').append('\
+                <div class="content py-5 border-bottom">\
+                    <h6 class="text-center">'+data[index].created_at+'</h6>\
+                    <h2 class="text-center py-3">'+data[index].title+'</h2>\
+                    <div>'+data[index].content+'</div>\
+                </div>\
             ')
         }
         // console.log(json.next_page_url)
@@ -53,82 +63,38 @@ $(function() {
 @section('content')
 
 <div class="container spacing">
-    <h1 class="text-center">All my post</h1>
+    <h1>最新消息</h1>
     <div class="row justify-content-center">    
-        <div class="col-md-8 pb-5">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>note</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
-        <a class="btn btn-primary" id="btn-pre">Previous</a>
-        <a class="btn btn-primary" id="btn-next">Next</a>
-        </div>
-        <div class="col-md-8">
-        <div class="card-body">
-            <form method="POST" action="{{ route('post') }}">
-                @csrf
-                <h2 class="text-center">Posting</h2>
-                <div class="form-group row">
-                    <label for="title" class="col-md-2 col-form-label">{{ __('Title') }}</label>
+        <div id="news" class="col-md-9 pt-5">            
+            {{-- <div class="content py-5 border-bottom">
+                <h6 class="text-center">DEC 4TH , 2018</h6>
+                <h2 class="text-center py-3">新品上市｜藏心軟歐貝果</h2>
+                <img src="http://www.louisacoffee.co/upload/news/20181204_014847-image(750x_).png" alt="" class="img-fluid pb-3">
+                <p>到路易莎喝咖啡除了吃蛋糕、漢堡、磚壓外又有新選擇囉！因應國人愛吃“軟”的飲食習慣，路易莎推出咖啡館新食伴「藏心軟歐貝果」。顛覆貝果硬脆的傳統印象，特製外Q內軟、多款內餡好料的藏心軟歐貝果，其中主廚推薦的“墨魚明太子”口味絕不能錯過！即日起新品上市『任選3個(含)以上即享9折優惠』（限定門市販售）</p>
+                <p>【特色介紹】
 
-                    <div class="col-md-10">
-                        <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required autofocus>
+                        ・混合法國T55冠軍比賽專用粉，讓麥香更濃郁。
+                        
+                        ・採用燙麵工法創造外Q內軟的口感。
+                        
+                        ・62%高含水量讓貝果內層柔軟，不再硬梆梆。（一般含水量40%）
+                        
+                </p>
+            </div> --}}
 
-                        @if ($errors->has('title'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('title') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="note" class="col-md-2 col-form-label">{{ __('Note') }}</label>
-
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="5" id="note" type="text" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note') }}"></textarea>
-                        </div>
-
-                        @if ($errors->has('note'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('note') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="author" class="col-md-2 col-form-label">{{ __('Author') }}</label>
-
-                    <div class="col-md-10">
-                        <input id="author" type="text" class="form-control{{ $errors->has('author') ? ' is-invalid' : '' }}" name="author" value="{{ old('author') }}" required>
-
-                        @if ($errors->has('author'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('author') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-10 offset-md-2">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('Submit') }}
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            {{-- <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>note</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table> --}}
+            <a class="btn btn-primary" id="btn-pre">Previous</a>
+            <a class="btn btn-primary" id="btn-next">Next</a>
         </div>
     </div>  
 </div>

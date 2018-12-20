@@ -12,19 +12,31 @@ use Validator;
 class PostController extends Controller
 {
     /**
+     * api
+     */
+    public function api()
+    {
+        return Post::simplePaginate(5);
+    }
+    public function singleApi($id)
+    {
+        // find 方法會用傳入的值(id)來篩選資料
+        // $post = Post::find($id);
+        // if($post == null)
+        //     abort(404);
+        // return $post;
+        return Post::findOrFail($id);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // return Post::all();
-        return Post::simplePaginate(5);
-        // return view('post', [
-        //     'title' => 'List all my post',
-        //     'posts' => Post::all()
-        // ]);
+        return view('post.post');
     }
+    
     public function list()
     {
         return view('post.post-list',[
@@ -66,24 +78,9 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->note
         ]);
-        return view('post.post-new');
+        return redirect('./products/job/content/');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // find 方法會用傳入的值(id)來篩選資料
-        // $post = Post::find($id);
-        // if($post == null)
-        //     abort(404);
-        // return $post;
-        return Post::findOrFail($id);
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -93,7 +90,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $content = Post::where('id',$id)->get();
+        return view('post.post-edit',[
+            'content' => $content
+        ]);
     }
 
     /**
@@ -105,7 +105,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Log::debug($request->all());
+        $validate = Validator::make($request->all(), [
+            'title'=>'required',
+            'note'=>'required',
+        ]);
+        // return $validate->errors();
+        if ($validate->fails()) {
+            return view('post.post-edit',
+                ['errors' => $validate->errors()
+            ]);
+        }
+        Post::where('id', $id)
+        ->update([
+            'title' => $request->title,
+            'content' => $request->note
+        ]);
+        return redirect('/products/job/content/');
     }
 
     /**

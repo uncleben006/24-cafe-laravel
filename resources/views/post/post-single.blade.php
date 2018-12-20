@@ -7,7 +7,7 @@ $(function() {
     console.log(data)
     console.log(data.update_at)
     $('#post-title').html(data.title);
-    $('#post-body').html(data.note);
+    $('#post-body').html(data.content);
     $('#post-body').append('<hr>This data was created at : '+data.created_at+'<br>This data was updated at : '+data.updated_at);
   })
 });

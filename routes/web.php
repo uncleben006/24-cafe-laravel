@@ -39,10 +39,11 @@ Route::get('/posts', 'PostController@index');
 Route::get('/products/job/content/', 'PostController@list');
 Route::get('/products/job/content/new', 'PostController@new');
 Route::post('/products/job/content/new', 'PostController@store');
+Route::get('/products/job/content/{id}/edit', 'PostController@edit');
+Route::post('/products/job/content/{id}/edit', 'PostController@update');
 Route::get('/products/job/content/{id}/delete', 'PostController@destroy');
 
-Route::get('/products/job/content/{id}/edit', 'ProductController@contentEdit');
-Route::post('/products/job/content/{id}/edit', 'ProductController@contentUpdate');
+
 
 Route::get('/products/job/{id}/delete', 'ProductController@destroy');
 Route::get('/products/job/filter/{id}/delete', 'ProductController@destroyFilter');

@@ -67,15 +67,13 @@ src: url(//fonts.gstatic.com/ea/cwtexfangsong/v3/cwTeXFangSong-zhonly.eot?#iefix
 }
 
 @mixin heading-font {
-  font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
-  font-weight: 200;
-  letter-spacing: 1px;
+  font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif','Microsoft JhengHei';
 }
 
 @mixin body-font {
-  font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
+  font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif','Microsoft JhengHei';
 }
 
 @mixin alt-font {
-  font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif','cwTeXFangSong';
+  font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif','Microsoft JhengHei';
 }
