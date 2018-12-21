@@ -23,18 +23,9 @@ $(function() {
     var url = new URL(url_string);
     var para = url.searchParams.get("page");
     $.getJSON('/api/posts/?page='+para, function(json){  
-        // console.log(json);
+        console.log(json);
         // console.log(json.data);
         var data = json.data;
-        // for( var index in data){
-        //     $('#tbody').append('\
-        //         <tr>\
-        //             <td>'+ data[index].id +'</td>\
-        //             <td><a href="/posts/'+ data[index].id +'/show">'+ data[index].title +'</a></td>\
-        //             <td>'+ data[index].content +'</td>\
-        //         <tr>\
-        //     ')
-        // }
         for( var index in data){
             console.log(data)
             $('#news').append('\

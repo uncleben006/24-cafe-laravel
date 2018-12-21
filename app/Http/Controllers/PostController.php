@@ -16,7 +16,13 @@ class PostController extends Controller
      */
     public function api()
     {
-        return Post::simplePaginate(5);
+        $api = Post::simplePaginate(5);
+        $api->put('count',6);
+        return $api;
+    }
+    public function allApi()
+    {
+        return Post::all();
     }
     public function singleApi($id)
     {
