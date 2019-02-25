@@ -34,7 +34,7 @@ Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
-// content controller
+// product controller
 Route::get('/posts', 'PostController@index');
 Route::get('/products/job/content/', 'PostController@list');
 Route::get('/products/job/content/new', 'PostController@new');
@@ -43,6 +43,8 @@ Route::get('/products/job/content/{id}/edit', 'PostController@edit');
 Route::post('/products/job/content/{id}/edit', 'PostController@update');
 Route::get('/products/job/content/{id}/delete', 'PostController@destroy');
 
+// clerk
+Route::get('/clerks',function(){ return view('clerk'); });
 
 
 Route::get('/products/job/{id}/delete', 'ProductController@destroy');

@@ -65,6 +65,9 @@
                         <li class="nav-item @yield('post-nav')">
                             <a class="nav-link" href="/posts">最新消息</a>
                         </li>
+                        <li class="nav-item @yield('clerk-nav')">
+                            <a class="nav-link" href="/clerks">店員介紹</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -116,10 +119,10 @@
         <footer class="py-5 footer-guides">
             <div class="container text-center">
                 <div class="row mx-auto">
-                <span class="col-md-3"><a href="/">首頁</a></span>
-                <span class="col-md-3"><a href="./">咖啡專區</a></span>
-                <span class="col-md-3"><a href="./">羽球專區</a></span>
-                <span class="col-md-3"><a href="./">店員資料</a></span>
+                <span class="col-md-3"><a href="/coffee/show">咖啡專區</a></span>
+                <span class="col-md-3"><a href="/products/racket/">羽球專區</a></span>
+                <span class="col-md-3"><a href="/posts/">最新消息</a></span>                
+                <span class="col-md-3"><a href="/clerks/">店員資料</a></span>
                 </div>
                 <div>
                 <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/facebook-logo.svg') }}" alt=""></a>

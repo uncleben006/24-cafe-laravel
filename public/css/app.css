@@ -10865,6 +10865,8 @@ body.has-navpanel-fixed.hide-navpanel .navbar {
     visibility: hidden;
     opacity: 0;
     width: 100%;
+    -webkit-transition: 0.25s;
+    transition: 0.25s;
   }
 
   #mainNav .navbar-nav .nav-item .navbar-subnav a {

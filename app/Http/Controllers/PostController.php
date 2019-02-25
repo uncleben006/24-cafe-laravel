@@ -17,7 +17,6 @@ class PostController extends Controller
     public function api()
     {
         $api = Post::simplePaginate(5);
-        $api->put('count',6);
         return $api;
     }
     public function allApi()
@@ -40,7 +39,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('post.post');
+        return view('post.post',[
+            'postCount' => Post::all()->count()
+        ]);
     }
     
     public function list()
