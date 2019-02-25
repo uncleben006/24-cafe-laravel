@@ -35,7 +35,8 @@
 *::before,
 *::after {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
+  /* border: solid 1px black; */
 }
 
 html {
@@ -221,6 +222,7 @@ figure {
 img {
   vertical-align: middle;
   border-style: none;
+  width: 100%;
 }
 
 svg {

@@ -85,7 +85,7 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->note
         ]);
-        return redirect('./products/job/content/');
+        return redirect('./posts/job/content/');
     }
     
 
@@ -128,7 +128,7 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->note
         ]);
-        return redirect('/products/job/content/');
+        return redirect('/posts/job/content/');
     }
 
     /**
@@ -140,6 +140,6 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
-        return redirect('/products/job/content/');
+        return redirect('/posts/job/content/');
     }
 }

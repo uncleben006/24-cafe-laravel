@@ -68,8 +68,8 @@ function createPostTable(php_datas) {
         <div class="Rtable-cell">'+data.created_at+'</div>\
         <div class="Rtable-cell">'+data.updated_at+'</div>\
         <div class="Rtable-cell text-center">\
-            <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/content/'+data.id+'/edit">編輯</a>\
-            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/content/'+data.id+'/delete/\',\'確定要刪除 '+data.title+' 嗎?\');">刪除</a>\
+            <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/posts/job/content/'+data.id+'/edit">編輯</a>\
+            <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/posts/job/content/'+data.id+'/delete/\',\'確定要刪除 '+data.title+' 嗎?\');">刪除</a>\
         </div>'
     })
     $('#postDatas').replaceWith(post_str)
@@ -90,7 +90,7 @@ function doForward(url, warning) {
                 <h1>貼文列表</h1>                        
                 <div>
                     <a href="#" class="sorting">順序&#x25BC;</a>
-                    <a href="/products/job/content/new/" class="btn btn-primary btn-sm rounded-0">新增貼文</a>
+                    <a href="/posts/job/content/new/" class="btn btn-primary btn-sm rounded-0">新增貼文</a>
                 </div>                
             </div>
             <div class="Rtable Rtable--6cols" id="tbody">  

@@ -34,18 +34,17 @@ Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
-// product controller
+// post controller
 Route::get('/posts', 'PostController@index');
-Route::get('/products/job/content/', 'PostController@list');
-Route::get('/products/job/content/new', 'PostController@new');
-Route::post('/products/job/content/new', 'PostController@store');
-Route::get('/products/job/content/{id}/edit', 'PostController@edit');
-Route::post('/products/job/content/{id}/edit', 'PostController@update');
-Route::get('/products/job/content/{id}/delete', 'PostController@destroy');
+Route::get('/posts/job/content/', 'PostController@list');
+Route::get('/posts/job/content/new', 'PostController@new');
+Route::post('/posts/job/content/new', 'PostController@store');
+Route::get('/posts/job/content/{id}/edit', 'PostController@edit');
+Route::post('/posts/job/content/{id}/edit', 'PostController@update');
+Route::get('/posts/job/content/{id}/delete', 'PostController@destroy');
 
 // clerk
 Route::get('/clerks',function(){ return view('clerk'); });
-
 
 Route::get('/products/job/{id}/delete', 'ProductController@destroy');
 Route::get('/products/job/filter/{id}/delete', 'ProductController@destroyFilter');

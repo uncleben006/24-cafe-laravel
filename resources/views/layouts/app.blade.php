@@ -83,7 +83,7 @@
                         @else                            
                             @if (Auth::user()->authority == 1)
                                 <li class="nav-item @yield('content-admin-nav')">
-                                    <a class="nav-link" href="/products/job/content/">內容管理</a>
+                                    <a class="nav-link" href="/posts/job/content/">內容管理</a>
                                 </li>
                                 <li class="nav-item @yield('products-admin-nav')">
                                     <a class="nav-link" href="/products/job/list">產品管理</a>
