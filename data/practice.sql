@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2018 年 12 月 17 日 10:53
--- 伺服器版本: 10.1.34-MariaDB
--- PHP 版本： 7.2.8
+-- 產生時間： 2019 年 03 月 01 日 07:27
+-- 伺服器版本: 10.1.26-MariaDB
+-- PHP 版本： 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -61,18 +61,24 @@ INSERT INTO `filters` (`id`, `product_class`, `filter_class`, `filter_name`, `se
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `created_at`, `updated_at`) VALUES
-(3, 'first post', '<p>dsc1a53c13asd1c35ac</p>', '2018-12-11 09:33:17', '2018-12-11 09:33:17'),
-(7, 'hihihihih', '<p>ihhihihi</p>', '2018-12-17 09:44:37', '2018-12-17 09:44:37'),
-(8, 'jsdlkjsdlkj', '<p style=\"text-align: center;\"><strong>dcdscsdcdscsdcdscdscsdcs</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscdscsd</strong></p>', '2018-12-17 09:48:42', '2018-12-17 09:48:42'),
-(9, 'sdvdsvsdcsdc', '<p style=\"text-align: center;\"><strong>sdcsdcsdcsdcsdcsd</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscsdcsd</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscsdcccccccccccccc', '2018-12-17 09:49:43', '2018-12-17 09:49:43'),
-(11, 'sdfsdcfdscdsc', '<p style=\"text-align: center;\"><strong>sdcsdcdscds</strong></p>\r\n<p style=\"text-align: center;\"><strong>dscdscs</strong></p>\r\n<p style=\"text-align: center;\"><strong>sdcsdcsdcsdcsd</strong></p', '2018-12-17 09:50:49', '2018-12-17 09:50:49');
+(12, '1', '<style>\r\n  .hover-text {\r\n    margin: 15px 15px 0;\r\n    padding: 0;\r\n  }\r\n\r\n  .hover-text:last-child {\r\n    padding-bottom: 60px;\r\n  }\r\n\r\n  .hover-text::after {\r\n    content: \'\';\r\n    clear: both;\r\n    display: block;\r\n  }\r\n\r\n  .hover-text div span {\r\n    z-index: -1;\r\n    display: block;\r\n    width: 100%;\r\n    height: 0;\r\n    margin: 0;\r\n    padding: 0;\r\n    color: #444;\r\n    font-size: 18px;\r\n    text-decoration: none;\r\n    text-align: center;\r\n    -webkit-transition: .3s ease-in-out;\r\n    transition: .3s ease-in-out;\r\n    opacity: 0;\r\n    transform: translateY(-100%);\r\n  }\r\n\r\n  figure {\r\n    margin: 0;\r\n    padding: 0;\r\n    background: #fff;\r\n    overflow: hidden;\r\n    z-index: 2;\r\n  }\r\n\r\n  figure:hover+span {\r\n    opacity: 1;\r\n    height: auto;\r\n    margin-top: 0.5rem;\r\n    margin-bottom: 0.5rem;\r\n    transform: translateY(0);\r\n  }\r\n\r\n  /* Shine */\r\n  .hover-shine figure {\r\n    position: relative;\r\n  }\r\n\r\n  .hover-shine figure::before {\r\n    position: absolute;\r\n    top: 0;\r\n    left: -75%;\r\n    z-index: 2;\r\n    display: block;\r\n    content: \'\';\r\n    width: 50%;\r\n    height: 100%;\r\n    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 100%);\r\n    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 100%);\r\n    -webkit-transform: skewX(-25deg);\r\n    transform: skewX(-25deg);\r\n  }\r\n\r\n  .hover-shine figure:hover::before {\r\n    -webkit-animation: shine .75s;\r\n    animation: shine .75s;\r\n  }\r\n\r\n  @-webkit-keyframes shine {\r\n    100% {\r\n      left: 125%;\r\n    }\r\n  }\r\n\r\n  @keyframes shine {\r\n    100% {\r\n      left: 125%;\r\n    }\r\n  }\r\n</style>\r\n<div class=\"px-3 px-lg-5 spacing\">\r\n  <div class=\"row hover-shine hover-text\">\r\n    <div class=\"col-md-4\">\r\n      <figure><img src=\"https://picsum.photos/300/200?image=244\" /></figure>\r\n      <span>海鷗~</span>\r\n    </div>\r\n    <div class=\"col-md-4\">\r\n      <figure><img src=\"https://picsum.photos/300/200?image=1024\" /></figure>\r\n      <span>海鳥~</span>\r\n    </div>\r\n    <div class=\"col-md-4\">\r\n      <figure><img src=\"https://picsum.photos/300/200?image=611\" /></figure>\r\n      <span>白鷺鷥(?)</span>\r\n    </div>\r\n  </div>\r\n</div>', '2018-12-22 07:51:33', '2019-02-25 19:28:57'),
+(13, '2', '<p>&lt;h2&gt;hihi&lt;/h2&gt;</p>', '2018-12-22 07:51:57', '2019-02-25 16:19:25'),
+(14, '3', '<div>3</div>', '2018-12-22 07:53:40', '2018-12-22 08:04:24'),
+(15, '4', '<p>4</p>', '2018-12-22 08:04:48', '2018-12-22 08:04:48'),
+(16, '5', '<p>5</p>', '2018-12-22 08:04:54', '2018-12-22 08:04:54'),
+(17, '6', '<p>6</p>', '2018-12-22 08:05:00', '2018-12-22 08:05:00'),
+(18, '7', '<p>7</p>', '2018-12-22 08:05:06', '2018-12-22 08:05:06'),
+(19, '8', '<p>8</p>', '2018-12-22 08:05:11', '2018-12-22 08:05:11'),
+(20, '9', '<p>9</p>', '2018-12-22 08:05:16', '2018-12-22 08:05:16'),
+(21, '10', '<p>10</p>', '2018-12-22 08:05:21', '2018-12-22 08:05:21'),
+(22, '11', '<p>11</p>', '2018-12-22 10:24:17', '2018-12-22 10:24:17');
 
 --
 -- 資料表的匯出資料 `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `class`, `introduction`, `category`, `series`, `rank`, `brand`, `created_at`, `updated_at`) VALUES
-(1, 'Durax 10', 5180, 'racket', '雙面式的設計，全面提升球員能力，達到進攻與防守兼具的效果', '力量', '亮劍', '專業', 'Yonax', '2018-11-04 12:28:16', '2018-11-11 12:54:13'),
+(1, 'Durax 10', 5180, 'racket', '雙面式的設計，全面提升球員能力，達到進攻與防守兼具的效果', '力量', '亮劍', '專業', 'Yonax', '2018-11-04 12:28:16', '2019-03-01 05:01:50'),
 (2, 'PG8801 JC', 1000, 'bag', '好背實用的VICTOR藍色包包', NULL, NULL, NULL, 'VICTOR', '2018-11-08 14:19:33', '2018-11-11 13:17:49'),
 (3, 'MX-80', 3000, 'racket', '中桿硬，適合攻擊', '攻擊', '尖峰', '專業', 'VICTOR', '2018-11-08 14:20:18', '2018-11-11 13:33:27'),
 (4, 'JS-10 C', 4900, 'racket', '低調墨色消光漆底，襯托細緻內斂塗裝，帶給消費者視覺和手感都與眾不凡的極致享受。', '速度', '極速系列', NULL, NULL, '2018-11-11 13:24:32', '2018-11-11 13:24:32'),
@@ -82,28 +88,14 @@ INSERT INTO `products` (`id`, `name`, `price`, `class`, `introduction`, `categor
 (8, 'PG8801 MC', 1300, 'bag', '藍色包包', NULL, NULL, NULL, 'VICTOR', '2018-11-11 15:52:02', '2018-11-11 15:52:02');
 
 --
--- 資料表的匯出資料 `product_contents`
---
-
-INSERT INTO `product_contents` (`id`, `detail`, `topSection`, `middleSection`, `created_at`, `updated_at`) VALUES
-(1, '正拍採用<b>盒式</b>設計增加整體穩定度，\r\n<br>反拍採用<b>破風</b>設計增加回球速度，\r\n<br>能夠全面提升球員能力，達到進攻與防守兼具的效果', NULL, NULL, '2018-11-04 12:28:16', '2018-11-11 12:54:13'),
-(2, '好背實用的VICTOR藍色包包', NULL, NULL, '2018-11-08 14:19:33', '2018-11-11 13:17:49'),
-(3, '在經典高端拍MX-80的基礎上增加強芯填充技術，優化球拍操控性能，精准掌控每一個落點，盡享揮拍時優越手感。', NULL, NULL, '2018-11-08 14:20:18', '2018-11-11 13:33:27'),
-(4, 'VICTOR兩大尖端材料「PYROFIL 三菱百洛碳素纖維」與「NANO FORTIFY 增韌奈米碳管」技術，搭載特殊小拍面及細中管設計，賦予JETSPEED S 10輕快銳利的紮實打感。低調墨色消光漆底，襯托細緻內斂塗裝，帶給消費者視覺和手感都與眾不凡的極致享受。', NULL, NULL, '2018-11-11 13:24:32', '2018-11-11 13:24:32'),
-(5, '紅色的鞋子', NULL, NULL, '2018-11-11 15:45:46', '2018-11-11 15:45:46'),
-(6, '青色的鞋子', NULL, NULL, '2018-11-11 15:46:24', '2018-11-11 15:48:06'),
-(7, '黑色的鞋子', NULL, NULL, '2018-11-11 15:46:52', '2018-11-11 15:51:08'),
-(8, '藍色包包', NULL, NULL, '2018-11-11 15:52:02', '2018-11-11 15:52:02');
-
---
 -- 資料表的匯出資料 `product_images`
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `class`, `filename`, `created_at`, `updated_at`) VALUES
 (4, 2, 'bag', 'PG8801 JC.jpg', '2018-11-08 14:19:34', '2018-11-11 13:17:49'),
-(10, 1, 'racket', '57d0e5a5-591b-46bf-ad90-6d0659f13107.jpg', '2018-11-11 12:54:13', '2018-11-11 12:54:13'),
-(11, 1, 'racket', '204b913e-8254-4569-bbbf-40b51f18f972.jpg', '2018-11-11 12:54:14', '2018-11-11 12:54:14'),
-(12, 1, 'racket', '02103489-4e98-405b-93f0-53dc2157c2e2.jpg', '2018-11-11 12:54:14', '2018-11-11 12:54:14'),
+(10, 1, 'racket', '57d0e5a5-591b-46bf-ad90-6d0659f13107.jpg', '2018-11-11 12:54:13', '2019-03-01 05:01:50'),
+(11, 1, 'racket', '204b913e-8254-4569-bbbf-40b51f18f972.jpg', '2018-11-11 12:54:14', '2019-03-01 05:01:50'),
+(12, 1, 'racket', '02103489-4e98-405b-93f0-53dc2157c2e2.jpg', '2018-11-11 12:54:14', '2019-03-01 05:01:50'),
 (13, 3, 'racket', '2017101715115545848.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
 (14, 3, 'racket', '2017101715115614531.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
 (15, 3, 'racket', '2017101715115726939.jpg', '2018-11-11 13:17:06', '2018-11-11 13:33:27'),
@@ -128,7 +120,7 @@ INSERT INTO `product_images` (`id`, `product_id`, `class`, `filename`, `created_
 --
 
 INSERT INTO `users` (`id`, `authority`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Ben', 'uncleben006@gmail.com', '$2y$10$UTqt76hj0caaxtC9i92TPeCc.f8WoA7sj/nF5bTlahCV9qQjFNOM.', 'AIYl9YxPlpk8aFBBpFi5cmeJ2oIQIs8tN9PfkNdtwQyRWDRsXr147mdTZePa', '2018-11-04 12:20:12', '2018-11-04 12:20:12'),
+(1, 1, 'Ben', 'uncleben006@gmail.com', '$2y$10$UTqt76hj0caaxtC9i92TPeCc.f8WoA7sj/nF5bTlahCV9qQjFNOM.', 'NL2eQBYv3ZJ7cqjDzATvMDUF3iZM2xsa4QYmf6HtsbChkS0qdwNhsm5mybG0', '2018-11-04 12:20:12', '2018-11-04 12:20:12'),
 (5, 0, 'Jeff', 'jeff@gmail.com', '$2y$10$oGF4qgqS5xUl7dBp/yHbeOC9QlCGYWh///zCDB7n2S4nu6TqBjTd.', 'hD2lP88iI08tBeyMzSzcX08cpVvGg4elwE67h2cH4LI5z3tnorJQg3mxPVuh', '2018-11-10 16:28:17', '2018-11-10 16:28:17'),
 (6, 0, 'Oscar', 'oscar@gmail.com', '$2y$10$GTL3vf20o/YtqO7APNwwbefs.YGmOCJ8Sn8R0Sv2iVAj1iZmzEKza', 'YwhAcpbaHPjc3NMpEHPYAB3F9AZY4Kt0JMEE5rZ39BlLhDbSQykVW2DCXIOE', '2018-11-10 16:29:26', '2018-11-10 16:29:26'),
 (7, 0, 'Victor', 'victor@gmail.com', '$2y$10$Y7iVoshEqdXzGt1hn692h.a4i/RrJiHr9Hc99JrbBGbQEg4xtMj8e', 'Qk8mElc28ZTukfAGwNZ5cqCKlxs6On5igwTXb73Faa5c5xyjRyxE7X9Nixnl', '2018-11-10 16:29:35', '2018-11-10 16:29:35'),

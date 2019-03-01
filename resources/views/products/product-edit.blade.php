@@ -19,7 +19,7 @@ $(function() {
         var domain = window.location.origin;
         json.forEach(function (e) {
             var image_path = domain + '/storage/images/' + e.product_id + '/' + e.filename
-            $('#images-preview').append('<img src="'+ image_path +'" alt="" style="height: 150px; margin: 0 1rem 1rem 0">')
+            $('#images-preview').append('<img src="'+ image_path +'" alt="" style="height: 150px; margin: 0 1rem 1rem 0; width: auto;">')
         })        
         console.log(image_path);
     })
@@ -179,7 +179,7 @@ $(function() {
                                     <label for="detail" class="col-md-2 col-form-label">產品詳述<div class="text-disclaimers">詳述顯示於產品內頁</div></label>
                 
                                     <div class="col-md-10">
-                                        <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$content[0]->detail}}</textarea>
+                                        <textarea id="detail" type="text" class="form-control{{ $errors->has('detail') ? ' is-invalid' : '' }}" name="detail" rows="5">{{$data[0]->detail}}</textarea>
                 
                                         @if ($errors->has('detail'))
                                             <span class="invalid-feedback" role="alert">
@@ -195,7 +195,7 @@ $(function() {
                 
                                     <div class="col-md-10">
                                         <textarea id="topSection" type="text" class="form-control{{ $errors->has('topSection') ? ' is-invalid' : '' }}" name="topSection" rows="7" style="font-size: 12px">
-                                            {{$content[0]->topSection}}
+                                            {{$data[0]->topSection}}
                                         </textarea>
                 
                                         @if ($errors->has('topSection'))
@@ -212,7 +212,7 @@ $(function() {
                 
                                     <div class="col-md-10">
                                         <textarea id="middleSection" type="text" class="form-control{{ $errors->has('middleSection') ? ' is-invalid' : '' }}" name="middleSection" rows="7" style="font-size: 12px">
-                                            {{$content[0]->middleSection}}
+                                            {{$data[0]->middleSection}}
                                         </textarea>
                 
                                         @if ($errors->has('middleSection'))

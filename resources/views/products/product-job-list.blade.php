@@ -28,8 +28,8 @@
     list-style: none;
     border: solid 1px black;
     background: fade(slategrey,20%);
-    max-height: 15vh;
-    overflow: auto;
+    max-height: 4.5em;
+    /* overflow: auto; */
     > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
 }
 .Rtable-cell hr {
@@ -37,12 +37,13 @@
 }
 
 /* Table column sizing
-================================== */
+==================================  */
 .Rtable--2cols > .Rtable-cell  { width: 50%; }
 .Rtable--3cols > .Rtable-cell  { width: 33.33%; }
 .Rtable--4cols > .Rtable-cell  { width: 25%; }
 .Rtable--5cols > .Rtable-cell  { width: 20%; }
 .Rtable--6cols > .Rtable-cell  { width: 16.6%; }
+.Rtable--13cols > .Rtable-cell  { width: 7.69%; }
 
 @media(max-width: 500px) {
     .Rtable--6cols > .Rtable-cell  { width: 100%; }
@@ -84,7 +85,6 @@ $(function() {
                 urlParameters += pair[0]+'='+pair[1]+'&'
             }
             // console.log(urlParameters)
-           
         }
         else {
             for(var pair of url.searchParams.entries()){
@@ -117,13 +117,20 @@ $(function() {
 function createProductTable(php_datas) {
     var product_str = ''
     php_datas.forEach(function (data) {
-        // console.log(data)
+        console.log(data)
         product_str += '\
-        <div class="Rtable-cell">'+data.id+'</div>\
-        <div class="Rtable-cell">'+data.class+'</div>\
-        <div class="Rtable-cell">'+data.name+'</div>\
-        <div class="Rtable-cell">'+data.price+'</div>\
-        <div class="Rtable-cell">'+data.introduction+'</div>\
+        <div class="Rtable-cell" title="'+data.id+'">'+data.id+'</div>\
+        <div class="Rtable-cell" title="'+data.class+'">'+data.class+'</div>\
+        <div class="Rtable-cell" title="'+data.name+'">'+data.name+'</div>\
+        <div class="Rtable-cell" title="'+data.price+'">'+data.price+'</div>\
+        <div class="Rtable-cell" title="'+data.series+'">'+data.series+'</div>\
+        <div class="Rtable-cell" title="'+data.category+'">'+data.category+'</div>\
+        <div class="Rtable-cell" title="'+data.rank+'">'+data.rank+'</div>\
+        <div class="Rtable-cell" title="'+data.brand+'">'+data.brand+'</div>\
+        <div class="Rtable-cell" title="'+data.introduction+'">'+data.introduction+'</div>\
+        <div class="Rtable-cell" title="'+data.detial+'">'+data.detail+'</div>\
+        <div class="Rtable-cell" title="'+data.topSection+'">'+data.topSection+'</div>\
+        <div class="Rtable-cell" title="'+data.middleSection+'">'+data.middleSection+'</div>\
         <div class="Rtable-cell text-center">\
             <a class="btn btn-sm btn-outline-primary px-3 mx-1 rounded-0 " href="/products/job/'+data.id+'/edit">編輯</a>\
             <a class="btn btn-sm btn-outline-danger px-3 mx-1 rounded-0" href="javascript:doForward(\'/products/job/'+data.id+'/delete/\',\'確定要刪除 '+data.name+' 嗎?\');">刪除</a>\
@@ -152,20 +159,20 @@ function doForward(url, warning) {
     confirm(warning)? window.location=url: '';
 }
 function getCookie(cookieName) {
-  var name = cookieName + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0; i<ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1);
-      if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-  }
-  return "";
+    var name = cookieName + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
 }
 </script>
 @endsection
 
 @section('content')
-<div class="container spacing">
+<div class="px-3 px-lg-5 spacing">
     <div class="row flex-column">
         <div class="col-md-4">
             <div class="list-group flex-row" id="list-tab" role="tablist">
@@ -186,12 +193,19 @@ function getCookie(cookieName) {
                         </div>                
                     </div>
                     <div>
-                        <div class="Rtable Rtable--6cols" id="tbody">  
+                        <div class="Rtable Rtable--13cols" id="tbody">  
                             <a href="?productSort=id" class="Rtable-cell"><strong>ID</strong></a>                    
                             <a href="?productSort=class" class="Rtable-cell"><strong>產品類別</strong></a>
                             <a href="?productSort=name" class="Rtable-cell"><strong>商品名稱</strong></a>
                             <a href="?productSort=price" class="Rtable-cell"><strong>價格</strong></a>
-                            <a href="?productSort=introduction" class="Rtable-cell"><strong>產品簡介</strong></a>                    
+                            <a href="?productSort=series" class="Rtable-cell"><strong>系列</strong></a>
+                            <a href="?productSort=category" class="Rtable-cell"><strong>分類</strong></a>
+                            <a href="?productSort=rank" class="Rtable-cell"><strong>等級</strong></a>
+                            <a href="?productSort=brand" class="Rtable-cell"><strong>品牌</strong></a>
+                            <a href="javascript:void(0)" class="Rtable-cell"><strong>產品簡介</strong></a>     
+                            <a href="javascript:void(0)" class="Rtable-cell"><strong>產品詳述</strong></a>
+                            <a href="javascript:void(0)" class="Rtable-cell"><strong>產品內容(頂)</strong></a>
+                            <a href="javascript:void(0)" class="Rtable-cell"><strong>產品內容(尾)</strong></a>                      
                             <div class="Rtable-cell"><strong>編輯產品</strong></div>     
                             <div id="productDatas"></div>                                               
                         </div>

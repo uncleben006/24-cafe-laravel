@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
-use App\ProductContent;
 use App\Filter;
 use Log;
 use Auth;
@@ -63,12 +62,11 @@ class ProductController extends Controller
         $order = $request->order ? $request->order : 'asc';
 
         if($request->productSort) {
-            $product_data = Product::orderBy($request->productSort, $order)->get();
+            $product_data = Product::orderBy($request->productSort, $order)->get();            
         }
         if($request->filterSort) {
             $filter_data = Filter::orderBy($request->filterSort, $order)->get();
-        }     
-        
+        }        
         return view('products.product-job-list',[
             'productDatas' => $product_data,
             'filterDatas'=>$filter_data
@@ -99,12 +97,10 @@ class ProductController extends Controller
     {      
         $product_img = ProductImage::where('product_id',$id)->get();
         $product_data =  Product::where('id',$id)->get();        
-        $product_content = ProductContent::where('id',$id)->get();
         return view('products.product-detail', [
             'class' => $class,
             'datas' => $product_data,
             'imgs' => $product_img,
-            'content' => $product_content
         ]);
     } 
     public function showCoffee(){
@@ -188,17 +184,15 @@ class ProductController extends Controller
             'name'=>$request->name,
             'price'=>$request->price,
             'introduction'=>$request->introduction,
+            'detail'=>$request->detail,
             'class'=>$request->class,
             'category'=>$request->category,
             'series'=>$request->series,
             'rank'=>$request->rank,
-            'brand'=>$request->brand
-        ]);     
-        ProductContent::create([
-            'detail'=>$request->detail,
+            'brand'=>$request->brand,
             'topSection'=>$request->topSection,
-            'middleSection'=>$request->middleSection
-        ]);           
+            'middleSection'=>$request->middleSection,
+        ]);     
         $id = $product->id;
         self::storeImage($id,$request);     
         return redirect('/products/job/list');     
@@ -246,11 +240,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product_data = Product::where('id', $id)->get();
-        $product_content = ProductContent::where('id',$id)->get();
         // return $product_data;
         return view('products.product-edit', [
-            'data' => $product_data,
-            'content' => $product_content
+            'data' => $product_data
         ]);
     }
     /**
@@ -277,15 +269,11 @@ class ProductController extends Controller
             'class' => $request->class,
             'price' => $request->price,
             'introduction' => $request->introduction,
+            'detail'=>$request->detail,
             'series' => $request->series,
             'category' => $request->category,
             'rank' => $request->rank,
-            'brand' => $request->brand
-        ]);
-        // 改 Product Content 資料庫
-        ProductContent::where('id', $id)
-        ->update([
-            'detail'=>$request->detail,
+            'brand' => $request->brand,
             'topSection'=>$request->topSection,
             'middleSection'=>$request->middleSection
         ]);

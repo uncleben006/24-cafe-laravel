@@ -19,10 +19,13 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->string('class');
             $table->string('introduction')->nullable();     
+            $table->string('detail')->nullable();
             $table->string('category')->nullable();
             $table->string('series')->nullable();            
             $table->string('rank')->nullable();
             $table->string('brand')->nullable();
+            $table->string('middleSection')->nullable();
+            $table->string('topSection')->nullable();
             $table->timestamps();
         });
     }
