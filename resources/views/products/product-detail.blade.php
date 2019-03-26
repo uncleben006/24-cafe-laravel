@@ -158,6 +158,12 @@ function getAllData(product_id) {
                         @if($datas[0]->brand)<div class="col-lg-6"><div>品牌: {{$datas[0]->brand}}</div></div>@endif
                     </div>
                     <div class="border p-3">{!! $datas[0]->detail !!}</div>
+                    <form action="./order" method="post" class="d-flex align-items-center mt-3">
+                        <input type="number" min="1" value="1" name="qty">
+                        <input type="hidden" value="{{$datas[0]->price}}" name="price">
+                        <input type="hidden" value="{{$datas[0]->name}}" name="name">                        
+                        <input type="submit" value="立即購買" class="btn btn-primary rounded-0 ml-3">
+                    </form>                    
                 </div>
                 <div>最後編輯: {{$datas[0]->created_at}}</div>
             </div>

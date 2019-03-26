@@ -90,7 +90,7 @@ function createProductTable(php_datas) {
         <div class="Rtable-cell" title="'+data.rank+'">'+data.rank+'</div>\
         <div class="Rtable-cell" title="'+data.brand+'">'+data.brand+'</div>\
         <div class="Rtable-cell" title="'+data.introduction+'">'+data.introduction+'</div>\
-        <div class="Rtable-cell" title="'+data.detial+'">'+data.detail+'</div>\
+        <div class="Rtable-cell" title="'+data.detail+'">'+data.detail+'</div>\
         <div class="Rtable-cell" title="'+data.topSection+'">'+data.topSection+'</div>\
         <div class="Rtable-cell" title="'+data.middleSection+'">'+data.middleSection+'</div>\
         <div class="Rtable-cell text-center">\

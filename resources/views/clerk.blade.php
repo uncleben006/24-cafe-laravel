@@ -36,6 +36,7 @@ figure {
 	margin: 0;
 	padding: 0;
 	background: #fff;
+	max-height: 215px;
 	overflow: hidden;
     z-index: 2;
 }
@@ -86,15 +87,15 @@ figure:hover+span {
     <div class="container">
         <div class="row hover-shine hover-text">
             <div class="col-md-4">
-                <figure><img src="/images/24-cat.jpg" /></figure>
+                <figure><img class="img-fluid" src="/images/24-cat.jpg" /></figure>
                 <span><b>24磅的吉祥物，是一隻有很多神奇道具的貓，雖然身體不太好，但是牠還是不遺餘力的使用道具幫助她的主人文婷</b></span>
             </div>
             <div class="col-md-4">
-                <figure><img src="/images/24-wantin.jpg" /></figure>
+                <figure><img class="img-fluid" src="/images/24-wantin.jpg" /></figure>
                 <span><b>24磅的店員，永遠長不大，興趣是攝影跟吃，希望有一天可以獨立自主讓自己不用再依靠磅磅的道具</b></span>
             </div>
             <div class="col-md-4">
-                <figure><img src="/images/24-boss.jpg" /></figure>
+                <figure><img class="img-fluid" src="/images/24-boss.jpg" /></figure>
                 <span><b>24磅的老闆，喜歡在球場上用炫麗的球技欺負他的店員，事後再泡好喝的咖啡讓人很難生氣</b></span>
             </div>
         </div>

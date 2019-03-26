@@ -8,6 +8,8 @@ use App\ProductImage;
 use App\Filter;
 use Log;
 use Auth;
+
+// Facades
 use Illuminate\Support\Facades\Storage;
 
 use Image;

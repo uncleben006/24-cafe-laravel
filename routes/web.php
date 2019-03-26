@@ -23,6 +23,13 @@ Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['i
 // product controller administrator
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
+Route::post('/products/{class}/{id}/order', 'PaymentController@sendOrder');
+Route::get('/products/{class}/{id}/order', function(){ return abort(404); });
+Route::post('/payment/success', 'PaymentController@showSuccess');
+Route::get('/payment/success', function(){ return abort(404); });
+
+// ecpay debug
+Route::get('/products/{class}/{id}/order/show', 'PaymentController@show');
 
 Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@createJob');
