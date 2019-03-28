@@ -24,7 +24,11 @@ Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['i
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 Route::post('/products/{class}/{id}/order', 'PaymentController@sendOrder');
-Route::get('/products/{class}/{id}/order', function(){ return abort(404); });
+Route::get('/products/{class}/{id}/order', function(){ return 'shit...'; });
+
+Route::post('/products/{class}/{id}/cart', 'PaymentController@putCart');
+Route::get('/products/{class}/{id}/cart', 'PaymentController@showCart');
+
 Route::post('/payment/success', 'PaymentController@showSuccess');
 Route::get('/payment/success', function(){ return abort(404); });
 

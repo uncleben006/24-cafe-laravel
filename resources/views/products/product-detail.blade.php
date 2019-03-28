@@ -25,6 +25,10 @@
 
 @section('style')
 <style>
+input[type=number] {
+    width: 3em;
+    padding: 0.25rem;
+}
 .img-fluid {
     margin: 0 auto;
     max-width: 100%;
@@ -73,16 +77,29 @@
 $(function() {
     var product_datas = {!! $datas !!};
     var product_id = product_datas[0].id;
+    var qty, price, name;
     showImage({!! $imgs !!});
     getAllData(product_id);
     console.log(product_id)
     $('#chat-form').submit(function (event) {
+        event.preventDefault();
         var message = $('#message').val();
         $.post('/chat',{ 'message': message, 'product_id': product_id }, function (resp) {
             console.log('post response ',resp);
         });
         $('#message').val('');
         $('#message').focus();            
+    })
+    $('.add-to-cart').on('click',function(e){
+        e.preventDefault();
+        qty = $('input[name=qty]')[0].value
+        price = $('input[name=price]')[0].value
+        name = $('input[name=name]')[0].value
+
+        console.log(qty, price, name)
+        $.post('./cart',{ 'qty': qty, 'price': price, 'name': name }, function (resp) {
+            console.log('post response ',resp);
+        });
     })
 });
 // 取得圖片
@@ -158,11 +175,12 @@ function getAllData(product_id) {
                         @if($datas[0]->brand)<div class="col-lg-6"><div>品牌: {{$datas[0]->brand}}</div></div>@endif
                     </div>
                     <div class="border p-3">{!! $datas[0]->detail !!}</div>
-                    <form action="./order" method="post" class="d-flex align-items-center mt-3">
-                        <input type="number" min="1" value="1" name="qty">
+                    <form class="d-flex align-items-center mt-3" id="product-info" method="post">
+                        <input type="number" min="1" value="1" name="qty" size="4">
                         <input type="hidden" value="{{$datas[0]->price}}" name="price">
-                        <input type="hidden" value="{{$datas[0]->name}}" name="name">                        
-                        <input type="submit" value="立即購買" class="btn btn-primary rounded-0 ml-3">
+                        <input type="hidden" value="{{$datas[0]->name}}" name="name">      
+                        <input type="submit" class="btn btn-primary rounded-0 ml-3 add-to-cart" value="加入購物車" formaction="./cart" >
+                        <input type="submit" class="btn btn-primary rounded-0 ml-3" value="立即購買" formaction="./order" >                          
                     </form>                    
                 </div>
                 <div>最後編輯: {{$datas[0]->created_at}}</div>

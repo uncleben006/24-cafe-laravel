@@ -43,6 +43,7 @@ class ChatController extends Controller
             'product_id'=>$request->input('product_id'),
             'author'=>Auth::user()->id,
         ];
-        return Chat::create($data);
+        Chat::create($data);
+        return Chat::all();
     }
 }

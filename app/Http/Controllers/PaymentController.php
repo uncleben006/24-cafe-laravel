@@ -28,11 +28,16 @@ class PaymentController extends Controller
         $this->checkout->setReturnUrl(env('ECPAY_RETURN_URL'));
         return $this->checkout->setPostData($formData)->send();
     }
-    public function show()
+    public function putCart(Request $request)
+    {
+        return $request->all();
+    }
+    public function showCart()
     {   
         echo "show merchantID ".$this->checkout->showMerchantID()."<br>show hashkey ".$this->checkout->showHashKey();
         return;
     }
+
     public function showSuccess()
     {
         return view('payment-success');
