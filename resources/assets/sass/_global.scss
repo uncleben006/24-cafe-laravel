@@ -56,6 +56,11 @@ section {
     background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 5%));
     background: linear-gradient($theme-primary, darken($theme-primary, 5%));
 }
+.bg-quaternary {
+    background: $theme-quaternary;
+    background: -webkit-linear-gradient($theme-quaternary, darken($theme-quaternary, 5%));
+    background: linear-gradient($theme-quaternary, darken($theme-quaternary, 5%));
+}
 
 .text-primary {
     color: $theme-primary !important;

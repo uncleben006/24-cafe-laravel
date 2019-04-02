@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,29 +10,47 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+    <!-- Font Awesone -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous">
+
     <!-- Slick Slider -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @yield('style')
-    
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> @yield('style')
+
     <style>
-        #mainNav {
-            
+        .shopping-cart {
+            position: absolute;
+            right: 0%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+        }
+        .shopping-cart-bubble {
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center
         }
     </style>
 </head>
+
 <body>
-    <div id="app">        
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">                
-            <div class="container">              
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0" id="mainNav">
+            <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,7 +64,7 @@
                                 <div class="container">
                                     <a href="/products/racket/" class="nav-link subnav-link @yield('badminton-rackets')">羽球拍</a>
                                     <a href="/products/footwear/" class="nav-link subnav-link @yield('badminton-footwears')">羽球鞋</a>
-                                    <a href="/products/apparel/" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>                                    
+                                    <a href="/products/apparel/" class="nav-link subnav-link @yield('badminton-apparels')">羽球衣</a>
                                     <a href="/products/bag/" class="nav-link subnav-link @yield('badminton-bags')">拍包袋 & 背包</a>
                                     <a href="/products/accessory/" class="nav-link subnav-link @yield('badminton-accessories')">羽球、配件及器材</a>
                                 </div>
@@ -74,38 +93,44 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item @yield('login-nav')">
-                                <a class="nav-link" href="{{ route('login') }}">登入</a>
-                            </li>
-                            <li class="nav-item @yield('register-nav')">
-                                <a class="nav-link" href="{{ route('register') }}">註冊</a>
-                            </li>
-                        @else                            
-                            @if (Auth::user()->authority == 1)
-                                <li class="nav-item @yield('content-admin-nav')">
-                                    <a class="nav-link" href="/posts/job/content/">內容管理</a>
-                                </li>
-                                <li class="nav-item @yield('products-admin-nav')">
-                                    <a class="nav-link" href="/products/job/list">產品管理</a>
-                                </li>
-                                <li class="nav-item @yield('user-admin-nav')">
-                                    <a class="nav-link" href="/user">會員管理</a>
-                                </li>                                
-                            @endif   
-                            <li class="nav-item @yield('self-info-nav')">
-                                <a class="nav-link" href="/user/{{ Auth::user()->id }}/edit">個人資料</a>
-                            </li>                         
-                            <li class="nav-item @yield('user-home-nav') position-relative px-lg-5 text-lg-center">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" v-pre>{{ Auth::user()->name }} <span class="caret"></span></a>
-                                <div class="navbar-subnav">
-                                    <div class="container">
-                                        <a class="nav-link subnav-link " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
+                        <li class="nav-item @yield('login-nav')">
+                            <a class="nav-link" href="{{ route('login') }}">登入</a>
+                        </li>
+                        <li class="nav-item @yield('register-nav')">
+                            <a class="nav-link" href="{{ route('register') }}">註冊</a>
+                        </li>
+                        @else @if (Auth::user()->authority == 1)
+                        <li class="nav-item @yield('content-admin-nav')">
+                            <a class="nav-link" href="/posts/job/content/">內容管理</a>
+                        </li>
+                        <li class="nav-item @yield('products-admin-nav')">
+                            <a class="nav-link" href="/products/job/list">產品管理</a>
+                        </li>
+                        <li class="nav-item @yield('user-admin-nav')">
+                            <a class="nav-link" href="/user">會員管理</a>
+                        </li>
+                        @endif
+                        <li class="nav-item @yield('self-info-nav')">
+                            <a class="nav-link" href="/user/{{ Auth::user()->id }}/edit">個人資料</a>
+                        </li>
+                        <li class="nav-item @yield('user-home-nav') px-lg-5 position-relative text-lg-center">
+                            
+                            
+                            <a class="nav-link dropdown-toggle" href="/user/{{ Auth::user()->id }}/edit" role="button" v-pre>{{ Auth::user()->name }} <span class="caret"></span></a>
+                            <div class="navbar-subnav">
+                                <div class="container">
+                                    <a class="nav-link subnav-link " href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div>
-                            </li>
+                            </div>
+
+                            <a href="/account/cart" class="shopping-cart">
+                                <i class="fas fa-shopping-cart"></i>          
+                                <div class="bg-quaternary shopping-cart-bubble">{{ App\OrderCart::where('user_id', Auth::user()->id)->count() }}</div>
+                            </a>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -119,22 +144,22 @@
         <footer class="py-5 footer-guides">
             <div class="container text-center">
                 <div class="row mx-auto">
-                <span class="col-md-3"><a href="/coffee/show">咖啡專區</a></span>
-                <span class="col-md-3"><a href="/products/racket/">羽球專區</a></span>
-                <span class="col-md-3"><a href="/posts/">最新消息</a></span>                
-                <span class="col-md-3"><a href="/clerks/">店員資料</a></span>
+                    <span class="col-md-3"><a href="/coffee/show">咖啡專區</a></span>
+                    <span class="col-md-3"><a href="/products/racket/">羽球專區</a></span>
+                    <span class="col-md-3"><a href="/posts/">最新消息</a></span>
+                    <span class="col-md-3"><a href="/clerks/">店員資料</a></span>
                 </div>
                 <div>
-                <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/facebook-logo.svg') }}" alt=""></a>
-                <a target="_blank" href="https://www.instagram.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/instagram-logo.svg') }} " alt=""></a>
+                    <a target="_blank" href="https://www.facebook.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/facebook-logo.svg') }}" alt=""></a>
+                    <a target="_blank" href="https://www.instagram.com/cafe24lb/"><img class="footer-icon" src="{{ asset('/images/instagram-logo.svg') }} " alt=""></a>
                 </div>
                 <small>© Copright 2018 - 24lb Cafe & Badminton</small>
             </div>
         </footer>
-    </div>    
+    </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>   
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Slick Slider -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -145,4 +170,5 @@
     <!-- Custom Scripts -->
     @yield('script')
 </body>
+
 </html>

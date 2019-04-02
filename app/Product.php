@@ -24,6 +24,9 @@ class Product extends Model
     protected $hidden = [
 
     ];
+    /**
+     * 與 ProductImage 做關聯，外來鍵為 product_id，主鍵為 id
+     */
     public function image()
     {
         return $this->hasMany('App\ProductImage', 'product_id', 'id');

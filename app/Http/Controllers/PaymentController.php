@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use TsaiYiHua\ECPay\Checkout;
 use Auth;
+use App\OrderCart;
 
 class PaymentController extends Controller
 {
@@ -28,19 +29,52 @@ class PaymentController extends Controller
         $this->checkout->setReturnUrl(env('ECPAY_RETURN_URL'));
         return $this->checkout->setPostData($formData)->send();
     }
+    /**
+     * 從 product-detail page 接到 post 資料後傳到購物車資料庫，並回傳成功或失敗
+     */
     public function putCart(Request $request)
-    {
-        return $request->all();
+    {   
+
+        $cart_product = OrderCart::create([
+            'user_id'=>$request->user_id,
+            'product_id'=>$request->product_id,
+            'qty'=>$request->qty
+        ]);
+        if($cart_product){
+            return 'success';
+        }else {
+            return 'fail';
+        }
+        
     }
     public function showCart()
     {   
-        echo "show merchantID ".$this->checkout->showMerchantID()."<br>show hashkey ".$this->checkout->showHashKey();
-        return;
+        /**
+         * 給 OrderCart 的 user_id 跟 product_id 做一個簡單的關聯，
+         * laravel就會把被關聯的所有資料都附加上去喔喔喔!!
+         * 這裡只是把 OrderCart 的兩個 id 指向關聯方法中的 id 而已，
+         * 但資料量就會瞬間增加!!讚
+         */
+        $cart = OrderCart::where('user_id', Auth::user()->id)->get();
+        foreach ($cart as $key => $value) {            
+            $value->user_id = $cart[$key]->user->id;
+            $value->product_id = $cart[$key]->product->id;
+        }
+        return view('cart',[
+            'cart' => $cart
+        ]);
     }
 
     public function showSuccess()
     {
         return view('payment-success');
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $id = $request->id;
+        // OrderCart::destroy($id);
+        return $id;
     }
 }
 
