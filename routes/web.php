@@ -20,26 +20,20 @@ Route::get('/', function () { return view('index'); });
 Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['id' => $id ]); });
 // Route::post('/posts', 'PostController@store')->name('post');
 
-// product controller administrator
+// product listing
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
-// Route::post('/products/{class}/{id}/order', 'PaymentController@sendOrder');
-// Route::get('/products/{class}/{id}/order', function(){ return abort(404); });
 
+// e-commerce
 Route::post('/products/{class}/{id}/cart', 'PaymentController@putCart');
 Route::get('/account/cart/', 'PaymentController@showCart');
-
 Route::post('/account/cart/delete', 'PaymentController@deleteCart');
-
 Route::post('/payment/order/', 'PaymentController@sendOrder');
 Route::post('/payment/order/cart/', 'PaymentController@sendCart');
-
 Route::post('/payment/success', 'PaymentController@showSuccess');
 Route::get('/payment/success', function(){ return abort(404); });
 
-// ecpay debug
-Route::get('/products/{class}/{id}/order/show', 'PaymentController@show');
-
+// product control panel 
 Route::get('/products/job/list', 'ProductController@job');
 Route::get('/products/job/new', 'ProductController@createJob');
 Route::post('/products/job/new', 'ProductController@storeJob');
@@ -50,7 +44,7 @@ Route::post('/products/job/{id}/edit', 'ProductController@update');
 Route::get('/products/job/filter/{id}/edit', 'ProductController@editFilter');
 Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
-// post controller
+// poster controller
 Route::get('/posts', 'PostController@index');
 Route::get('/posts/job/content/', 'PostController@list');
 Route::get('/posts/job/content/new', 'PostController@new');

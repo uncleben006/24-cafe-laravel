@@ -1,8 +1,7 @@
 @extends('layouts/app') 
 @section('script')
 <script>
-
-/**
+	/**
  * Number.prototype.format(n, x)
  * 
  * @param integer n: length of decimal
@@ -62,19 +61,22 @@ $('.btn-delete').on('click',function(e){
 <div class="px-3 px-lg-5 spacing">
 	<div class="container">
 		<form id="cart-info" method="post">
-			<table class="table table-bordered table-hover table-striped table-responsive">
-				<thead class="thead-dark">
-					<tr>
-						<th>商品</th>
-						<th>單價</th>
-						<th>數量</th>
-						<th>總計</th>
-						<th>產生時間</th>
-						<th>操作</th>
-					</tr>
-				</thead>
-				<tbody id="cart"></tbody>
-			</table>		
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>商品</th>
+							<th>單價</th>
+							<th>數量</th>
+							<th>總計</th>
+							<th>產生時間</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="cart"></tbody>
+				</table>
+			</div>
+
 			<div class="float-right d-flex align-items-center">
 				<h5 class="price d-inline-block"></h5>
 				<input type="submit" class="btn btn-outline-danger rounded-0 ml-3 checkout" value="下訂單" formaction="{{url('/')}}/payment/order">
