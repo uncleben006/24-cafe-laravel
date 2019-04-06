@@ -96,20 +96,24 @@
         $('#message').val('');
         $('#message').focus();            
     })
+    @auth
     $('.add-to-cart').on('click',function(e){
         e.preventDefault();
         var qty = $('input[name=qty]')[0].value
         var user_id = '{{Auth::user()->id}}'
         $.post('./cart',{ 'qty': qty, 'product_id': product_id, 'user_id': user_id }, function (resp) {
             console.log(resp);
-            if(resp=='success'){
+            if(resp.status=='success'){
                 // 加入購物車成功
                 $('#result .modal-title').text('成功通知')
                 $('#result .modal-body').text('已成功加入購物車')
                 $('#result').modal('toggle')
                 setTimeout(() => {                    
                     $('#result').modal('toggle')
-                }, 1250);                
+                }, 1250);                       
+                var num = resp.number
+                console.log(num)     
+                $('.shopping-cart-bubble').text(num)
             }
             else {
                 $('#result .modal-title').text('失敗通知')
@@ -122,6 +126,7 @@
             $('#result').modal('toggle')
         })
     })
+    @endauth
 });
 // 取得圖片
 function showImage(php_datas) {
@@ -209,7 +214,7 @@ function getAllData(product_id) {
                         <input type="hidden" value="{{$datas[0]->price}}" name="price">
                         <input type="hidden" value="{{$datas[0]->name}}" name="name">
                         <input type="submit" class="btn btn-primary rounded-0 ml-3 add-to-cart" value="加入購物車" formaction="./cart">
-                        <input type="submit" class="btn btn-primary rounded-0 ml-3" value="立即購買" formaction="./order">
+                        <input type="submit" class="btn btn-primary rounded-0 ml-3" value="立即購買" formaction="{{url('/')}}/payment/order">
                     </form>
                 </div>
                 <div>最後編輯: {{$datas[0]->created_at}}</div>

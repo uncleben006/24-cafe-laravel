@@ -23,13 +23,16 @@ Route::get('/posts/{id}/show',function($id){ return view('post.post-single', ['i
 // product controller administrator
 Route::get('/products/{class}', 'ProductController@list');
 Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
-Route::post('/products/{class}/{id}/order', 'PaymentController@sendOrder');
-Route::get('/products/{class}/{id}/order', function(){ return abort(404); });
+// Route::post('/products/{class}/{id}/order', 'PaymentController@sendOrder');
+// Route::get('/products/{class}/{id}/order', function(){ return abort(404); });
 
 Route::post('/products/{class}/{id}/cart', 'PaymentController@putCart');
 Route::get('/account/cart/', 'PaymentController@showCart');
 
-Route::post('/account/cart/delete/', 'PaymentController@deleteCart');
+Route::post('/account/cart/delete', 'PaymentController@deleteCart');
+
+Route::post('/payment/order/', 'PaymentController@sendOrder');
+Route::post('/payment/order/cart/', 'PaymentController@sendCart');
 
 Route::post('/payment/success', 'PaymentController@showSuccess');
 Route::get('/payment/success', function(){ return abort(404); });

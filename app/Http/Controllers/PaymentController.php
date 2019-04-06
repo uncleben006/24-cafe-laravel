@@ -16,13 +16,22 @@ class PaymentController extends Controller
     }
     public function sendOrder(Request $request)
     {
+        $items = [];
+        if ( gettype($request->name) == 'string' ){
+            $num = 1;
+            $items = [ [ 'name'=>$request->name, 'price'=>$request->price, 'qty'=>$request->qty, 'unit'=>env('ECPAY_ITEM_UNIT') ] ];
+        }else {
+            $num = count($request->name);
+            for ($i=0; $i < $num; $i++) { 
+                $item = ['name'=>$request->name[$i], 'price'=>$request->price[$i], 'qty'=>$request->qty[$i], 'unit'=>env('ECPAY_ITEM_UNIT') ];
+                $items []= $item;
+            }
+        }
+        
+        // return $items;
         $formData = [
             'ItemDescription' => env('ECPAY_ITEM_DESCRIPTION'),
-            // 'ItemName' => $request->ItemName,
-            // 'TotalAmount' => $request->TotalAmount,
-            'Items' => [
-                ['name'=>$request->name, 'qty'=>$request->qty, 'price'=>$request->price, 'unit'=>env('ECPAY_ITEM_UNIT')]
-            ],
+            'Items' => $items,
             'PaymentMethod' => env('ECPAY_PAYMENT_METHOD'), // ALL, Credit, ATM, WebATM
             'UserId' => Auth::user()->id
         ];
@@ -41,9 +50,9 @@ class PaymentController extends Controller
             'qty'=>$request->qty
         ]);
         if($cart_product){
-            return 'success';
+            return [ 'status'=>'success', 'number'=> OrderCart::where('user_id', Auth::user()->id)->count() ];
         }else {
-            return 'fail';
+            return [ 'status'=>'fail', 'number'=> 0];
         }
         
     }
@@ -73,8 +82,20 @@ class PaymentController extends Controller
     public function deleteCart(Request $request)
     {
         $id = $request->id;
-        // OrderCart::destroy($id);
-        return $id;
+        // 刪除該筆購屋車資料
+        OrderCart::destroy($id);
+        // 重新查詢一次，若查詢不到則回傳success
+        if( empty( OrderCart::where('id',$id)->get()[0]->id )) {
+            $total = 0;
+            $cart = OrderCart::where('user_id', Auth::user()->id)->get();
+            foreach ($cart as $key => $value) {            
+                $total += $cart[$key]->product->price;
+            }
+            return [ 'price'=>$total, 'number'=> OrderCart::where('user_id', Auth::user()->id)->count() ];
+            return $total;
+        }else {
+            return 'fail';
+        }
     }
 }
 
