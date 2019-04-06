@@ -1,35 +1,23 @@
-@extends('layouts/app') 
-{{-- nav-bar --}} 
+@extends('layouts/app') {{-- nav-bar --}} 
 @section('badminton-nav','active') 
 @section('badminton-subnav', 'show-dropdown')
-
-@switch($class) 
-    @case('racket') 
-        @section('badminton-rackets', 'subnav-active') 
-        @break 
-    @case('footwear') 
-        @section('badminton-footwears','subnav-active') 
-        @break 
-    @case('apparel') 
-        @section('badminton-apparels', 'subnav-active') 
-        @break 
-    @case('bag') 
-        @section('badminton-bags','subnav-active') 
-        @break 
-    @case('accessory') 
-        @section('badminton-accessories', 'subnav-active') 
-        @break 
-    @default 
-@endswitch
-
+@switch($class) @case('racket') 
+@section('badminton-rackets', 'subnav-active') @break @case('footwear') 
+@section('badminton-footwears','subnav-active')
+@break @case('apparel') 
+@section('badminton-apparels', 'subnav-active') @break @case('bag') 
+@section('badminton-bags','subnav-active')
+@break @case('accessory') 
+@section('badminton-accessories', 'subnav-active') @break @default @endswitch 
 @section('style')
 <style>
     .modal .modal-dialog {
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%)!important;
+        transform: translate(-50%, -50%)!important;
     }
+
     input[type=number] {
         width: 3em;
         padding: 0.25rem;
@@ -72,7 +60,6 @@
             width: 100%;
         }
         #image-overview img {
-            /* height: 30vw; */
             max-height: 400px;
         }
     }
@@ -82,21 +69,28 @@
 @section('script')
 <script>
     $(function() {
+    var floar,str,reply,message,author
     var product_datas = {!! $datas !!};
     var product_id = product_datas[0].id;
     showImage({!! $imgs !!});
     getAllData(product_id);
     console.log(product_id)
+    
+    @auth
     $('#chat-form').submit(function (event) {
         event.preventDefault();
         var message = $('#message').val();
         $.post('/chat',{ 'message': message, 'product_id': product_id }, function (resp) {
-            console.log('post response ',resp);
+            console.log(resp);
+            if(resp.status == 'success') {
+                console.log(resp.data)
+                $('.reply').fadeToggle(100).fadeToggle(150)
+                renderData(resp.data)
+            }
         });
         $('#message').val('');
         $('#message').focus();            
     })
-    @auth
     $('.add-to-cart').on('click',function(e){
         e.preventDefault();
         var qty = $('input[name=qty]')[0].value
@@ -126,46 +120,49 @@
             $('#result').modal('toggle')
         })
     })
-    @endauth
-});
-// 取得圖片
-function showImage(php_datas) {
-    var thumbnail = ''
-    var overview = ''
-    php_datas.forEach(function (img) {
-        // console.log(img)
-        thumbnail += '<a class="list-group-item list-group-item-action p-0 mb-lg-2" id="'+img.id+'" data-toggle="tab" href="#list-'+img.id+'">\
-                        <img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid">\
-                    </a>'
-        overview += '<div class="tab-pane fade zooming" id="list-'+img.id+'">\
-                        <img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid ">\
-                    </div>'
-    })        
-    $('#image-thumbnail').html(thumbnail)
-    $('#image-overview').html(overview)
-    $($('.tab-content')[0].firstChild).addClass('active show')
-    $('.zooming').zoom({magnify: 1});
-};
-// 取得所有聊天資料並更新 textarea
-function getAllData(product_id) {
-    $.getJSON('/chat/all/'+product_id, function (json) {
-        var str='';
-        var floar = 1;
-        var reply = document.querySelector('.reply');
-        json.forEach(function (data) {
-            var listGroupItem = document.createElement('li');
-            var authorData = document.createElement('div');
-            var dataMessage = document.createElement('div');
-            listGroupItem.setAttribute('class', 'list-group-item rounded-0');
-            authorData.setAttribute('class', 'author-data');
-            authorData.textContent = (data.author)+' ['+floar+']'+'樓';
-            dataMessage.textContent = data.message;            
-            listGroupItem.appendChild(authorData).appendChild(dataMessage);
-            reply.appendChild(listGroupItem);
-            floar++
+    @endauth    
+
+    // 取得圖片
+    function showImage(php_datas) {
+        var thumbnail = ''
+        var overview = ''
+        php_datas.forEach(function (img) {
+            // console.log(img)
+            thumbnail += '<a class="list-group-item list-group-item-action p-0 mb-lg-2" id="'+img.id+'" data-toggle="tab" href="#list-'+img.id+'">\
+                            <img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid">\
+                        </a>'
+            overview += '<div class="tab-pane fade zooming" id="list-'+img.id+'">\
+                            <img src="/storage/images/'+img.product_id+'/'+img.filename+'" alt="'+img.filename+'" class="img-fluid ">\
+                        </div>'
         })        
-    })
-};
+        $('#image-thumbnail').html(thumbnail)
+        $('#image-overview').html(overview)
+        $($('.tab-content')[0].firstChild).addClass('active show')
+        $('.zooming').zoom({magnify: 1});
+    };
+    // 取得所有聊天資料並更新 textarea
+    function getAllData(product_id) {
+        $.getJSON('/chat/all/'+product_id, function (json) {            
+            renderData(json)       
+        })
+    };
+    // 渲染聊天室內容
+    function renderData(data) {        
+        str='';
+        floar = 1;        
+        data.forEach(e => {
+            // preventing html and js injection using replace
+            message = e.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            author = e.author.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            str += '<li class="list-group-item rounded-0">\
+                <div class="author-data">'+author+' <span>['+floar+']樓</span></div>\
+                <div>'+message+'</div>\
+            </li>'
+            floar++
+        });
+        $('.reply').html(str).scrollTop($('.reply')[0].scrollHeight);
+    }
+});
 
 </script>
 @endsection

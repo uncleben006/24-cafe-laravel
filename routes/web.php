@@ -64,7 +64,6 @@ Route::get('/products/coffee/show','ProductController@showCoffee');
 Route::get('/chat', function() { return abort(404); });
 Route::post('/chat', 'ChatController@create');
 Route::get('/chat/all/{id}', 'ChatController@all');
-Route::get('/chat/last', 'ChatController@last');
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');

@@ -85,7 +85,7 @@ class PaymentController extends Controller
         // 刪除該筆購屋車資料
         OrderCart::destroy($id);
         // 重新查詢一次，若查詢不到則回傳success
-        if( empty( OrderCart::where('id',$id)->get()[0]->id )) {
+        if( empty( OrderCart::where('id',$id)->get()->first() )) {
             $total = 0;
             $cart = OrderCart::where('user_id', Auth::user()->id)->get();
             foreach ($cart as $key => $value) {            

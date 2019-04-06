@@ -30,20 +30,30 @@ class ChatController extends Controller
         }
         return $chat;
     }
-    // 印出最後一個聊天內容
-    public function last(){
-        $data = Chat::orderBy('created_at', 'desc')->first();
-        $data->author = $data->author()->first()->name;
-        return $data;
-    }
     // 輸入所有聊天內容
     public function create(Request $request){
-        $data = [
-            'message'=>$request->input('message'),
-            'product_id'=>$request->input('product_id'),
+        
+        $count_first = Chat::count();
+        $data = Chat::create([
+            'message'=>$request->message,
+            'product_id'=>$request->product_id,
             'author'=>Auth::user()->id,
-        ];
-        Chat::create($data);
-        return Chat::all();
+        ]);
+        $count_second = $data->count();
+        if ($count_second>$count_first){
+            $chat = Chat::where('product_id',$request->product_id)->get();
+            // 取得關聯
+            foreach ($chat as $key => $value) { 
+                if ( isset($value->author()->first()->name) ) {
+                    $value->author = $value->author()->first()->name;
+                }else {
+                    $value->author = '此用戶已經被刪除了';
+                }
+            }
+            return [ 'status'=>'success', 'data'=> $chat ];
+        }else {
+            return 'fail';
+        }
+        
     }
 }
