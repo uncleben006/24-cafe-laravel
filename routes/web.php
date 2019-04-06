@@ -26,10 +26,10 @@ Route::get('/products/{class}/{id}/detail', 'ProductController@showDetail');
 
 // e-commerce
 Route::post('/products/{class}/{id}/cart', 'PaymentController@putCart');
-Route::get('/account/cart/', 'PaymentController@showCart');
+Route::get('/account/cart', 'PaymentController@showCart');
 Route::post('/account/cart/delete', 'PaymentController@deleteCart');
-Route::post('/payment/order/', 'PaymentController@sendOrder');
-Route::post('/payment/order/cart/', 'PaymentController@sendCart');
+Route::post('/payment/order', 'PaymentController@sendOrder');
+Route::post('/payment/order/cart', 'PaymentController@sendCart');
 Route::post('/payment/success', 'PaymentController@showSuccess');
 Route::get('/payment/success', function(){ return abort(404); });
 
@@ -46,7 +46,7 @@ Route::post('/products/job/filter/{id}/edit', 'ProductController@updateFilter');
 
 // poster controller
 Route::get('/posts', 'PostController@index');
-Route::get('/posts/job/content/', 'PostController@list');
+Route::get('/posts/job/content', 'PostController@list');
 Route::get('/posts/job/content/new', 'PostController@new');
 Route::post('/posts/job/content/new', 'PostController@store');
 Route::get('/posts/job/content/{id}/edit', 'PostController@edit');
@@ -63,15 +63,15 @@ Route::get('/products/coffee/show','ProductController@showCoffee');
 // chat controller
 Route::get('/chat', function() { return abort(404); });
 Route::post('/chat', 'ChatController@create');
-Route::get('/chat/all/{id}/', 'ChatController@all');
-Route::get('/chat/last/', 'ChatController@last');
+Route::get('/chat/all/{id}', 'ChatController@all');
+Route::get('/chat/last', 'ChatController@last');
 
 // user controller
 Route::get('/user', 'UserController@index')->name('user');
 Route::post('/user', 'UserController@store')->name('user.post');
-Route::get('/user/{id}/delete/', 'UserController@destroy')->name('user.delete');
-Route::get('/user/{id}/edit/', 'UserController@edit')->name('user.edit');
-Route::post('/user/{id}/edit/', 'UserController@update')->name('user.edit.post');
+Route::get('/user/{id}/delete', 'UserController@destroy')->name('user.delete');
+Route::get('/user/{id}/edit', 'UserController@edit')->name('user.edit');
+Route::post('/user/{id}/edit', 'UserController@update')->name('user.edit.post');
 
 // show session
 Route::get('/session', 'UserController@show_session');
